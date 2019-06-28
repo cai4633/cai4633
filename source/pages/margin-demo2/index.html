@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>margin_demo2</title>	
+	<meta charset='utf-8'/>
+	<script type="text/javascript" src="/jquery/jquery.js"></script>
+	<script type='text/javascript'>
+		(function(){
+			$(function(){
+				var $out = $('.out');
+				var $in = $('.in');
+				var $outMarginTop = $('#outMarginTop');
+				var $inMarginTop = $('#inMarginTop');
+				var $outCtrl = $('#out-ctrl');
+				var $inCtrl = $('#in-ctrl');
+				$outCtrl.bind('change',function(){
+					$out.css('margin-top',$outCtrl.val()+'px');	//$.css()等同于原生js中的dom.style属性。
+					$outMarginTop.text($outCtrl.val());
+				});
+				$inCtrl.bind('change',function(){
+					$in.css('margin-top',$inCtrl.val()+'px');	//$.css()等同于原生js中的dom.style属性。
+					$inMarginTop.text($inCtrl.val());
+				});
+			})
+
+		})();
+
+		
+	</script>
+	<style type="text/css">
+		h5{
+			padding: 5px;
+			margin:0px;
+			color:#3b8dbd;
+			border-bottom: 1px dashed #C5AEAE;
+		}
+
+		body{
+			margin:0px;
+			padding:20px 5px;
+			/*background: #282828;*/
+			border: 3px dashed #8C8C8C;
+			height: 270px;
+			min-width: 760px;
+
+		}
+
+		.out{
+			margin-top: 0px;
+			width:300px;
+			height: 200px;
+			text-align: center;
+			font-size: 14px;
+			background: #A3F69E;
+		}
+
+		.in{
+			background: #A8A0DE;
+			/*display: outloute-block;*/
+			margin:0 auto;
+			margin-top: 0px;
+			width:250px;
+			height: 150px;
+
+		}
+		
+		.ctrlWrap{
+			display: inline-block;
+			border: 1px dashed #8C8C8C;
+			float:right;
+
+		}
+		.showBox{
+			display: inline-block;
+			vertical-align: middle;
+
+
+		}
+		div.controller{
+
+		}
+		label{
+			display: inline-block;
+			font-size: 14px;
+			font-weight: bold;
+			vertical-align: middle;
+		}
+		
+
+		input[type='range']{
+			display: inline-block;
+			vertical-align: middle;
+			width:200px;
+			height: 40px;
+		}
+		
+	</style>
+</head>
+<body>
+	<div>
+		<h5>在这里，两个元素不能有border和padding，否则margin不是直接接触不会发生叠加.</h5>
+		<div class="showBox">
+			<div class='out'>
+				<div class='in'>in <br> margin-top: <span id="inMarginTop">0</span>px </div>
+				out <br>margin-top: <span id="outMarginTop">0</span>px
+			</div>
+			
+		</div>
+		<div class="ctrlWrap">
+			<div class="controller"><label>out's margin-top:(0-60px)</label><input type="range" id="out-ctrl" mout='0' max='60' step="2" value="0"></div>
+			<div class="controller"><label>in's margin-top:(0-60px)&nbsp;&nbsp;</label><input type="range" id="in-ctrl" mout='0' max='60' step="2" value="0"></div>
+		</div>
+	</div>
+</body>
+</html>

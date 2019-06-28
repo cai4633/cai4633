@@ -3,14 +3,15 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 我的技术博客
-subtitle:
-description: cai's blog
-keywords: cai's blog
-author: Cai4633
-language:
-timezone:
 
+title: 蔡进东的博客
+subtitle: 
+description: 
+keywords: 
+author: Cai4633
+language: zh-CN
+timezone:
+$: require('jquery')
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://yoursite.com
@@ -26,7 +27,7 @@ archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
-skip_render:
+skip_render: [pages/**,jquery/**]    #跳过渲染的文件和文件夹，支持glob表达式规则；
 
 # Writing
 new_post_name: :title.md # File name of new posts
