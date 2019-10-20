@@ -4,9 +4,9 @@
 
 # Site
 
-title: 蔡进东的博客
-subtitle: 
-description: 
+title: 蔡进东的日志
+subtitle: 不要在最该奋斗的年纪选择去偷懒，只有度过一段连自己都被感动了的日子，才能变成那个最好的自己.
+description: 奋斗
 keywords: 
 author: Cai4633
 language: zh-CN
@@ -74,7 +74,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: hexo-theme-chan
+theme: landscape
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

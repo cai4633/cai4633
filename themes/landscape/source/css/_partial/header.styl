@@ -34,7 +34,9 @@
   z-index: -1
 
 #header-title
-  text-align: center
+  font-family  'Microsoft YaHei', '黑体-简', '\5b8b\4f53'
+  padding-left:18px
+  text-align: left
   height: logo-size
   position: absolute
   top: 50%
@@ -49,15 +51,18 @@ $logo-text
 
 #logo
   @extend $logo-text
-  font-size: logo-size
-  line-height: logo-size
+  font-size: logo-size*0.6
+  line-height: 1em
   letter-spacing: 2px
 
 #subtitle
   @extend $logo-text
-  font-size: subtitle-size
-  line-height: subtitle-size
+  padding-left 1em
+  font-family SimSun
+  font-size: subtitle-size*0.8
+  line-height: subtitle-size*0.8
   letter-spacing: 1px
+  text-indent: 2em
 
 #subtitle-wrap
   margin-top: subtitle-size
