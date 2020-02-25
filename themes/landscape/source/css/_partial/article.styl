@@ -30,7 +30,7 @@
 
 .article-title
   text-decoration: none
-  font-size: 2em
+  font-size: 1.4em
   font-weight: bold
   color: color-default
   line-height: line-height-title
@@ -45,20 +45,26 @@
   padding: 0 article-padding
   p, table
     line-height: line-height
-    margin: line-height 0
+    margin: 0.5*line-height 0
   h1, h2, h3, h4, h5, h6
     font-weight: bold
   h1, h2, h3, h4, h5, h6
     line-height: line-height-title
-    margin: line-height-title 0
+    margin: 0.4em 0
+    margin-bottom: 0.5em
   a
     color: color-link
     text-decoration: none
     &:hover
       text-decoration: underline
   ul, ol, dl
-    margin-top: line-height
-    margin-bottom: line-height
+    margin-top: 0.4*line-height
+    margin-bottom: 0.4*line-height
+
+  li
+    margin-top: 0.2*line-height
+    margin-bottom: 0.2*line-height
+
   img, video
     max-width: 100%
     height: auto
@@ -79,9 +85,9 @@
     padding: 10px 0
   blockquote
     font-family: font-serif
-    font-size: 1.4em
-    margin: line-height 20px
-    text-align: center
+    font-size: 1.2em
+    margin: 1em
+    text-align: left
     footer
       font-size: font-size
       margin: line-height 0

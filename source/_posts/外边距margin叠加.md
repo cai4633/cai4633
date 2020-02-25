@@ -7,7 +7,7 @@ comments: true
 ---
 在*普通文档流*中，*块框 垂直的*两个外边距margin*直接接触*会发生叠加，形成一个外边距。 叠加后的margin取两者中的*较大值*。
 
-#### 一、外边距叠加需要的条件：
+### 一、外边距叠加需要的条件：
 
 1. 普通文档流；												
 2. 块框；
@@ -16,8 +16,7 @@ comments: true
 
 所以在行内框，浮动框或者绝对定位框之间的外边距并不会叠加,水平方向上的margin-left和margin-right也不会发生叠加。
 
-#### 二、外边距叠加具体的几种情况：
-
+### 二、外边距叠加具体的几种情况：
 1. 一个元素出现在另一个元素*上面*时，垂直外边距会发生叠加；如下图演示：
 {% iframe '/pages/margin-demo1/' 100% 300px %}
 
@@ -27,7 +26,7 @@ comments: true
 3. 当一个元素border,padding,height同时为0时，*元素本身*的margin-top和margin-bottom也会发生叠加；如下图演示：
 {% iframe '/pages/margin-demo3/' 100% 210px %}
 
-
+### 内边距*padding*不会发生叠加
 
 
 
