@@ -25,8 +25,9 @@ hexo是一个基于node.js的博客框架。安装hexo，需要提前安装下�
     npm install
 {% endcodeblock %} 
 
-### 2. hexo new [layout] (title)
+### 2. hexo new [layout](title)
 这个命令可以新建一个[post,page,draft]。title是文件名。
+**新建的draft草稿不会被渲染，用于存储未完成的文章。**当需要将草稿变成文章时，可以手动将.md直接移动到_posts文件夹中，也可以使用“hexo publish [type](文件名(不带.md))”指令。手动将.md移动到_drafts文件夹可以使文章变成草稿。
 
 ### 3. hexo genetate
 将markdown文本生成静态文件,可简写为hexo g 。
@@ -58,3 +59,4 @@ hexo是一个基于node.js的博客框架。安装hexo，需要提前安装下�
 ### 8. hexo --debug
 在终端中显示调试信息并记录到 debug.log。当碰到问题时，可以用调试模式重新执行一次，并提交调试信息到 GitHub。
 
+在hexo中，source文件夹是放置几乎所有编辑文件的地方。在source文件夹中，如果有引入的第三方代码，例如：jquery，一定要加入到skip_render中。否则可能出现意想不到的错误。

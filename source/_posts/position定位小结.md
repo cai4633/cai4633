@@ -26,6 +26,7 @@ position属性的值有static(默认值)，relative，absolute，fixed。
 2. 没有设置定位值(left,right,top,bottom)的元素，仍处在原本在标准流中的位置。但是它已经脱离了文本流，不会影响兄弟元素的布局。
 3. 绝对定位元素的宽高百分比是相对于其最近的父级别定位元素的padding-box的大小来计算的。
 4. 定位值（left,right,top,bottom）的百分比也是相对于父元素的padding-box宽高来计算的。
+5. 当left，right，top，bottom无法同时满足时，优先满足left和top。
 
 ### fixed:    
 固定定位。一般**相对于浏览器窗口**进行定位，脱离正常文档流，可以设置z-index。

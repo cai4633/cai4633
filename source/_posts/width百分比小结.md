@@ -2,7 +2,7 @@
 title: width百分比小结
 date: 2020-02-22 20:18:24
 categories: css
-tags: width
+tags: ['width','百分比','auto']
 ---
 
 width:100%中百分比肯定是相对于父元素而言的，但是由于padding，box-sizing等属性的影响，有时候会迷惑我们。所以今天这个问题小结一下。
@@ -34,3 +34,12 @@ width百分比的计算要注意两点：
     2. fixed固定定位元素的width:100%等于浏览器窗口的width。
     3. 除此之外所有元素的width:100%等于父元素的content值。
 上面两点可以确定好width值，然后元素本身会根据box-sizing属性来分配content，border以及padding。（margin-box浏览器支持有限）。
+
+width auto的小结
+1. block元素的width:auto会使widh尽可能大直至撑满父元素，inline-block元素width:auto会使width尽可能小直至包裹内容。
+
+padding和margin百分比小结
+1. 非绝对定位元素padding和margin百分比（包括padding-top，pading-bottom，margIn-top，margin-bottom）相对于父元素content-box的width值计算的。
+2. 绝对定位元素padding和margin百分比（包括padding-top，pading-bottom，margIn-top，margin-bottom）相对于最近非static定位父元素padding-box的width值计算的。
+
+border-width不能设置百分比
