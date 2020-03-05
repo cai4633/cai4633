@@ -5,7 +5,7 @@ categories: css
 tags: ['width','百分比','auto']
 ---
 
-width:100%中百分比肯定是相对于父元素而言的，但是由于padding，box-sizing等属性的影响，有时候会迷惑我们。所以今天这个问题小结一下。
+width:100%中百分比肯定是相对于父元素而言的，但是由于padding，box-sizing等属性的影响，有时候会迷惑我们。所以今天对这个问题总结一下。
 ## box-sizing
 box-sixing属性主要有content-box和border-box两个值，默认是content-box。这个属性直接影响元素本身的width值，间接影响子元素width值。
 {% codeblock lang:css %}
