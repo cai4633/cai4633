@@ -5,7 +5,7 @@ categories: 前端
 tags: vue
 ---
 
-## 利用v-if来避免异步调用json数据延迟报错；
+### 利用v-if来避免异步调用json数据延迟报错；
 
 **_代码如下：_**
 
@@ -55,8 +55,8 @@ tags: vue
 ---
 
 
-## 在less中如何实现字符串拼接
-### 如何引入外部less文件（or css文件)
+### 在less中如何实现字符串拼接
+#### 如何引入外部less文件（or css文件)
 引入css文件一般有两种方法：*@import url()*和*link*
 @import url()中url可以直接省略,例如：
 
@@ -79,7 +79,7 @@ tags: vue
 </style>
 {% endcodeblock %}
 
-### 在less中如何实现字符串拼接
+#### 在less中如何实现字符串拼接
 在less中，不可以类似js用‘+’表示字符串拼接。需要利用less中的变量的*可变插值*来拼接字符串；
 
 {% codeblock lang:css %}
@@ -90,7 +90,7 @@ tags: vue
 
 这其中@{url}就是可变插值的用法。less变量的可变插值可以用在*选择器名称，属性名称，URL和@import语句*这些地方。
 
-### error: ~/.vuerc may be outdated. Please delete it and re-run vue-cli in manual mode
+#### error: ~/.vuerc may be outdated. Please delete it and re-run vue-cli in manual mode
 最近，尝试使用@vue/cli@4.0.5来构建项目，但是编译老是出错。不得已换回了@3.0版本。降低版本后，vue create <new project>会报错。
 ![vue error](/images/vueError2.png)
 **解决办法：**

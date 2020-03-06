@@ -27,7 +27,7 @@ archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
-skip_render: [pages/**,jquery/**]    #跳过渲染的文件和文件夹，支持glob表达式规则；
+skip_render: [pages/**,jquery/**,CNAME,README.md]    #跳过渲染的文件和文件夹，支持glob表达式规则；
 
 # Writing
 new_post_name: :title.md # File name of new posts
