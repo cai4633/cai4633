@@ -67,13 +67,16 @@ tags:
    2. 只有content的高度大于wrapper高度时候，才可以滚动。
    3. 要注意初始化时机this.$nextTick(new BS(dom,options););
    4. 要直接或间接设置wrapper高度；
-   5.  	const options = {
+   5. const options = {
 	 	  pullUpLoad: true,
 	 	  scrollbar: true,
 	 	  pullDownRefresh: true,
 	 	  probeType: 3,
 	 	  click: true
- 	};
- 	6.      this.foodsScroll.on('scroll', (pos) => {
+		};
+ 	6. this.foodsScroll.on('scroll', (pos) => {
 		        this.scrollY = Math.abs(Math.round(pos.y));
 	      });
+
+### vue-cli 3.0以上的版本config文件在node_modules/@vue/cli-service/lib/config中，使用stylus需要安装依赖：
+	`npm i stylus --save-dev`  and  `npm i stylus-loader --save-dev`

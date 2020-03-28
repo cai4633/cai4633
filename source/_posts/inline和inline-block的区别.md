@@ -1,5 +1,5 @@
 ---
-title: inline和inline-block的区别
+title: inline、inline-block和block元素的区别
 date: 2020-02-23 03:46:56
 categories:
 tags:
