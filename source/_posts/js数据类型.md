@@ -2,7 +2,7 @@
 title: js数据类型
 date: 2020-03-28 01:40:09
 categories: js
-tags: js
+tags: ['js']
 ---
 ## js简史
 1991年，Tim Berners-Lee发明www万维网 
@@ -37,40 +37,41 @@ js中实际上没有整数和小数之分，所有的数字均以**64位浮点**
 2. parseInt(str)
 3. parseFloat(str)
 4. anything - 0
+5. +(anything)
 
 ## string
-空字符串：''    （区别于空格字符串'   ')
-多行字符串：
+### 空字符串：''    （区别于空格字符串'   ')
+### 多行字符串：
 1. 借鉴于bash中语法：
 ```
 'aaaa\
-bbbb'               # 结果为"aaaa↵bbbb"   (不推荐使用)
+bbbb'               // 结果为"aaaa↵bbbb"   (不推荐使用)
 ```
 
-2. ` 'aaaa' + 'bbbb'              # 结果为aaaabbbb   (推荐使用)`
+2. ` 'aaaa' + 'bbbb'              // 结果为aaaabbbb   (推荐使用)`
 3. es6新语法：
 ```
 `aaaa
-bbbb                # 结果为"aaaa↵bbbb"   (推荐使用)
+bbbb                // 结果为"aaaa↵bbbb"   (推荐使用)
 `
 ```
 
 ### base64
 Base64就是一种基于64个可打印字符(52个大小写字母、10个数字以及+、/h和=)来表示二进制数据的方法。
 ```
-window.btoa(str)  创建一个base64编码的字符串
-window.atob(str)  解码base64编码的字符串
+window.btoa(str)  //创建一个base64编码的字符串
+window.atob(str)  //解码base64编码的字符串
 ```
 如果str中包含汉字，上面的方法会报错。这时候需要使用：
 ```
-window.btoa(encodeURIComponent(str))  创建包含非ASCII(如汉字)的str的base64
-decodeURI(window.atob(str))  解码base64
+window.btoa(encodeURIComponent(str))  //创建包含非ASCII(如汉字)的str的base64
+decodeURI(window.atob(str))  //解码base64
 ```
 
 ### 类型转换
 1. String(anything)
 2. toString(anything)
-3. ''+anything
+3. '' + anything
 
 ## boolean
 boolean只有true和false。

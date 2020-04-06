@@ -39,7 +39,7 @@ width auto的小结
 1. block元素的width:auto会使widh尽可能大直至撑满父元素，inline-block元素width:auto会使width尽可能小直至包裹内容。
 
 padding和margin百分比小结
-1. 非绝对定位元素padding和margin百分比（包括padding-top，pading-bottom，margIn-top，margin-bottom）相对于父元素content-box的width值计算的。
+1. 非绝对定位元素padding和margin百分比（包括padding-top    ，pading-bottom，margIn-top，margin-bottom）相对于父元素content-box的width值计算的。
 2. 绝对定位元素padding和margin百分比（包括padding-top，pading-bottom，margIn-top，margin-bottom）相对于最近非static定位父元素padding-box的width值计算的。
 
 border-width不能设置百分比
