@@ -37,7 +37,7 @@ tags: ['js','function']
 `this`设计目的就是在函数体内部，指代函数当前的*运行环境*。`this`在**函数调用**时才被确定。它的本质是fn.call(context,arg)传入的第一个参数，一般来说`传入的context`是个对象。非严格模式下，当传入undefined/null时，this指代window全局对象；严格模式下("use strict"),传入undefined/null或者任何数据类型，this值都直接指代传入的值。实现的结果如下：
 1. `fn(param1,param2)` this指向window
 2. `obj.fn()` this指向obj（通过对象方法调用时，this指向最后调用函数的对象）
-3. 箭头函数内部this跟函数外部this一致
+3. 箭头函数内部this跟函数外部this一致，箭头函数没有arguments变量
 4. `new fn()`中的this指向被创建的新对象本身
 
 
