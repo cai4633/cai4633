@@ -15,6 +15,7 @@ global.String
 global.Boolean
 global.Object
 ```
+---
 2. 浏览器自己规定的，例如：
 ```
 window.alert()
@@ -26,7 +27,7 @@ window.document
 window.document.createElement()
 window.document.getElementById()
 ```
-
+---
 ### Number
 ```
 let n = 11          //基本number数据类型
@@ -48,6 +49,7 @@ let n = true         //基本Boolean数据类型
 let n = Boolean('11');   //显式转化成Boolean类型
 let n = new Boolean(11)  //创建Boolean对象，有toString()和valueOf()方法
 ```
+---
 ## __proto__ 和 prototype
 所有的对象都有toString()和valueOf()方法，js将这些公用属性都放在`__proto__`对象中。而为了防止`__proto__`对象因没被引用而被垃圾回收，所以就有了`Object.prototype`。`__proto__`是存在于对象实例中，prototype是存在于构造函数中。
 ```
@@ -56,6 +58,8 @@ let obj = new Object()   //obj.__proto__ === Object.prototype
 ```
 ### 对象原型链关系图：
 ![js对象与原型链](/images/proto.png)
+
+---
 
 ### 几个难懂的原型链
 ```

@@ -10,6 +10,7 @@ git是一个代码版本管理工具，git可以创建本地和远程仓库，�
 git bash是一套linux虚拟环境，内置linux命令和git命令。它是比cmd更好用的命令行工具。
 安装完成后首先全局设置好用户名，用户邮箱等属性。
 ```
+npm config set registry https://registry.npm.taobao.org
 git config --global user.name xxx #设置username
 git config --global user.email xxx #设置邮箱
 git config --global push.default simple # 

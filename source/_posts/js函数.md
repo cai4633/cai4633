@@ -31,8 +31,7 @@ tags: ['js','function']
 
 ## this和arguments
 `函数调用：fn.call(this,arg1,arg2,...)`
-其中，`this`就是第一个参数；
-`arguments`是除第一个参数外其他参数组成的的伪数组。
+其中，`this`就是第一个参数；`arguments`是除第一个参数外其他参数组成的的伪数组。
 ### this
 `this`设计目的就是在函数体内部，指代函数当前的*运行环境*。`this`在**函数调用**时才被确定。它的本质是fn.call(context,arg)传入的第一个参数，一般来说`传入的context`是个对象。非严格模式下，当传入undefined/null时，this指代window全局对象；严格模式下("use strict"),传入undefined/null或者任何数据类型，this值都直接指代传入的值。实现的结果如下：
 1. `fn(param1,param2)` this指向window
