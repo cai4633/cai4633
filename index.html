@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>蔡进东的日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="不要在最该奋斗的年纪去偷懒!">
+<meta property="og:type" content="website">
+<meta property="og:title" content="蔡进东的日志">
+<meta property="og:url" content="http://cai4633.github.io/index.html">
+<meta property="og:site_name" content="蔡进东的日志">
+<meta property="og:description" content="不要在最该奋斗的年纪去偷懒!">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="蔡进东的日志">
+<meta name="twitter:description" content="不要在最该奋斗的年纪去偷懒!">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">蔡进东的日志</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">不要在最该奋斗的年纪选择去偷懒，只有度过一段连自己都被感动了的日子，才能变成那个最好的自己.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <!--<a id="nav-search-btn" class="nav-icon" title="搜索"></a>-->
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cai4633.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-浏览器同源策略与跨域" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/19/浏览器同源策略与跨域/" class="article-date">
+  <time datetime="2020-04-19T14:27:25.000Z" itemprop="datePublished">2020-04-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/19/浏览器同源策略与跨域/">浏览器同源策略与跨域</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><p>只有<strong>协议、域名和端口号完全一致</strong>的两个网站，才可以资源共享。其中受限制的行为包括：</p>
+<ol>
+<li>AJAX 请求不能发送。（发送了得不到响应）</li>
+<li>Cookie、LocalStorage 和 IndexDB 无法读取。</li>
+<li>DOM 无法获得</li>
+</ol>
+<p>同源策略的目的，是为了保证用户信息的安全。</p>
+<hr>
+<h2 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h2><h3 id="HTML可以发送请求的元素"><a href="#HTML可以发送请求的元素" class="headerlink" title="HTML可以发送请求的元素"></a>HTML可以发送请求的元素</h3><ol>
+<li><p>form表单和a标签(都会刷新页面,体验不好)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;form method=&apos;get&apos; action=&apos;/path&apos; target=&apos;&apos;&gt;&lt;/form&gt;     //将target指向特定的iframe可以间接消除浏览器刷新</span><br><span class="line">&lt;a href=&apos;/path&apos;&gt;&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>img/link元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let img = document.createElement(&apos;img&apos;)</span><br><span class="line">img.src = &apos;/path&apos;</span><br><span class="line">img.onload = ()=&gt;&#123; ...codeBlock &#125;   //必须返回一个图片才会onload</span><br><span class="line">img.onerror = ()=&gt;&#123; ...codeBlock &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>script元素<br><img src="/images/SRJ.png" alt="server rendered javascript"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let script = document.createElement(&apos;script&apos;)</span><br><span class="line">script.src = &apos;/path&apos;</span><br><span class="line">document.body.appendChild(&apos;script&apos;) //必须将script加入到dom中，请求才生效</span><br><span class="line">script.onload = (e)=&gt;&#123; ...codeBlock e.currentTarget.remove() &#125;   //先执行服务器返回文本再执行onload回调</span><br><span class="line">script.onerror = ()=&gt;&#123; ...codeBlock &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h3 id="JSONP（json-with-padding）"><a href="#JSONP（json-with-padding）" class="headerlink" title="JSONP（json with padding）"></a>JSONP（json with padding）</h3><p>如同上面方法3，JSONP基本思想是,<strong>动态添加一个script元素</strong>，向服务器请求数据，这种做法不受同源政策限制；服务器收到请求后，将数据放在一个指定名字的回调函数里传回来。</p>
+<h2 id><a href="#" class="headerlink" title></a><img src="/images/jsonp.png" alt="jsonp小结"></h2><h4 id="jsonp注意点"><a href="#jsonp注意点" class="headerlink" title="jsonp注意点"></a>jsonp注意点</h4><ol>
+<li>jsonp只能使用get请求</li>
+<li>jsonp中script标签src传入的查询参数约定为<code>?callback=funcName</code>,其中funcName由字母和<strong>随机数</strong>构成</li>
+<li>服务器通过<strong>回调函数的参数</strong>给浏览器传递任意数据</li>
+</ol>
+<hr>
+<h2 id="AJAX（async-javascript-and-XML）和-CORS-cross-origi-resource-sharing"><a href="#AJAX（async-javascript-and-XML）和-CORS-cross-origi-resource-sharing" class="headerlink" title="AJAX（async javascript and XML）和 CORS(cross-origi resource sharing)"></a>AJAX（async javascript and XML）和 CORS(cross-origi resource sharing)</h2><p>早期的前端只能发送简单的get请求。IE 5率先在 JS 中引入<strong>ActiveX</strong>对象，使得 JS 可以直接发起 HTTP 请求（get post put delete）。随后 Mozilla、 Safari、 Opera 也跟进引入了<strong>XMLHttpRequest</strong>对象，最后<strong>XMLHttpRequest</strong>对象被纳入 W3C 规范。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 前端代码 --&gt;</span><br><span class="line">let xhr = new XMLHttpRequest()</span><br><span class="line">xhr.open(&apos;post&apos;,&apos;www.baidu.com&apos;)        // 打开xhr ，并设置mehtod 和 path</span><br><span class="line">xhr.setRequestHeader(&apos;content-type&apos;,&apos;text/javascript;charset=utf8&apos;) //设置请求头</span><br><span class="line">xhr.onreadystatechange = (e)=&gt;&#123;</span><br><span class="line">    if(xhr.readystate === 4)&#123;</span><br><span class="line">        if(xhr.status &gt;=200 &amp;&amp; xhr.status &lt;300)&#123;</span><br><span class="line">            console.log(&apos;请求成功！&apos;)</span><br><span class="line">            let response = xhr.responseText //获取响应字符串</span><br><span class="line">            let json = JSON.parse(response) //将字符串转化为js对象</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">        else if(xhr.status &gt;=400)&#123;</span><br><span class="line">            console.log(&apos;请求失败！&apos;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">xhr.send()      //添加参数可以设置request body</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;!-- 后端代码 --&gt;</span><br><span class="line">if(path === &apos;/path&apos;)&#123;</span><br><span class="line">    response.statusCode = 200</span><br><span class="line">    response.setHeader(&apos;Content-Type&apos;,&apos;text/json;charset=utf-8&apos;)</span><br><span class="line">    response.setHeader(&apos;Access-Control-Allow-Origin&apos;,&apos;http://www.baidu.com:8080&apos;)       //CORS</span><br><span class="line">    response.setHeader(&apos;Access-Control-Allow-Origin&apos;,&apos;*&apos;)   //CORS</span><br><span class="line">    response.write(</span><br><span class="line">        `&#123;</span><br><span class="line">            &quot;a&quot;: 1,</span><br><span class="line">            &quot;b&quot;: 2</span><br><span class="line">        &#125;</span><br><span class="line">        `</span><br><span class="line">    )    </span><br><span class="line">    response.end()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="AJAX常用的API"><a href="#AJAX常用的API" class="headerlink" title="AJAX常用的API"></a>AJAX常用的API</h3><table>
+<thead>
+<tr>
+<th>API</th>
+<th>usage</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>xhr.readystate</td>
+<td>0-close、1-open、 2-send and receive responseHeader responseStatus、3-download and loading、 4-completed</td>
+</tr>
+<tr>
+<td>xhr.status</td>
+<td>状态码 200 400</td>
+</tr>
+<tr>
+<td>xhr.statusText</td>
+<td>状态码文本 ok</td>
+</tr>
+<tr>
+<td>xhr.responseText</td>
+<td>响应</td>
+</tr>
+<tr>
+<td>xhr.getAllResponseHeaders()</td>
+<td>获取所有的响应头</td>
+</tr>
+<tr>
+<td>xhr.getAllResponseHeader(‘’)</td>
+<td>获取响应头</td>
+</tr>
+<tr>
+<td>xhr.setRequestHeader(‘’)</td>
+<td>设置请求头</td>
+</tr>
+<tr>
+<td>JSON.parse(‘’)</td>
+<td>string to json</td>
+</tr>
+<tr>
+<td>JSON.stringify(obj)</td>
+<td>json to string</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h3><p>由于AJAX存在<strong>同源限制</strong>，所以出现了CORS。CORS就是在服务器端加上响应头。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.setHeader(&quot;Access-Control-Allow-Origin&quot;,path)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/04/19/浏览器同源策略与跨域/" data-id="ckagd0v850021qcw0hrmu9y65" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CORS/">CORS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ajax/">ajax</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/同源/">同源</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
+    <article id="post-浏览器的http请求过程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/19/浏览器的http请求过程/" class="article-date">
+  <time datetime="2020-04-19T05:05:17.000Z" itemprop="datePublished">2020-04-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/19/浏览器的http请求过程/">浏览器的http请求过程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="浏览器从URL到页面显示的过程"><a href="#浏览器从URL到页面显示的过程" class="headerlink" title="浏览器从URL到页面显示的过程"></a>浏览器从URL到页面显示的过程</h2><p><img src="/images/browser.png" alt="浏览器http请求过程"></p>
+<ol>
+<li>域名解析，返回IP</li>
+<li>发起TCP的3次握手，建立TCP连接</li>
+<li>浏览器发起http请求，服务器响应htp请求</li>
+<li>浏览器解析html代码,并请求html代码中的资源(如js、css、图片等）</li>
+<li>4次挥手,断开TCP连接</li>
+<li>浏览器对渲染页面呈现给用户</li>
+</ol>
+<h3 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h3><p>域名解析包括<strong>本地DNS缓存查询和远程DNS查询</strong>。</p>
+<p>本地缓存查询按照浏览器DNS缓存 → 操作系统DNS缓存 → HOSTS文件的顺序依次查找，如果没有找到对应的IP，再进行远程DNS查询。<br>远程DNS查询首先在本地域名服务器（网络接入商提供）缓存上查询，如果没有结果再依次按照根域名服务器 → 顶级域名服务器（.com顶级域名） → 权威域名服务器(二级域名和三级域名)的顺序依次查询，并<strong>将IP依次返回给本地域名服务器、操作系统和浏览器</strong>。</p>
+<h3 id="TCP连接"><a href="#TCP连接" class="headerlink" title="TCP连接"></a>TCP连接</h3><h4 id="三次握手建立连接"><a href="#三次握手建立连接" class="headerlink" title="三次握手建立连接"></a>三次握手建立连接</h4><p><img src="/images/tcp_connect.png" alt="tcp三次握手"></p>
+<table>
+<thead>
+<tr>
+<th>FLAGS</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SYN</td>
+<td>synchronous 表示请求建立连接，并在其序列号的字段进行序列号的初始值设定。建立连接，一般设置为1</td>
+</tr>
+<tr>
+<td>seq</td>
+<td>sequence 随机序列码</td>
+</tr>
+<tr>
+<td>ACK</td>
+<td>Acknowledgement 确认，表示响应</td>
+</tr>
+<tr>
+<td>ACKFLAG</td>
+<td>确认标志，一般设为1</td>
+</tr>
+<tr>
+<td>ACKNumber</td>
+<td>确认号码，表示期待下一次接受的包序号</td>
+</tr>
+<tr>
+<td>PSH</td>
+<td>push 推送，提示接收端应用程序立即从TCP缓冲区把数据读走</td>
+</tr>
+<tr>
+<td>FIN</td>
+<td>finish 完成，希望断开连接</td>
+</tr>
+<tr>
+<td>RST</td>
+<td>reset 复位，对方要求重新建立连接</td>
+</tr>
+<tr>
+<td>URG</td>
+<td>urgent 紧急指针是否有效。为1，表示某一位需要被优先处理</td>
+</tr>
+</tbody></table>
+<p>在TCP/IP协议中，TCP协议提供可靠的连接服务，采用三次握手建立一个连接。<br>第一次握手：建立连接时，客户端发送<strong>SYN包</strong>(<strong>SYN=1</strong>)到服务器，客户端把这段连接的序号<strong>seq设定为随机数x</strong>,进入<strong>SYN_SEND</strong>状态，等待服务器确认；<br>第二次握手：服务器端应当为一个合法的SYN回送一个<strong>SYN/ACK</strong>。ACK的确认码<strong>ACKFLAG=1,ACKNumber=x+1</strong>，SYN/ACK包本身又有一个随机序号<strong>seq=y</strong>此时服务器进入<strong>SYN_RECV</strong>状态；<br>第三次握手：最后，客户端再发送一个<strong>ACK</strong>。此时包的序号<strong>seq被设定为x+1</strong>，而ACK确认码则为<strong>ACKFLAG=1,ACKNumber=y+1</strong>。当服务端收到这个ACK的时候，客户端和服务器进入ESTABLISHED状态，完成了三次握手，客户端与服务器开始传送数据。</p>
+<h4 id="四次挥手关闭连接"><a href="#四次挥手关闭连接" class="headerlink" title="四次挥手关闭连接"></a>四次挥手关闭连接</h4><p><img src="/images/tcp_close.png" alt="tcp四次挥手"><br>连接终止使用了四次挥手过程（four-way handshake），在这个过程中连接的<strong>每一侧都独立地被终止</strong>。当一个端点要停止它这一侧的连接，就向对侧发送FIN，对侧回复ACK表示确认。因此，拆掉一侧的连接过程需要一对FIN和ACK，分别由两侧端点发出。</p>
+<ol>
+<li>客户端进程发出连接释放报文，并且停止发送数据。释放数据报文首部，FIN=1，其序列号为seq=u（等于前面已经传送过来的数据的最后一个字节的序号加1），此时，客户端进入FIN-WAIT-1（终止等待1）状态。 TCP规定，FIN报文段即使不携带数据，也要消耗一个序号。</li>
+<li>服务器收到连接释放报文，发出确认报文，ACK=1，ack=u+1，并且带上自己的序列号seq=v，此时，服务端就进入了CLOSE-WAIT（关闭等待）状态。TCP服务器通知高层的应用进程，客户端向服务器的方向就释放了，这时候处于半关闭状态，即客户端已经没有数据要发送了，但是服务器若发送数据，客户端依然要接受。这个状态还要持续一段时间，也就是整个CLOSE-WAIT状态持续的时间。</li>
+<li>客户端收到服务器的确认请求后，此时，客户端就进入FIN-WAIT-2（终止等待2）状态，等待服务器发送连接释放报文（在这之前还需要接受服务器发送的最后的数据）。</li>
+<li>服务器将最后的数据发送完毕后，就向客户端发送连接释放报文，FIN=1，ack=u+1，由于在半关闭状态，服务器很可能又发送了一些数据，假定此时的序列号为seq=w，此时，服务器就进入了LAST-ACK（最后确认）状态，等待客户端的确认。</li>
+<li>客户端收到服务器的连接释放报文后，必须发出确认，ACK=1，ack=w+1，而自己的序列号是seq=u+1，此时，客户端就进入了TIME-WAIT（时间等待）状态。注意此时TCP连接还没有释放，必须经过2∗∗MSL（最长报文段寿命）的时间后，当客户端撤销相应的TCB后，才进入CLOSED状态。</li>
+<li>服务器只要收到了客户端发出的确认，立即进入CLOSED状态。同样，撤销TCB后，就结束了这次的TCP连接。可以看到，服务器结束TCP连接的时间要比客户端早一些。</li>
+</ol>
+<h2 id="参考文献："><a href="#参考文献：" class="headerlink" title="参考文献："></a>参考文献：</h2><p><a href="https://blog.csdn.net/qq_38950316/article/details/81087809" target="_blank" rel="noopener">TCP的三次握手与四次挥手理解及面试题</a><br><a href="https://zh.wikipedia.org/wiki/%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AE" target="_blank" rel="noopener">传输控制协议 wiki</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/04/19/浏览器的http请求过程/" data-id="ckagd0v8b002aqcw0vl85i75c" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
+    <article id="post-认识DOM" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/11/认识DOM/" class="article-date">
+  <time datetime="2020-04-11T12:42:50.000Z" itemprop="datePublished">2020-04-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/js/">js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/11/认识DOM/">认识DOM</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="/images/dom.png">
+
+<h2 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h2><h3 id="MDN解释"><a href="#MDN解释" class="headerlink" title="MDN解释"></a>MDN解释</h3><p><strong>文档对象模型(DOM)</strong> 将Document(HTML)与脚本（JavaScript）连接起来。但将HTML、SVG 或 XML 文档建模为对象并不是 JavaScript 语言的一部分。<strong>ECMAScript标准和DOM标准是不同机构（W3C和ECMA）维护的不同的标准</strong>。 DOM模型用一个<strong>逻辑树</strong>来表示一个文档，树的每个分支的终点都是一个节点(node)，每个节点都包含着对象(objects)。DOM的方法(methods)让我们可以改变文档的结构、样式或者内容。</p>
+<h3 id="理解DOM"><a href="#理解DOM" class="headerlink" title="理解DOM"></a>理解DOM</h3><p>浏览器将Document文档通过构造函数构建成Object对象，形成整个逻辑树，就是DOM。在JS中，所有的对象都继承于<strong>Object</strong>。在DOM中，所有的构造函数都继承于<strong>Node函数</strong>。DOM主要有四大接口：Node，Document，ElementText（还有一些不常见的）。</p>
+<h2 id="Node常见的属性和方法"><a href="#Node常见的属性和方法" class="headerlink" title="Node常见的属性和方法"></a>Node常见的属性和方法</h2><h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">childNodes,firstChild,lastChild,</span><br><span class="line">nextSibling,previousSibling     //有可能返回文本节点</span><br><span class="line">nodeName,nodeType,nodeValue,</span><br><span class="line">outerText,innerText,textContent</span><br><span class="line">ownerDocument,parentElement,parentNode</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">appendChild()</span><br><span class="line">cloneNode()     // true代表深拷贝且false代表浅拷贝（default）</span><br><span class="line">contains()</span><br><span class="line">hasChildNodes()</span><br><span class="line">insertBefore()</span><br><span class="line">isEqualNode()   //内容一致的node时，返回值是true</span><br><span class="line">isSameNode()    //同一个node时，返回值是true</span><br><span class="line">removeChild()</span><br><span class="line">replaceChild()</span><br><span class="line">normalize() // 常规化</span><br></pre></td></tr></table></figure>
+
+<h2 id="Document常见的属性和方法"><a href="#Document常见的属性和方法" class="headerlink" title="Document常见的属性和方法"></a>Document常见的属性和方法</h2><h3 id="属性-1"><a href="#属性-1" class="headerlink" title="属性"></a>属性</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">documentElement, body, links, images forms, scripts, title, head,</span><br><span class="line">characterSet,  doctype,  URL, styleSheets,</span><br><span class="line">childElementCount, children</span><br><span class="line">scrollingElement fullscreen hidden location</span><br><span class="line">onxxxxxx origin plugins readyState </span><br><span class="line">visibilityState</span><br><span class="line">referrer    //返回跳转到当前页面 的**页面的URI**</span><br><span class="line">domain      //document.domain 获取/设置当前文档的原始域部分</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">close()</span><br><span class="line">createDocumentFragment()</span><br><span class="line">createElement()</span><br><span class="line">createTextNode()</span><br><span class="line">execCommand()</span><br><span class="line">exitFullscreen()</span><br><span class="line">getElementById()</span><br><span class="line">getElementsByClassName()</span><br><span class="line">getElementsByName()</span><br><span class="line">getElementsByTagName()</span><br><span class="line">getSelection()</span><br><span class="line">hasFocus()</span><br><span class="line">open()</span><br><span class="line">querySelector()</span><br><span class="line">querySelectorAll()</span><br><span class="line">write()</span><br><span class="line">writeln()   // 向文档中写入一串文本，并紧跟着一个换行符。</span><br></pre></td></tr></table></figure>
+
+<h2 id="Element和Text的API（见MDN）"><a href="#Element和Text的API（见MDN）" class="headerlink" title="Element和Text的API（见MDN）"></a>Element和Text的API（见MDN）</h2><h2 id="几个需要注意的属性和方法"><a href="#几个需要注意的属性和方法" class="headerlink" title="几个需要注意的属性和方法"></a>几个需要注意的属性和方法</h2><ol>
+<li>nextSibling和previousSibling: 有可能返回文本节点</li>
+<li>nodeName: 几乎所有的的标签nodeName都是大写，比如‘DIV’,但是<strong>docu0ment的nodeName是“#document”，svg的nodeName是svg</strong></li>
+<li>nodeType: element对应1,text对应3</li>
+<li>Node.normalize() 方法将当前节点和它的后代节点”规范化“（normalized）。在一个”规范化”后的DOM树中，不存在一个空的文本节点，或者两个相邻的文本节点。“空的文本节点”并不包括空白字符(空格，换行等)构成的文本节点。<br>ps：两个以上相邻文本节点的产生原因包括：<ol>
+<li>通过脚本调用有关的DOM接口进行了文本节点的插入和分割等。</li>
+<li>HTML中超长的文本节点会被浏览器自动分割为多个相邻文本节点。</li>
+</ol>
+</li>
+<li>innerText和textContent的区别<br><img src="/images/differenceInText.png" alt="innerText和textContent的区别"></li>
+<li>html、document和documentElement的联系<br><img src="/images/html.png" alt="html、document和documentElement"></li>
+<li>document.write()和writeln()<br>这两个方法可以在DOM上写入内容。但是要注意document.open()后才可以document.write(),write后执行document.close()。如果此后还需要write内容，那么重新open document会导致DOM内容被覆盖。所以document.write()要<strong>谨慎与定时器</strong>一起使用。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/04/11/认识DOM/" data-id="ckagd0v890027qcw01cm4ar0t" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DOM/">DOM</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
+    <article id="post-js函数" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/06/js函数/" class="article-date">
+  <time datetime="2020-04-06T09:22:06.000Z" itemprop="datePublished">2020-04-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/js/">js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/06/js函数/">js函数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="/images/js_function.png">
+
+<h2 id="js函数的5种申明方式："><a href="#js函数的5种申明方式：" class="headerlink" title="js函数的5种申明方式："></a>js函数的5种申明方式：</h2><p>函数一定有一个返回值，即使我们申明时没有return,js会自己添加<code>return undefined</code>。</p>
+<ol>
+<li>具名函数<br><code>function add(x,y){return x+y}    //add.name === &#39;add&#39;</code></li>
+<li>具名函数表达式<br><code>let fn = function add(x,y){return x+y}   //fn.name ===&#39;add&#39;</code></li>
+<li>匿名函数表达式<br><code>let fn = function (x,y){return x+y}    //fn.name === &#39;fn&#39;</code></li>
+<li>new Function()<br><code>let fn = new Function(&#39;x&#39;,&#39;y&#39;,&#39;return x+y&#39;)   //fn.name === &#39;anonymous&#39;</code></li>
+<li>ES6箭头函数（只能匿名）<br><code>let fn = (x,y) =&gt; {return x+y}   //fn.name === &#39;fn&#39;</code></li>
+</ol>
+<p>方法1和方法2申明的区别：</p>
+<ol>
+<li>方法1<code>变量add</code>有申明提升的效果而方法2中<code>变量add</code>不会变量提升。</li>
+<li>方法1中<code>add()</code>在add函数内部和外部都可以被调用，但方法2中<code>add()</code>只能在add函数内部被调用。</li>
+</ol>
+<h2 id="函数的调用"><a href="#函数的调用" class="headerlink" title="函数的调用"></a>函数的调用</h2><ol>
+<li><code>fn(param1,param2)</code></li>
+<li><code>obj.fn()</code></li>
+<li><code>fn.call(undefined/null,param1,param2)</code></li>
+<li><code>fn.apply(thisArg, [argsArray])</code></li>
+</ol>
+<h2 id="this和arguments"><a href="#this和arguments" class="headerlink" title="this和arguments"></a>this和arguments</h2><p><code>函数调用：fn.call(this,arg1,arg2,...)</code><br>其中，<code>this</code>就是第一个参数；<code>arguments</code>是除第一个参数外其他参数组成的的伪数组。</p>
+<h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><p><code>this</code>设计目的就是在函数体内部，指代函数当前的<em>运行环境</em>。<code>this</code>在<strong>函数调用</strong>时才被确定。它的本质是fn.call(context,arg)传入的第一个参数，一般来说<code>传入的context</code>是个对象。非严格模式下，当传入undefined/null时，this指代window全局对象；严格模式下(“use strict”),传入undefined/null或者任何数据类型，this值都直接指代传入的值。实现的结果如下：</p>
+<ol>
+<li><code>fn(param1,param2)</code> this指向window</li>
+<li><code>obj.fn()</code> this指向obj（通过对象方法调用时，this指向最后调用函数的对象）</li>
+<li>箭头函数内部this跟函数外部this一致，箭头函数没有arguments变量</li>
+<li><code>new fn()</code>中的this指向被创建的新对象本身</li>
+</ol>
+<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>作用域就是js<strong>变量的可访问范围</strong>，它决定了变量的可见性和生命周期。函数在<strong>定义时</strong>，就已经决定了它的作用域。作用域分为全局作用域、局部（函数）作用域和块级作用域（let/const)。作用域可以嵌套，嵌套内部作用域可以访问嵌套外部的变量，这样就形成了<strong>作用域链</strong>。
+作用域链是<strong>变量</strong>的可访问范围。<br>原型链是<strong>对象属性</strong>的可访问范围。</p>
+<h3 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h3><p>作用域在<strong>函数定义时</strong>就已经确定。但是此时确定的只是<strong>变量的可访问范围</strong>，变量的<strong>值并不会确定不变</strong>，所以<strong>函数调用时变量的值由调用时决定</strong>。</p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p><strong>函数和lexical environment词法环境（包括作用域链）</strong>捆绑在一起构成闭包（closure）。也就是说，闭包可以让你从内部函数访问外部函数作用域。在 JavaScript 中，每当函数被创建，就会在函数生成时生成闭包。所以，我们看到有人说一个函数return一个函数就是闭包的说法是错误的，这只是在利用闭包而已。我们<strong>在返回一个函数的同时也返回了这个函数的词法环境（作用域链）</strong>，这样我们就可以在函数外部访问到函数内部的变量了。</p>
+<h2 id="callStack"><a href="#callStack" class="headerlink" title="callStack"></a>callStack</h2><p>js函数调用时会被压入callstack中，标记好，等待函数执行完成(return;)时，会再把函数弹出callstack中。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/04/06/js函数/" data-id="ckagd0v7l0015qcw0juotknhc" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/function/">function</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
+    <article id="post-js数组" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/05/js数组/" class="article-date">
+  <time datetime="2020-04-05T04:03:32.000Z" itemprop="datePublished">2020-04-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/js/">js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/05/js数组/">js数组</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>js 数组就是有序数据的集合。数组的本质是<strong>原型链中有Array.prototype的对象</strong>。Array对象是用于构造数组的全局对象。</p>
+<h2 id="申明数组"><a href="#申明数组" class="headerlink" title="申明数组"></a>申明数组</h2><ol>
+<li><code>let arr = [1,2,3]</code></li>
+<li><code>let arr = new Array(3)   //new可以省略，声明一个length为3的空数组，arr[1] === undefined</code></li>
+<li><code>let arr = new Array(3,3)   //new可以省略，声明一个数组[3,3]</code></li>
+</ol>
+<h2 id="伪数组"><a href="#伪数组" class="headerlink" title="伪数组"></a>伪数组</h2><p>拥有数字key和length属性，但原型链中<em>没有Array.prototype</em>的对象称为伪数组。常见的伪数组有：arguments对象、DOM操作中获得的Elements集合。</p>
+<h2 id="数组常用的API"><a href="#数组常用的API" class="headerlink" title="数组常用的API"></a>数组常用的API</h2><ol>
+<li><p>Array.prototype.forEach()<br><code>arr.forEach(callback)  //数组的每个元素执行一次callback函数。</code> </p>
+</li>
+<li><p>Array.prototype.sort()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//升序排列</span><br><span class="line">let numbers = [4, 2, 5, 1, 3]; </span><br><span class="line">numbers.sort((a, b) =&gt; a - b);          // 在原数组上排序，改变原数组</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Array.prototype.join()<br><code>let string = arr.join(&#39;,&#39;)  //将数组的所有元素连接成一个字符串并返回这个字符串。如果数组只有一个项目，那么将返回该项目而不使用分隔符</code></p>
+</li>
+<li><p>Array.prototype.concat()<br><code>let newArr = arr1.concat(arr2,arr3)  //合并两个或多个数组。不更改现有数组，而是返回一个新数组。</code> </p>
+</li>
+<li><p>Array.prototype.toString()<br><code>toString()返回一个字符串，表示指定的数组及其元素。</code></p>
+</li>
+<li><p>Array.prototype.map()<br>返回一个新数组，其结果是原数组中的每个元素都调用callback函数后返回的结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const array1 = [1, 4, 9, 16];</span><br><span class="line">// pass a function to map</span><br><span class="line">const newMap = array1.map(x =&gt; x * 2);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Array.prototype.filter()<br><code>let newArray = array.filter(word =&gt; word.length &gt; 6);    //返回一个新数组, 其包含通过所提供函数实现的测试的所有元素</code> </p>
+</li>
+<li><p>Array.prototype.reduce()<br>对数组中的每个元素执行一次reducer函数(升序执行)，并返回最终的ACC结果。</p>
+<pre><code>const array1 = [1, 2, 3, 4];
+const reducer = (accumulator, currentValue) =&gt; accumulator + currentValue;
+console.log(array1.reduce(reducer));     // 1 + 2 + 3 + 4
+console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
+<li><p>Array.from(arrayLike)<br> 传入伪数组，返回一个数组</p>
+</li>
+<li><p>Array.isArray(object)<br>传入一个对象，判断是否是数组，返回值boolean</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/04/05/js数组/" data-id="ckagd0v7s001gqcw0lgfayp1x" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
+    <article id="post-js全局对象和原型链" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/29/js全局对象和原型链/" class="article-date">
+  <time datetime="2020-03-29T03:58:21.000Z" itemprop="datePublished">2020-03-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/js/">js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/29/js全局对象和原型链/">js全局对象和原型链</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="全局对象global-浏览器window"><a href="#全局对象global-浏览器window" class="headerlink" title="全局对象global(浏览器window)"></a>全局对象global(浏览器window)</h2><p>ECMAScript 规定全局对象叫做 global，但是浏览器把 window 作为全局对象。window 的属性就是全局变量。其中的全局变量分为两种：</p>
+<ol>
+<li>ECMAScript规定的，例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">global.parseInt()</span><br><span class="line">global.parseFloat()</span><br><span class="line">global.Number</span><br><span class="line">global.String</span><br><span class="line">global.Boolean</span><br><span class="line">global.Object</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<ol start="2">
+<li>浏览器自己规定的，例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">window.alert()</span><br><span class="line">window.prompt()</span><br><span class="line">window.comfirm()</span><br><span class="line">window.console.log()</span><br><span class="line">window.console.dir()</span><br><span class="line">window.document</span><br><span class="line">window.document.createElement()</span><br><span class="line">window.document.getElementById()</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h3 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let n = 11          //基本number数据类型</span><br><span class="line">let n = Number(&apos;11&apos;);   //显式转化成number类型</span><br><span class="line">let n = new Number(11)  //创建number对象，有toString()和valueOf()方法</span><br><span class="line">11.toString()   //11本身没有toString()方法，当调用toString()时，11会临时转化成Number对象，当toString()调用结束，11会再次变成基本number类型（隐式转换）</span><br></pre></td></tr></table></figure>
+
+<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let n = &apos;22&apos;         //基本string数据类型</span><br><span class="line">let n = String(&apos;11&apos;);   //显式转化成string类型</span><br><span class="line">let n = new String(11)  //创建string对象，有toString()和valueOf()方法</span><br></pre></td></tr></table></figure>
+
+<h3 id="Boolean"><a href="#Boolean" class="headerlink" title="Boolean"></a>Boolean</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let n = true         //基本Boolean数据类型</span><br><span class="line">let n = Boolean(&apos;11&apos;);   //显式转化成Boolean类型</span><br><span class="line">let n = new Boolean(11)  //创建Boolean对象，有toString()和valueOf()方法</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="proto-和-prototype"><a href="#proto-和-prototype" class="headerlink" title="proto 和 prototype"></a><strong>proto</strong> 和 prototype</h2><p>所有的对象都有toString()和valueOf()方法，js将这些公用属性都放在<code>__proto__</code>对象中。而为了防止<code>__proto__</code>对象因没被引用而被垃圾回收，所以就有了<code>Object.prototype</code>。<code>__proto__</code>是存在于对象实例中，prototype是存在于构造函数中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">对象实例.__proto__ === 构造函数.protoType</span><br><span class="line">let obj = new Object()   //obj.__proto__ === Object.prototype</span><br></pre></td></tr></table></figure>
+
+<h3 id="对象原型链关系图："><a href="#对象原型链关系图：" class="headerlink" title="对象原型链关系图："></a>对象原型链关系图：</h3><p><img src="/images/proto.png" alt="js对象与原型链"></p>
+<hr>
+<h3 id="几个难懂的原型链"><a href="#几个难懂的原型链" class="headerlink" title="几个难懂的原型链"></a>几个难懂的原型链</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object.prototype.__proto__ ==== null</span><br><span class="line">Function.__proto__ === Function.prototype</span><br><span class="line">Object.__proto__ === Function.prototype</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/03/29/js全局对象和原型链/" data-id="ckagd0v7o001aqcw0xaf46wdu" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原型链/">原型链</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
+    <article id="post-js数据类型" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/28/js数据类型/" class="article-date">
+  <time datetime="2020-03-27T17:40:09.000Z" itemprop="datePublished">2020-03-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/js/">js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/28/js数据类型/">js数据类型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="js简史"><a href="#js简史" class="headerlink" title="js简史"></a>js简史</h2><p>1991年，Tim Berners-Lee发明www万维网<br>1992年，Tim Berners-Lee 及其同事发明了css<br>1993年， w3c万维网联盟出现<br>1995年，Netscape公司推出了navigator浏览器，js之父Brendan Eich用十天时间开发出了js（mocha）。之后，Unicode发布了utf-8<br>1996年，Microsoft发布了IE浏览器和JScript<br>Netscape开源firefox浏览器，由Mozilla委员会维护。向ECMA(欧洲计算机制造商协会)申报标准并起名ECMAScript.<br>2004年 ， Microsoft发布IE5.5，使js可以发送http请求<br>Gmail的出现，让人们认识到js不仅仅是脚本玩具语言，也可以成为真正的编程语言<br>2010年，front-end行业出现</p>
+<p>ES3 :标准库少  → ES5：IE7不支持 → ES6：IE8不支持<br>ES6借鉴了rails社区coffeeScript的很多特性：类、箭头函数等，集大家之所长<br>后来es每年一更新</p>
+<h2 id="js数据类型"><a href="#js数据类型" class="headerlink" title="js数据类型"></a>js数据类型</h2><p>js有七种数据类型<br>基本类型:<strong>number,string,boolean,symbol,null,undefined</strong><br>复杂类型：<strong>object</strong>(包括array,function,date等)</p>
+<h2 id="number"><a href="#number" class="headerlink" title="number"></a>number</h2><p>js中实际上没有整数和小数之分，所有的数字均以<strong>64位浮点</strong>数存储。 它的表示方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">十进制表示法：0.1  .1   1e-1 </span><br><span class="line">二进制表示法：0b0101010     #以0b开头</span><br><span class="line">八进制表示法：0o0101010     #以0开头，ES5新添以0o开头</span><br><span class="line">十六进制表示法：0x0101010   #以0x开头</span><br></pre></td></tr></table></figure>
+
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><ol>
+<li>Number(anything)</li>
+<li>parseInt(str)</li>
+<li>parseFloat(str)</li>
+<li>anything - 0</li>
+<li>+(anything)</li>
+</ol>
+<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><h3 id="空字符串：’’-（区别于空格字符串’-‘"><a href="#空字符串：’’-（区别于空格字符串’-‘" class="headerlink" title="空字符串：’’    （区别于空格字符串’   ‘)"></a>空字符串：’’    （区别于空格字符串’   ‘)</h3><h3 id="多行字符串："><a href="#多行字符串：" class="headerlink" title="多行字符串："></a>多行字符串：</h3><ol>
+<li><p>借鉴于bash中语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&apos;aaaa\</span><br><span class="line">bbbb&apos;               // 结果为&quot;aaaa↵bbbb&quot;   (不推荐使用)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>&#39;aaaa&#39; + &#39;bbbb&#39;              // 结果为aaaabbbb   (推荐使用)</code></p>
+</li>
+<li><p>es6新语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">`aaaa</span><br><span class="line">bbbb                // 结果为&quot;aaaa↵bbbb&quot;   (推荐使用)</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h3><p>Base64就是一种基于64个可打印字符(52个大小写字母、10个数字以及+、/h和=)来表示二进制数据的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">window.btoa(str)  //创建一个base64编码的字符串</span><br><span class="line">window.atob(str)  //解码base64编码的字符串</span><br></pre></td></tr></table></figure>
+
+<p>如果str中包含汉字，上面的方法会报错。这时候需要使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">window.btoa(encodeURIComponent(str))  //创建包含非ASCII(如汉字)的str的base64</span><br><span class="line">decodeURI(window.atob(str))  //解码base64</span><br></pre></td></tr></table></figure>
+
+<h3 id="类型转换-1"><a href="#类型转换-1" class="headerlink" title="类型转换"></a>类型转换</h3><ol>
+<li>String(anything)</li>
+<li>toString(anything)</li>
+<li>‘’ + anything</li>
+</ol>
+<h2 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h2><p>boolean只有true和false。<br>a &amp;&amp; b : 只有两个都为真时，表达式结果为真<br>a || b ：只有两个都为假时，表达式结果为假</p>
+<ol>
+<li>5个false值：’’ ,null,undefined,0,NaN</li>
+<li>所有的对象都是true</li>
+</ol>
+<h3 id="类型转换-2"><a href="#类型转换-2" class="headerlink" title="类型转换"></a>类型转换</h3><ol>
+<li>Boolean(anything) </li>
+<li>!!anything </li>
+</ol>
+<h2 id="symbol"><a href="#symbol" class="headerlink" title="symbol"></a>symbol</h2><p>Symbol()用来生成一个<strong>全局唯一</strong>的值。</p>
+<h2 id="null和undefined"><a href="#null和undefined" class="headerlink" title="null和undefined"></a>null和undefined</h2><p>它们都表示没有值。</p>
+<ol>
+<li>(规范)一个变量没有被赋值，那么这个变量的值就是 undefined</li>
+<li>(习惯)如果想表示一个还没赋值的对象，就用 null。如果想表示一个还没赋值的字符串/数字/布尔/symbol，就用 undefined（但是实际上直接 var xxx 一下就行了，不用写 var xxx = undefined）</li>
+</ol>
+<h2 id="object"><a href="#object" class="headerlink" title="object"></a>object</h2><p>object是基本类型数据无序组合的一种hashTable。</p>
+<ol>
+<li>object 的 key 一律是字符串，不存在其他类型的 key</li>
+<li>object[‘’] 是合法的</li>
+<li>object[‘key’] 可以写作 object.key</li>
+<li>object的key不加’’时，只能是合法的标识符（满足以字母、_、$开头的字符串）或者纯数字，object的key加上’’时，可以是任意的unicode字符串</li>
+<li>删除对象key：delete object.key 。删除后object.key==undefined &amp;&amp; key in object ==false</li>
+<li>遍历对象key：for(key in object) {code block…}</li>
+<li>获取对象所有的key： Object.keys(obj)</li>
+<li>获取对象所有的value： Object.keys(obj)</li>
+</ol>
+<h2 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h2><p>typeof是一个判断变量或者表达式数据类型的<strong>操作符</strong>。使用方法：typeof <variable>或者 typeof(variable)</variable></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//正常结果</span><br><span class="line">typeof 111) === &apos;number&apos;</span><br><span class="line">typeof &apos;111&apos; === &apos;string&apos;</span><br><span class="line">typeof true === &apos;boolean&apos;</span><br><span class="line">typeof Symbol() === &apos;symbol&apos;</span><br><span class="line">typeof undefined === &apos;undefined&apos;</span><br><span class="line">typeof &#123;&#125; === &apos;object&apos;</span><br><span class="line"></span><br><span class="line">//非常规结果</span><br><span class="line">typeof null === &apos;object&apos;</span><br><span class="line">typeof [] === &apos;object&apos;      </span><br><span class="line">typeof function()&#123;&#125; === &apos;function&apos;    #并没有function类型</span><br></pre></td></tr></table></figure>
+
+<h3 id="Object-prototype-toString-call"><a href="#Object-prototype-toString-call" class="headerlink" title="Object.prototype.toString.call()"></a>Object.prototype.toString.call()</h3><p>由于typeof存在一些bug，所以准确判断一个变量的类型可以用<strong>Object.prototype.toString.call(<variable>)</variable></strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Object.prototype.toString.call(111) === &apos;[object,Number]&apos;</span><br><span class="line">Object.prototype.toString.call(&apos;111&apos;) === &apos;[object,String]&apos;</span><br><span class="line">Object.prototype.toString.call(true) === &apos;[object,Boolean]&apos;</span><br><span class="line">Object.prototype.toString.call(Symbol()) === &apos;[object,Symbol]&apos;</span><br><span class="line">Object.prototype.toString.call(undefined) === &apos;[object,Undefined]&apos;</span><br><span class="line">Object.prototype.toString.call(&#123;&#125;) === &apos;[object,Object]&apos;</span><br><span class="line">Object.prototype.toString.call(null) === &apos;[object,Null]&apos;</span><br><span class="line">Object.prototype.toString.call([]) === &apos;[object,Array]&apos;      </span><br><span class="line">Object.prototype.toString.call(function()&#123;&#125;) === &apos;[object,Function]&apos;    #并没有function类型</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/03/28/js数据类型/" data-id="ckagd0v7h0012qcw0zduia5pg" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
+    <article id="post-算法和数据结构入门" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/15/算法和数据结构入门/" class="article-date">
+  <time datetime="2020-03-14T16:19:50.000Z" itemprop="datePublished">2020-03-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/算法/">算法</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/15/算法和数据结构入门/">算法和数据结构入门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="算法的特点"><a href="#算法的特点" class="headerlink" title="算法的特点"></a>算法的特点</h3><ol>
+<li>输入；</li>
+<li>输出；</li>
+<li>明确性；</li>
+<li>有限性；</li>
+<li>有效性（可行性）</li>
+</ol>
+<h3 id="伪代码和流程图"><a href="#伪代码和流程图" class="headerlink" title="伪代码和流程图"></a>伪代码和流程图</h3><ol>
+<li>伪代码<br>伪代码（Pseudocode）是一种非正式的，类似于英语结构的，用于描述算法的语言。使用伪代码使被描述的算法可以容易地以任何一种编程语言（Pascal，C，Java等）实现。</li>
+<li>流程图<br>流程图是使用图形表示算法的一种方式。其中圆角矩形表示开始和结束，矩形表示正常的运算，棱形表示判断语句，箭头表示运算顺序。</li>
+</ol>
+<h3 id="常见的算法思想"><a href="#常见的算法思想" class="headerlink" title="常见的算法思想"></a>常见的算法思想</h3><ol>
+<li>分治法（前端最常用的算法思想）</li>
+<li>动态规划法</li>
+<li>贪婪法</li>
+<li>线性规划法</li>
+<li>精并法</li>
+</ol>
+<h3 id="常用的排序算法"><a href="#常用的排序算法" class="headerlink" title="常用的排序算法"></a>常用的排序算法</h3><ol>
+<li>冒泡排序-两两比较，视情况而定交换位置。时间复杂度为O(n^2)</li>
+<li>选择排序-依次选择最大或者最小的放在最前面</li>
+<li>插入排序-每步将一个待排序的记录，按其关键码值的大小插入前面已经排序的文件中适当位置上，直到全部插入完为止。类似于‘起扑克牌’</li>
+<li>快速排序法-通过一次排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序</li>
+<li>计数排序法-借助hash表的特殊的桶排序，空间换换时间。复杂度Ο(n+k)‘类似于玩空当接龙’</li>
+<li>基数排序<br>在<a href="https://visualgo.net" target="_blank" rel="noopener">visualgo.net</a>上能可视化排序算法的实现过程。</li>
+</ol>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="数据结构-1"><a href="#数据结构-1" class="headerlink" title="数据结构"></a>数据结构</h3><p>数据结构(data structure)是<strong>带有结构特性的数据元素的集合</strong>。数据结构是计算机存储、组织数据的方式。通常情况下，精心选择的数据结构可以带来更高的运行或者存储效率。数据结构往往同高效的检索算法和索引技术有关，<strong>算法离不开数据结构</strong>，在规划算法前，要先想好<strong>数据结构</strong>。js中简单的数据结构包括<strong>数组和对象。</strong></p>
+<h3 id="常见的几种数据结构"><a href="#常见的几种数据结构" class="headerlink" title="常见的几种数据结构"></a>常见的几种数据结构</h3><ol>
+<li><p>hash（哈希表）<br>散列表（Hash table，也叫哈希表），是根据关键码值(Key value)而直接进行访问的数据结构。在js中，一个对象就可以称为一个hash table。<br>在桶排序和计数排序中就用到了hash表。</p>
+</li>
+<li><p>queue（队列）<br>queue是一种特殊的线性表，它只允许在表的前端（front）进行删除操作，而在表的后端（rear）进行插入操作。进行插入操作的端称为<strong>队尾</strong>，进行删除操作的端称为<strong>队头</strong>。队列中没有元素时，称为<strong>空队列</strong>。
+特点：</p>
+<ol>
+<li>先进先出</li>
+<li>js中可以用数组实现（push，shift）</li>
+<li>类似于‘排队，先排队的在前面就会先出去，前面的地方就是<strong>队头</strong>，后面的地方就是<strong>队尾</strong>’</li>
+</ol>
+</li>
+<li><p>stack（栈）<br>stack在计算机科学中是限定仅在<strong>表尾</strong>进行插入或删除操作的线性表。进行删除和插入的一端称<strong>栈顶</strong>，另一端称<strong>栈底</strong>。插入一般称为<strong>进栈</strong>，删除则称为<strong>退栈</strong>。 栈也称为<strong>后进先出表</strong>。
+特点：</p>
+<ol>
+<li>后进先出</li>
+<li>js中可以用数组实现（push，pop）</li>
+<li>类似于‘往桶里放东西，后放进去的在上面就会被先拿出来，桶的的上方就是<strong>栈顶</strong>，底部就是<strong>栈底</strong>’</li>
+</ol>
+</li>
+<li><p>链表<br>链表是一种非连续、非顺序的数据结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列结点（链表中每一个元素称为结点）组成。<strong>每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。</strong></p>
+<ol>
+<li>线性表的缺点就是<strong>删除元素麻烦</strong>，链表是非线性表它的缺点是<strong>查询元素麻烦</strong>。</li>
+<li>链表一般包括head和node</li>
+</ol>
+</li>
+<li><p>树
+树是一种数据结构，它是由n（n&gt;=0）个有限结点组成一个具有层级结构的集合。每个结点有零个或多个子结点；没有父结点的结点称为<strong>根结点</strong>，没有子结点的结点称为<strong>叶子结点</strong>。<strong>结点的层次</strong>：从根开始定义起，根为第1层，根的子结点为第2层，以此类推。一棵树中所有结点的层次的最大值称为这棵树的<strong>深度</strong>。</p>
+<ol>
+<li>二叉树：每个节点最多含有两个子树的树称为二叉树；</li>
+<li>满二叉树：除最后一层无任何子节点外，每一层上的所有结点都有两个子结点的二叉树。</li>
+<li>完全二叉树：完全二叉树是由满二叉树而引出来的。满二叉树最后一层的最后的结点<strong>连续的</strong>丢失掉形成的树。</li>
+<li>满二叉树和完全二叉树可以用js数组实现，其他的树需要用链表实现。</li>
+</ol>
+</li>
+<li><p>堆（heap）<br>堆是特殊的完全二叉树。堆中<strong>某个节点的值总是不大于或不小于其父节点的值</strong>。当根节点的值是最大的值时，这样的堆称为<strong>最大堆</strong>。当根节点的值最小时，称为<strong>最小堆</strong>。</p>
+</li>
+</ol>
+<p><strong>堆排序</strong>就是兄弟节点和父节点比较取最大值作为新的父节点，不断的构成最大堆或者最小堆，由此达到排序目的的算法。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/03/15/算法和数据结构入门/" data-id="ckagd0v8c002cqcw0xfimzn11" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/http/">http</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFC/">BFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CORS/">CORS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/absolute/">absolute</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ajax/">ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/background/">background</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/host-Apache-vHost/">host Apache vHost</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/position/">position</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/script标签/">script标签</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-if/">v-if</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-show/">v-show</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuec/">vuec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue生命周期/">vue生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/width/">width</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/z-index/">z-index</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原型链/">原型链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同源/">同源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外边距/">外边距</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/层叠上下文/">层叠上下文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/百分比/">百分比</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件下载/">软件下载</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/BFC/" style="font-size: 10px;">BFC</a> <a href="/tags/CORS/" style="font-size: 10px;">CORS</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/JSONP/" style="font-size: 10px;">JSONP</a> <a href="/tags/absolute/" style="font-size: 10px;">absolute</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/background/" style="font-size: 10px;">background</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/host-Apache-vHost/" style="font-size: 10px;">host Apache vHost</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/http/" style="font-size: 15px;">http</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/position/" style="font-size: 10px;">position</a> <a href="/tags/script标签/" style="font-size: 10px;">script标签</a> <a href="/tags/v-if/" style="font-size: 10px;">v-if</a> <a href="/tags/v-show/" style="font-size: 10px;">v-show</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/vuec/" style="font-size: 10px;">vuec</a> <a href="/tags/vue生命周期/" style="font-size: 10px;">vue生命周期</a> <a href="/tags/width/" style="font-size: 10px;">width</a> <a href="/tags/z-index/" style="font-size: 10px;">z-index</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/同源/" style="font-size: 10px;">同源</a> <a href="/tags/外边距/" style="font-size: 10px;">外边距</a> <a href="/tags/层叠上下文/" style="font-size: 10px;">层叠上下文</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/百分比/" style="font-size: 10px;">百分比</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/软件下载/" style="font-size: 10px;">软件下载</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/04/19/浏览器同源策略与跨域/">浏览器同源策略与跨域</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/19/浏览器的http请求过程/">浏览器的http请求过程</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/11/认识DOM/">认识DOM</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/06/js函数/">js函数</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/05/js数组/">js数组</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 <a href="http://github.com/cai4633/cai4633.github.io" target="_blank">Cai4633</a><br>
+      <!--Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>-->
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

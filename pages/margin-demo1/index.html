@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>margin_demo1</title>	
+	<meta charset='utf-8'/>
+	<script type="text/javascript" src="/jquery/jquery.js"></script>
+	<script type='text/javascript'>
+		(function(){
+			$(function(){
+				var $up = $('.up');
+				var $down = $('.down');
+				var $upMarginBottom = $('#upMarginBottom');
+				var $downMarginTop = $('#downMarginTop');
+				var $upCtrl = $('#up-ctrl');
+				var $downCtrl = $('#down-ctrl');
+				$upCtrl.bind('change',function(){
+					$up.css('margin-bottom',$upCtrl.val()+'px');	//$.css()等同于原生js中的dom.style属性。
+					$upMarginBottom.text($upCtrl.val());
+				});
+				$downCtrl.bind('change',function(){
+					$down.css('margin-top',$downCtrl.val()+'px');	//$.css()等同于原生js中的dom.style属性。
+					$downMarginTop.text($downCtrl.val());
+				});
+			})
+
+		})();
+
+		
+	</script>
+	<style type="text/css">
+		body{
+			margin:0px;
+			padding: 20px 5px;
+			/*background: #282828;*/
+			border: 3px dashed #8C8C8C;
+			height: 230px;
+			min-width: 760px;
+
+		}
+		.up,.down{
+			width:300px;
+			height:80px;
+			line-height: 30px;
+			border:1px solid #000;
+			text-align: center;
+			font-size: 14px;
+		}
+		
+		.up{
+			margin-bottom: 40px;
+			background:#A3F69E;
+		}
+
+		.down{
+			margin-top: 10px;
+			background: #A8A0DE;
+		}
+		
+		.ctrlWrap{
+			display: inline-block;
+			border: 1px dashed #8C8C8C;
+			float:right;
+			/*vertical-align: middle;*/
+
+		}
+		.showBox{
+			display: inline-block;
+			vertical-align: middle;
+
+
+		}
+		div.controller{
+
+		}
+		label{
+			display: inline-block;
+			font-size: 14px;
+			font-weight: bold;
+			vertical-align: middle;
+		}
+		
+
+		input[type='range']{
+			display: inline-block;
+			vertical-align: middle;
+			width:200px;
+			height: 40px;
+				}
+		/* input[type='range']{
+			display: inline-block;
+			vertical-align: middle;
+			-webkit-appearance:none;
+			width:200px;
+			height: 40px;
+		}
+		
+		input[type='range']:focus{
+			outline: none;
+		}
+		input[type=range]::-webkit-slider-runnable-track {  
+			-webkit-appearance:none;
+			background: #0ED9B3;
+			border: 1px solid #A0A0A0;
+		    height: 12px;  
+		    border-radius: 12px; 将轨道设为圆角的  
+			}  
+		
+		input[type=range]::-webkit-slider-thumb {  
+			-webkit-appearance:none;
+			background: #fff;
+		    height: 20px;  
+		    width:20px;
+		    border: solid 0.125em rgba(205, 224, 230, 0.5);  
+		    margin-top: -5px;
+			border-radius:50%;
+			box-shadow: 0.125em 0.125em #3b4547;  			
+			}   */
+		
+	</style>
+</head>
+<body>
+	<div>
+		<div class="showBox">
+			<div class='up'>up <br> margin-bottom: <span id="upMarginBottom">40</span>px</div>
+			<div class='down'>down <br> margin-top: <span id="downMarginTop">10</span>px </div>
+		</div>
+		<div class="ctrlWrap">
+			<div class="controller"><label>up's margin-bottom:(0-60px)</label><input type="range" id="up-ctrl" min='0' max='60' step="2" value="40"></div>
+			<div class="controller"><label>down's margin-top:(0-60px)&nbsp;&nbsp;</label><input type="range" id="down-ctrl" min='0' max='60' step="2" value="10"></div>
+		</div>
+	</div>
+</body>
+</html>
