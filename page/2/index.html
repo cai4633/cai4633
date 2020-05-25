@@ -65,6 +65,115 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-js数据类型" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/28/js数据类型/" class="article-date">
+  <time datetime="2020-03-27T17:40:09.000Z" itemprop="datePublished">2020-03-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/js/">js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/28/js数据类型/">js数据类型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="js简史"><a href="#js简史" class="headerlink" title="js简史"></a>js简史</h2><p>1991年，Tim Berners-Lee发明www万维网<br>1992年，Tim Berners-Lee 及其同事发明了css<br>1993年， w3c万维网联盟出现<br>1995年，Netscape公司推出了navigator浏览器，js之父Brendan Eich用十天时间开发出了js（mocha）。之后，Unicode发布了utf-8<br>1996年，Microsoft发布了IE浏览器和JScript<br>Netscape开源firefox浏览器，由Mozilla委员会维护。向ECMA(欧洲计算机制造商协会)申报标准并起名ECMAScript.<br>2004年 ， Microsoft发布IE5.5，使js可以发送http请求<br>Gmail的出现，让人们认识到js不仅仅是脚本玩具语言，也可以成为真正的编程语言<br>2010年，front-end行业出现</p>
+<p>ES3 :标准库少  → ES5：IE7不支持 → ES6：IE8不支持<br>ES6借鉴了rails社区coffeeScript的很多特性：类、箭头函数等，集大家之所长<br>后来es每年一更新</p>
+<h2 id="js数据类型"><a href="#js数据类型" class="headerlink" title="js数据类型"></a>js数据类型</h2><p>js有七种数据类型<br>基本类型:<strong>number,string,boolean,symbol,null,undefined</strong><br>复杂类型：<strong>object</strong>(包括array,function,date等)</p>
+<h2 id="number"><a href="#number" class="headerlink" title="number"></a>number</h2><p>js中实际上没有整数和小数之分，所有的数字均以<strong>64位浮点</strong>数存储。 它的表示方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">十进制表示法：0.1  .1   1e-1 </span><br><span class="line">二进制表示法：0b0101010     #以0b开头</span><br><span class="line">八进制表示法：0o0101010     #以0开头，ES5新添以0o开头</span><br><span class="line">十六进制表示法：0x0101010   #以0x开头</span><br></pre></td></tr></table></figure>
+
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><ol>
+<li>Number(anything)</li>
+<li>parseInt(str)</li>
+<li>parseFloat(str)</li>
+<li>anything - 0</li>
+<li>+(anything)</li>
+</ol>
+<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><h3 id="空字符串：’’-（区别于空格字符串’-‘"><a href="#空字符串：’’-（区别于空格字符串’-‘" class="headerlink" title="空字符串：’’    （区别于空格字符串’   ‘)"></a>空字符串：’’    （区别于空格字符串’   ‘)</h3><h3 id="多行字符串："><a href="#多行字符串：" class="headerlink" title="多行字符串："></a>多行字符串：</h3><ol>
+<li><p>借鉴于bash中语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&apos;aaaa\</span><br><span class="line">bbbb&apos;               // 结果为&quot;aaaa↵bbbb&quot;   (不推荐使用)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>&#39;aaaa&#39; + &#39;bbbb&#39;              // 结果为aaaabbbb   (推荐使用)</code></p>
+</li>
+<li><p>es6新语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">`aaaa</span><br><span class="line">bbbb                // 结果为&quot;aaaa↵bbbb&quot;   (推荐使用)</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h3><p>Base64就是一种基于64个可打印字符(52个大小写字母、10个数字以及+、/h和=)来表示二进制数据的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">window.btoa(str)  //创建一个base64编码的字符串</span><br><span class="line">window.atob(str)  //解码base64编码的字符串</span><br></pre></td></tr></table></figure>
+
+<p>如果str中包含汉字，上面的方法会报错。这时候需要使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">window.btoa(encodeURIComponent(str))  //创建包含非ASCII(如汉字)的str的base64</span><br><span class="line">decodeURI(window.atob(str))  //解码base64</span><br></pre></td></tr></table></figure>
+
+<h3 id="类型转换-1"><a href="#类型转换-1" class="headerlink" title="类型转换"></a>类型转换</h3><ol>
+<li>String(anything)</li>
+<li>toString(anything)</li>
+<li>‘’ + anything</li>
+</ol>
+<h2 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h2><p>boolean只有true和false。<br>a &amp;&amp; b : 只有两个都为真时，表达式结果为真<br>a || b ：只有两个都为假时，表达式结果为假</p>
+<ol>
+<li>5个false值：’’ ,null,undefined,0,NaN</li>
+<li>所有的对象都是true</li>
+</ol>
+<h3 id="类型转换-2"><a href="#类型转换-2" class="headerlink" title="类型转换"></a>类型转换</h3><ol>
+<li>Boolean(anything) </li>
+<li>!!anything </li>
+</ol>
+<h2 id="symbol"><a href="#symbol" class="headerlink" title="symbol"></a>symbol</h2><p>Symbol()用来生成一个<strong>全局唯一</strong>的值。</p>
+<h2 id="null和undefined"><a href="#null和undefined" class="headerlink" title="null和undefined"></a>null和undefined</h2><p>它们都表示没有值。</p>
+<ol>
+<li>(规范)一个变量没有被赋值，那么这个变量的值就是 undefined</li>
+<li>(习惯)如果想表示一个还没赋值的对象，就用 null。如果想表示一个还没赋值的字符串/数字/布尔/symbol，就用 undefined（但是实际上直接 var xxx 一下就行了，不用写 var xxx = undefined）</li>
+</ol>
+<h2 id="object"><a href="#object" class="headerlink" title="object"></a>object</h2><p>object是基本类型数据无序组合的一种hashTable。</p>
+<ol>
+<li>object 的 key 一律是字符串，不存在其他类型的 key</li>
+<li>object[‘’] 是合法的</li>
+<li>object[‘key’] 可以写作 object.key</li>
+<li>object的key不加’’时，只能是合法的标识符（满足以字母、_、$开头的字符串）或者纯数字，object的key加上’’时，可以是任意的unicode字符串</li>
+<li>删除对象key：delete object.key 。删除后object.key==undefined &amp;&amp; key in object ==false</li>
+<li>遍历对象key：for(key in object) {code block…}</li>
+<li>获取对象所有的key： Object.keys(obj)</li>
+<li>获取对象所有的value： Object.keys(obj)</li>
+</ol>
+<h2 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h2><p>typeof是一个判断变量或者表达式数据类型的<strong>操作符</strong>。使用方法：typeof <variable>或者 typeof(variable)</variable></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//正常结果</span><br><span class="line">typeof 111) === &apos;number&apos;</span><br><span class="line">typeof &apos;111&apos; === &apos;string&apos;</span><br><span class="line">typeof true === &apos;boolean&apos;</span><br><span class="line">typeof Symbol() === &apos;symbol&apos;</span><br><span class="line">typeof undefined === &apos;undefined&apos;</span><br><span class="line">typeof &#123;&#125; === &apos;object&apos;</span><br><span class="line"></span><br><span class="line">//非常规结果</span><br><span class="line">typeof null === &apos;object&apos;</span><br><span class="line">typeof [] === &apos;object&apos;      </span><br><span class="line">typeof function()&#123;&#125; === &apos;function&apos;    #并没有function类型</span><br></pre></td></tr></table></figure>
+
+<h3 id="Object-prototype-toString-call"><a href="#Object-prototype-toString-call" class="headerlink" title="Object.prototype.toString.call()"></a>Object.prototype.toString.call()</h3><p>由于typeof存在一些bug，所以准确判断一个变量的类型可以用<strong>Object.prototype.toString.call(<variable>)</variable></strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Object.prototype.toString.call(111) === &apos;[object,Number]&apos;</span><br><span class="line">Object.prototype.toString.call(&apos;111&apos;) === &apos;[object,String]&apos;</span><br><span class="line">Object.prototype.toString.call(true) === &apos;[object,Boolean]&apos;</span><br><span class="line">Object.prototype.toString.call(Symbol()) === &apos;[object,Symbol]&apos;</span><br><span class="line">Object.prototype.toString.call(undefined) === &apos;[object,Undefined]&apos;</span><br><span class="line">Object.prototype.toString.call(&#123;&#125;) === &apos;[object,Object]&apos;</span><br><span class="line">Object.prototype.toString.call(null) === &apos;[object,Null]&apos;</span><br><span class="line">Object.prototype.toString.call([]) === &apos;[object,Array]&apos;      </span><br><span class="line">Object.prototype.toString.call(function()&#123;&#125;) === &apos;[object,Function]&apos;    #并没有function类型</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/03/28/js数据类型/" data-id="ckammdg190013fww09bk7ulac" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
     <article id="post-算法和数据结构入门" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/03/15/算法和数据结构入门/" class="article-date">
@@ -160,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/15/算法和数据结构入门/" data-id="ckagdb5u5002adow0d5amfa8x" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/03/15/算法和数据结构入门/" data-id="ckammdg2g002ifww0wmdui4h8" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -252,7 +361,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/13/HTML入门/" data-id="ckagdb5sj000fdow0jrb5a6gn" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/03/13/HTML入门/" data-id="ckammdg0p000gfww0n7f0w2ls" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/">html</a></li></ul>
@@ -350,7 +459,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/07/http入门/" data-id="ckagdb5su000tdow054v4mtm7" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/03/07/http入门/" data-id="ckammdg0w000sfww0i711jg2k" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li></ul>
@@ -425,7 +534,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/05/git和github的使用/" data-id="ckagdb5sn000jdow0ssaw9s75" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/03/05/git和github的使用/" data-id="ckammdg0r000ifww0o423yh5o" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
@@ -553,7 +662,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/02/工欲善其事必先利其器/" data-id="ckagdb5tz0021dow0izar8w68" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/03/02/工欲善其事必先利其器/" data-id="ckammdg230026fww0vkjbn9x0" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/软件下载/">软件下载</a></li></ul>
@@ -605,7 +714,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/02/27/v-if和v-show/" data-id="ckagdb5t80017dow0tvd1dzjt" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/02/27/v-if和v-show/" data-id="ckammdg1j001hfww0yr7oq834" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/v-if/">v-if</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/v-show/">v-show</a></li></ul>
@@ -712,73 +821,11 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/02/23/position定位小结/" data-id="ckagdb5ta001bdow0olekrxm8" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/02/23/position定位小结/" data-id="ckammdg1g001cfww09iyc4xn1" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BFC/">BFC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/absolute/">absolute</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/position/">position</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/z-index/">z-index</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/层叠上下文/">层叠上下文</a></li></ul>
 
-    </footer>
-  </div>
-  <!---->
-</article>
-
-
-  
-    <article id="post-inline和inline-block的区别" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/23/inline和inline-block的区别/" class="article-date">
-  <time datetime="2020-02-22T19:46:56.000Z" itemprop="datePublished">2020-02-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/23/inline和inline-block的区别/">inline、inline-block和block元素的区别</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>常见的元素有block块元素,inline内联元素和inline-block元素。</p>
-<h2 id="block元素特点"><a href="#block元素特点" class="headerlink" title="block元素特点"></a>block元素特点</h2><ol>
-<li>宽度默认auto,<strong>block元素width:auto时，宽度会尽可能宽。</strong>（默认填满父元素）,单个block元素独占一行，<strong>即使宽度设为0px</strong>。</li>
-<li>宽度和高度可以设置。</li>
-<li>padding、margin、border都可以设置。</li>
-<li>内部可以嵌套block、inline和inline-block等各种元素。</li>
-</ol>
-<h2 id="inline元素的特点"><a href="#inline元素的特点" class="headerlink" title="inline元素的特点"></a>inline元素的特点</h2><ol>
-<li>不会独占一行，多个inline元素可以占据同一行，直到宽度超过父元素才会另一行。</li>
-<li>宽度和高度不可以设置，默认为auto，由内容宽高决定，具有包裹性。</li>
-<li><strong>padding、margin和border在水平方向上可以设置，垂直方向上（padding-top|padding-bottom|margin-top |margin-bottom|border-top|border-bottom）设置无效</strong>。border-top和border-bottom即使在视觉上有效果，但实际上布局上不起作用。 </li>
-<li>inline元素内部理论上不可以嵌套block元素</li>
-</ol>
-<iframe src="/pages/demo4" width="100%" height="400px" frameborder="0" allowfullscreen></iframe>
-
-<h2 id="inline-block元素特点"><a href="#inline-block元素特点" class="headerlink" title="inline-block元素特点"></a>inline-block元素特点</h2><p>inline-block同时具备inline和block元素的特点。</p>
-<ol>
-<li>不独占一行</li>
-<li>宽高可以设置，当宽高设为auto时又具备包裹性</li>
-<li>padding、margin、border都可以设置</li>
-<li>内部理论上不可以嵌套block元素</li>
-</ol>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ol>
-<li>inline和inline-block元素<strong>第三条</strong>特点的差别很容易让人忽略。</li>
-<li>inline元素由于内容而自动换行后，会导致border破裂。</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/02/23/inline和inline-block的区别/" data-id="ckagdb5sw000vdow0scr9xo38" class="article-share-link">Share</a>-->
-      
-      
     </footer>
   </div>
   <!---->
@@ -811,7 +858,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFC/">BFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CORS/">CORS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/absolute/">absolute</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ajax/">ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/background/">background</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/host-Apache-vHost/">host Apache vHost</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leancloud/">leancloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/position/">position</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/script标签/">script标签</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-if/">v-if</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-show/">v-show</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuec/">vuec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue生命周期/">vue生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/width/">width</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/z-index/">z-index</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原型链/">原型链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同源/">同源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外边距/">外边距</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/层叠上下文/">层叠上下文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/百分比/">百分比</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件下载/">软件下载</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFC/">BFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CORS/">CORS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/absolute/">absolute</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ajax/">ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/background/">background</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devServer/">devServer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/host-Apache-vHost/">host Apache vHost</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leancloud/">leancloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/position/">position</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proxy/">proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/script标签/">script标签</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-if/">v-if</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-show/">v-show</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-cli/">vue-cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuec/">vuec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue生命周期/">vue生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/width/">width</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/z-index/">z-index</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原型链/">原型链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同源/">同源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外边距/">外边距</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/层叠上下文/">层叠上下文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/百分比/">百分比</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件下载/">软件下载</a></li></ul>
     </div>
   </div>
 
@@ -821,7 +868,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/BFC/" style="font-size: 10px;">BFC</a> <a href="/tags/CORS/" style="font-size: 10px;">CORS</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/JSONP/" style="font-size: 10px;">JSONP</a> <a href="/tags/absolute/" style="font-size: 10px;">absolute</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/background/" style="font-size: 10px;">background</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/host-Apache-vHost/" style="font-size: 10px;">host Apache vHost</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/http/" style="font-size: 15px;">http</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/leancloud/" style="font-size: 10px;">leancloud</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/position/" style="font-size: 10px;">position</a> <a href="/tags/script标签/" style="font-size: 10px;">script标签</a> <a href="/tags/v-if/" style="font-size: 10px;">v-if</a> <a href="/tags/v-show/" style="font-size: 10px;">v-show</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/vuec/" style="font-size: 10px;">vuec</a> <a href="/tags/vue生命周期/" style="font-size: 10px;">vue生命周期</a> <a href="/tags/width/" style="font-size: 10px;">width</a> <a href="/tags/z-index/" style="font-size: 10px;">z-index</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/同源/" style="font-size: 10px;">同源</a> <a href="/tags/外边距/" style="font-size: 10px;">外边距</a> <a href="/tags/层叠上下文/" style="font-size: 10px;">层叠上下文</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/百分比/" style="font-size: 10px;">百分比</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/软件下载/" style="font-size: 10px;">软件下载</a>
+      <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/BFC/" style="font-size: 10px;">BFC</a> <a href="/tags/CORS/" style="font-size: 10px;">CORS</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/JSONP/" style="font-size: 10px;">JSONP</a> <a href="/tags/absolute/" style="font-size: 10px;">absolute</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/background/" style="font-size: 10px;">background</a> <a href="/tags/devServer/" style="font-size: 10px;">devServer</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/host-Apache-vHost/" style="font-size: 10px;">host Apache vHost</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/http/" style="font-size: 15px;">http</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/leancloud/" style="font-size: 10px;">leancloud</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/position/" style="font-size: 10px;">position</a> <a href="/tags/proxy/" style="font-size: 10px;">proxy</a> <a href="/tags/script标签/" style="font-size: 10px;">script标签</a> <a href="/tags/v-if/" style="font-size: 10px;">v-if</a> <a href="/tags/v-show/" style="font-size: 10px;">v-show</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/vue-cli/" style="font-size: 10px;">vue-cli</a> <a href="/tags/vuec/" style="font-size: 10px;">vuec</a> <a href="/tags/vue生命周期/" style="font-size: 10px;">vue生命周期</a> <a href="/tags/width/" style="font-size: 10px;">width</a> <a href="/tags/z-index/" style="font-size: 10px;">z-index</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/同源/" style="font-size: 10px;">同源</a> <a href="/tags/外边距/" style="font-size: 10px;">外边距</a> <a href="/tags/层叠上下文/" style="font-size: 10px;">层叠上下文</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/百分比/" style="font-size: 10px;">百分比</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/软件下载/" style="font-size: 10px;">软件下载</a>
     </div>
   </div>
 
@@ -843,6 +890,10 @@
       <ul>
         
           <li>
+            <a href="/2020/05/25/vue-cli本地代理mock数据/">vue-cli本地代理mock数据</a>
+          </li>
+        
+          <li>
             <a href="/2020/05/21/仿网易云音乐遇到的坑/">仿网易云音乐遇到的坑</a>
           </li>
         
@@ -856,10 +907,6 @@
         
           <li>
             <a href="/2020/04/11/认识DOM/">认识DOM</a>
-          </li>
-        
-          <li>
-            <a href="/2020/04/06/js函数/">js函数</a>
           </li>
         
       </ul>
