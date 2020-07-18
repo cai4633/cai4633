@@ -5,18 +5,22 @@
   
 
   
-  <title>Tag: 层叠上下文 | 蔡进东的日志</title>
+  <title>防抖和节流 | 蔡进东的日志</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="不要在最该奋斗的年纪去偷懒!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="蔡进东的日志">
-<meta property="og:url" content="http://cai4633.github.io/tags/层叠上下文/index.html">
+  <meta name="description" content="在前端开发的过程中，我们经常会遇到一些的事件会持续触发，如 resize、scroll、mousemove 等，但有时候我们并不希望事件函数频繁的被执行。这时就需要用到防抖和节流 防抖（控制次数）防抖，就是触发事件后在 n 秒内函数只能执行一次，如果在 n 秒内又触发了事件，则会重新计时。 常见的实现方法如下： 1234567891011function debounce (fn,  delay)">
+<meta name="keywords" content="精华">
+<meta property="og:type" content="article">
+<meta property="og:title" content="防抖和节流">
+<meta property="og:url" content="http://cai4633.github.io/2020/07/18/防抖和节流/index.html">
 <meta property="og:site_name" content="蔡进东的日志">
-<meta property="og:description" content="不要在最该奋斗的年纪去偷懒!">
+<meta property="og:description" content="在前端开发的过程中，我们经常会遇到一些的事件会持续触发，如 resize、scroll、mousemove 等，但有时候我们并不希望事件函数频繁的被执行。这时就需要用到防抖和节流 防抖（控制次数）防抖，就是触发事件后在 n 秒内函数只能执行一次，如果在 n 秒内又触发了事件，则会重新计时。 常见的实现方法如下： 1234567891011function debounce (fn,  delay)">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://cai4633.github.io/images/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E7%9A%84%E5%8C%BA%E5%88%AB.png">
+<meta property="og:updated_time" content="2020-07-18T06:18:40.895Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="蔡进东的日志">
-<meta name="twitter:description" content="不要在最该奋斗的年纪去偷懒!">
+<meta name="twitter:title" content="防抖和节流">
+<meta name="twitter:description" content="在前端开发的过程中，我们经常会遇到一些的事件会持续触发，如 resize、scroll、mousemove 等，但有时候我们并不希望事件函数频繁的被执行。这时就需要用到防抖和节流 防抖（控制次数）防抖，就是触发事件后在 n 秒内函数只能执行一次，如果在 n 秒内又触发了事件，则会重新计时。 常见的实现方法如下： 1234567891011function debounce (fn,  delay)">
+<meta name="twitter:image" content="http://cai4633.github.io/images/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E7%9A%84%E5%8C%BA%E5%88%AB.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -63,40 +67,65 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/02/23/position定位小结/" class="archive-article-date">
-  <time datetime="2020-02-22T20:26:44.000Z" itemprop="datePublished">2月 23</time>
+        <section id="main"><article id="post-防抖和节流" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/18/防抖和节流/" class="article-date">
+  <time datetime="2020-07-18T02:56:17.000Z" itemprop="datePublished">2020-07-18</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/23/position定位小结/">position定位小结</a>
+    <h1 class="article-title" itemprop="name">
+      防抖和节流
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在前端开发的过程中，我们经常会遇到一些的事件会持续触发，如 resize、scroll、mousemove 等，但有时候我们并不希望事件函数频繁的被执行。这时就需要用到<strong>防抖和节流</strong></p>
+<h2 id="防抖（控制次数）"><a href="#防抖（控制次数）" class="headerlink" title="防抖（控制次数）"></a>防抖（控制次数）</h2><p><strong>防抖，就是触发事件后在 n 秒内函数只能执行一次，如果在 n 秒内又触发了事件，则会重新计时。</strong> 常见的实现方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function debounce (fn,  delay) &#123;</span><br><span class="line">  let timer = null</span><br><span class="line">  return function(...args)&#123;</span><br><span class="line">    if(timer)&#123;</span><br><span class="line">      window.clearTimeOut(timer)</span><br><span class="line">    &#125;</span><br><span class="line">    timer = setTimeOut(()=&gt;&#123;</span><br><span class="line">      fn.apply(this,args)</span><br><span class="line">    &#125;,delay)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h2 id="节流（控制频率）"><a href="#节流（控制频率）" class="headerlink" title="节流（控制频率）"></a>节流（控制频率）</h2><p><strong>节流，就是事件连续触发时，控制在 n 秒中只执行一次函数，如果在 n 秒内又触发了事件,会忽略触发</strong>。常见的实现方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function throttle(fn, delay) &#123;</span><br><span class="line">  let timer = null</span><br><span class="line">  return function (...arg)&#123;</span><br><span class="line">    if(!timer)&#123;</span><br><span class="line">      fn.apply(this, arg)</span><br><span class="line">      timer = window.setTimeOut(()=&gt;&#123;</span><br><span class="line">        window.clearTimeOut(timer)</span><br><span class="line">        timer = null</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="防抖和节流的区别"><a href="#防抖和节流的区别" class="headerlink" title="防抖和节流的区别"></a>防抖和节流的区别</h2><p>有时候我们很容易混淆防抖和节流的触发机制，下面我们用一张图来展示他们的区别。<br><img src="/images/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E7%9A%84%E5%8C%BA%E5%88%AB.png" alt="防抖和节流的区别"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/07/18/防抖和节流/" data-id="ckcr9hevd002kzcw0o5th4etk" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/精华/">精华</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+    <!--
+<nav id="article-nav">
+  
+  
+    <a href="/2020/05/25/vue-cli本地代理mock数据/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">vue-cli本地代理mock数据</div>
+    </a>
+  
+</nav>
+-->
+  <!---->
+</article>
 
 </section>
         
