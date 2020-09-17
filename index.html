@@ -112,12 +112,16 @@
 </ol>
 <h2 id="DOM-diff"><a href="#DOM-diff" class="headerlink" title="DOM diff"></a>DOM diff</h2><h3 id="DOM-diff-是什么"><a href="#DOM-diff-是什么" class="headerlink" title="DOM diff 是什么"></a>DOM diff 是什么</h3><p>它的本质是一个函数，类似于<code>patches = patch(newVDom, oldVDom)</code>。其中patches就是需要进行的 dom 操作。diff 算法在执行时有三个维度，分别是<strong>tree diff、component diff 和 element diff，</strong>执行时按层级顺序依次执行，它们的差异仅仅因为 diff 粒度不同、执行先后顺序不同。</p>
 <h3 id="DOM-diff-的优点"><a href="#DOM-diff-的优点" class="headerlink" title="DOM diff 的优点"></a>DOM diff 的优点</h3><p>DOM diff算法会对比 oldNode 与 newNode 的区别，从而<strong>减少不必要的渲染</strong>。</p>
-<h2 id="DOM-diff-的问题"><a href="#DOM-diff-的问题" class="headerlink" title="DOM diff 的问题"></a>DOM diff 的问题</h2><p>DOM diff在同层级对比中有bug。造成页面渲染错误，可以给节点设定唯一的key。从而消除bug。<strong>key只能是number和string类型，一定不要用index作为key值。</strong></p>
+<h3 id="DOM-diff-的问题"><a href="#DOM-diff-的问题" class="headerlink" title="DOM diff 的问题"></a>DOM diff 的问题</h3><p>DOM diff在同层级对比中有bug。造成页面渲染错误。<strong>同一层级的一组节点</strong>可以通过唯一的id进行区分, 所以可以给节点设定唯一的key。从而消除bug。<strong>key只能是number和string类型，一定不要用index作为key值。</strong></p>
+<h3 id="几个使用key的场景"><a href="#几个使用key的场景" class="headerlink" title="几个使用key的场景"></a>几个使用key的场景</h3><ol>
+<li>v-for (vue)</li>
+<li>同一层级有相同标签节点的<strong>transition动画</strong></li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/09/18/虚拟DOM和DOM diff/" data-id="ckf7096xl001xbow0e7nhjn8g" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/09/18/虚拟DOM和DOM diff/" data-id="ckf73t72d002j78w0vyfopdb7" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DOM-diff/">DOM diff</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vDOM/">vDOM</a></li></ul>
@@ -194,7 +198,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/08/18/一篇文章搞懂promise/" data-id="ckf7096zg004xbow0sekhkj7t" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/08/18/一篇文章搞懂promise/" data-id="ckf73t720001y78w070n12w7z" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/promise/">promise</a></li></ul>
@@ -244,7 +248,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/07/18/防抖和节流/" data-id="ckf7096zi004ybow0mdb2xgop" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/07/18/防抖和节流/" data-id="ckf73t72e002m78w0iv6fffg4" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/精华/">精华</a></li></ul>
@@ -300,7 +304,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/05/25/vue-cli本地代理mock数据/" data-id="ckf7096x40013bow0bhum4f42" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/05/25/vue-cli本地代理mock数据/" data-id="ckf73t71i001i78w0l0rrx6p7" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/devServer/">devServer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/proxy/">proxy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-cli/">vue-cli</a></li></ul>
@@ -362,7 +366,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/05/21/仿网易云音乐遇到的坑/" data-id="ckf7096xg001obow0tp5kpzqs" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/05/21/仿网易云音乐遇到的坑/" data-id="ckf73t722002278w0n3od5viu" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jquery/">jquery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leancloud/">leancloud</a></li></ul>
@@ -484,7 +488,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/04/19/浏览器同源策略与跨域/" data-id="ckf7096xs0029bow0oki6wj6u" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/04/19/浏览器同源策略与跨域/" data-id="ckf73t729002e78w00dp66lwd" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CORS/">CORS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ajax/">ajax</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/同源/">同源</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -593,7 +597,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/04/19/浏览器的http请求过程/" data-id="ckf7096xm0020bow0bz7q9sku" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/04/19/浏览器的http请求过程/" data-id="ckf73t72b002h78w0jtsxhime" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -660,7 +664,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/04/11/认识DOM/" data-id="ckf7096xu002dbow0p5wqwrwu" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/04/11/认识DOM/" data-id="ckf73t72g002p78w0jdd99o7c" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DOM/">DOM</a></li></ul>

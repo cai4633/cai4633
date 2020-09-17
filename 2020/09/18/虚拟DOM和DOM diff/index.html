@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="蔡进东的日志">
 <meta property="og:description" content="虚拟 DOM虚拟 DOM 是什么虚拟 dom 的本质就是一个能代表 dom 树的JS 对象。 它是相对于浏览器所渲染出来的真实 dom 而言的。它包括标签类型、子元素、属性以及事件等。 在虚拟 DOM 技术出现之前，我们要改变页面内容只能通过遍历查询 dom 树的方式找到需要修改的 dom 然后修改 dom 属性或者结构等，来达到更新 ui 的目的。因为每次查询 dom 几乎都需要遍历整颗 dom">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-09-17T17:29:29.981Z">
+<meta property="og:updated_time" content="2020-09-17T17:43:42.440Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚拟 DOM 和 DOM diff">
 <meta name="twitter:description" content="虚拟 DOM虚拟 DOM 是什么虚拟 dom 的本质就是一个能代表 dom 树的JS 对象。 它是相对于浏览器所渲染出来的真实 dom 而言的。它包括标签类型、子元素、属性以及事件等。 在虚拟 DOM 技术出现之前，我们要改变页面内容只能通过遍历查询 dom 树的方式找到需要修改的 dom 然后修改 dom 属性或者结构等，来达到更新 ui 的目的。因为每次查询 dom 几乎都需要遍历整颗 dom">
@@ -112,12 +112,16 @@
 </ol>
 <h2 id="DOM-diff"><a href="#DOM-diff" class="headerlink" title="DOM diff"></a>DOM diff</h2><h3 id="DOM-diff-是什么"><a href="#DOM-diff-是什么" class="headerlink" title="DOM diff 是什么"></a>DOM diff 是什么</h3><p>它的本质是一个函数，类似于<code>patches = patch(newVDom, oldVDom)</code>。其中patches就是需要进行的 dom 操作。diff 算法在执行时有三个维度，分别是<strong>tree diff、component diff 和 element diff，</strong>执行时按层级顺序依次执行，它们的差异仅仅因为 diff 粒度不同、执行先后顺序不同。</p>
 <h3 id="DOM-diff-的优点"><a href="#DOM-diff-的优点" class="headerlink" title="DOM diff 的优点"></a>DOM diff 的优点</h3><p>DOM diff算法会对比 oldNode 与 newNode 的区别，从而<strong>减少不必要的渲染</strong>。</p>
-<h2 id="DOM-diff-的问题"><a href="#DOM-diff-的问题" class="headerlink" title="DOM diff 的问题"></a>DOM diff 的问题</h2><p>DOM diff在同层级对比中有bug。造成页面渲染错误，可以给节点设定唯一的key。从而消除bug。<strong>key只能是number和string类型，一定不要用index作为key值。</strong></p>
+<h3 id="DOM-diff-的问题"><a href="#DOM-diff-的问题" class="headerlink" title="DOM diff 的问题"></a>DOM diff 的问题</h3><p>DOM diff在同层级对比中有bug。造成页面渲染错误。<strong>同一层级的一组节点</strong>可以通过唯一的id进行区分, 所以可以给节点设定唯一的key。从而消除bug。<strong>key只能是number和string类型，一定不要用index作为key值。</strong></p>
+<h3 id="几个使用key的场景"><a href="#几个使用key的场景" class="headerlink" title="几个使用key的场景"></a>几个使用key的场景</h3><ol>
+<li>v-for (vue)</li>
+<li>同一层级有相同标签节点的<strong>transition动画</strong></li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/09/18/虚拟DOM和DOM diff/" data-id="ckf7096xl001xbow0e7nhjn8g" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/09/18/虚拟DOM和DOM diff/" data-id="ckf73t72d002j78w0vyfopdb7" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DOM-diff/">DOM diff</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vDOM/">vDOM</a></li></ul>
