@@ -65,6 +65,82 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-js函数" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/06/js函数/" class="article-date">
+  <time datetime="2020-04-06T09:22:06.000Z" itemprop="datePublished">2020-04-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/js/">js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/06/js函数/">js函数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="/images/js_function.png">
+
+<h2 id="js函数的5种申明方式："><a href="#js函数的5种申明方式：" class="headerlink" title="js函数的5种申明方式："></a>js函数的5种申明方式：</h2><p>函数一定有一个返回值，即使我们申明时没有return,js会自己添加<code>return undefined</code>。</p>
+<ol>
+<li>具名函数<br><code>function add(x,y){return x+y}    //add.name === &#39;add&#39;</code></li>
+<li>具名函数表达式<br><code>let fn = function add(x,y){return x+y}   //fn.name ===&#39;add&#39;</code></li>
+<li>匿名函数表达式<br><code>let fn = function (x,y){return x+y}    //fn.name === &#39;fn&#39;</code></li>
+<li>new Function()<br><code>let fn = new Function(&#39;x&#39;,&#39;y&#39;,&#39;return x+y&#39;)   //fn.name === &#39;anonymous&#39;</code></li>
+<li>ES6箭头函数（只能匿名）<br><code>let fn = (x,y) =&gt; {return x+y}   //fn.name === &#39;fn&#39;</code></li>
+</ol>
+<p>方法1和方法2申明的区别：</p>
+<ol>
+<li>方法1<code>变量add</code>有申明提升的效果而方法2中<code>变量add</code>不会变量提升。</li>
+<li>方法1中<code>add()</code>在add函数内部和外部都可以被调用，但方法2中<code>add()</code>只能在add函数内部被调用。</li>
+</ol>
+<h2 id="函数的调用"><a href="#函数的调用" class="headerlink" title="函数的调用"></a>函数的调用</h2><ol>
+<li><code>fn(param1,param2)</code></li>
+<li><code>obj.fn()</code></li>
+<li><code>fn.call(undefined/null,param1,param2)</code></li>
+<li><code>fn.apply(thisArg, [argsArray])</code></li>
+</ol>
+<h2 id="this和arguments"><a href="#this和arguments" class="headerlink" title="this和arguments"></a>this和arguments</h2><p><code>函数调用：fn.call(this,arg1,arg2,...)</code><br>其中，<code>this</code>就是第一个参数；<code>arguments</code>是除第一个参数外其他参数组成的的伪数组。</p>
+<h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><p><code>this</code>设计目的就是在函数体内部，指代函数当前的<em>运行环境</em>。<code>this</code>在<strong>函数调用</strong>时才被确定。它的本质是fn.call(context,arg)传入的第一个参数，一般来说<code>传入的context</code>是个对象。非严格模式下，当传入undefined/null时，this指代window全局对象；严格模式下(“use strict”),传入undefined/null或者任何数据类型，this值都直接指代传入的值。实现的结果如下：</p>
+<ol>
+<li><code>fn(param1,param2)</code> this指向window</li>
+<li><code>obj.fn()</code> this指向obj（通过对象方法调用时，this指向最后调用函数的对象）</li>
+<li>箭头函数内部this跟函数外部this一致，箭头函数没有arguments变量</li>
+<li><code>new fn()</code>中的this指向被创建的新对象本身</li>
+</ol>
+<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>作用域就是js<strong>变量的可访问范围</strong>，它决定了变量的可见性和生命周期。函数在<strong>定义时</strong>，就已经决定了它的作用域。作用域分为全局作用域、局部（函数）作用域和块级作用域（let/const)。作用域可以嵌套，嵌套内部作用域可以访问嵌套外部的变量，这样就形成了<strong>作用域链</strong>。
+作用域链是<strong>变量</strong>的可访问范围。<br>原型链是<strong>对象属性</strong>的可访问范围。</p>
+<h3 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h3><p>作用域在<strong>函数定义时</strong>就已经确定。但是此时确定的只是<strong>变量的可访问范围</strong>，变量的<strong>值并不会确定不变</strong>，所以<strong>函数调用时变量的值由调用时决定</strong>。</p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p><strong>函数和lexical environment词法环境（包括作用域链）</strong>捆绑在一起构成闭包（closure）。也就是说，闭包可以让你从内部函数访问外部函数作用域。在 JavaScript 中，每当函数被创建，就会在函数生成时生成闭包。所以，我们看到有人说一个函数return一个函数就是闭包的说法是错误的，这只是在利用闭包而已。我们<strong>在返回一个函数的同时也返回了这个函数的词法环境（作用域链）</strong>，这样我们就可以在函数外部访问到函数内部的变量了。</p>
+<h2 id="callStack"><a href="#callStack" class="headerlink" title="callStack"></a>callStack</h2><p>js函数调用时会被压入callstack中，标记好，等待函数执行完成(return;)时，会再把函数弹出callstack中。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/04/06/js函数/" data-id="ckf7096x8001abow0jlae8ckj" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/function/">function</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
     <article id="post-js数组" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/04/05/js数组/" class="article-date">
@@ -129,7 +205,7 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/04/05/js数组/" data-id="ckdzx7haa0016bww06wjoh6th" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/04/05/js数组/" data-id="ckf7096wx000rbow0z07uae16" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -198,7 +274,7 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/29/js全局对象和原型链/" data-id="ckdzx7h9u0010bww0eyjsasm6" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/03/29/js全局对象和原型链/" data-id="ckf7096x30011bow05gn3fvtj" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原型链/">原型链</a></li></ul>
@@ -307,7 +383,7 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/28/js数据类型/" data-id="ckdzx7haa001cbww0bddxgu1w" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/03/28/js数据类型/" data-id="ckf7096wn000cbow09tuvtnga" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -414,7 +490,7 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/15/算法和数据结构入门/" data-id="ckdzx7hbl002nbww0407t0puy" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/03/15/算法和数据结构入门/" data-id="ckf7096xq0026bow00epnbeug" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -506,7 +582,7 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/13/HTML入门/" data-id="ckdzx7h9f000ebww05r7pegob" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/03/13/HTML入门/" data-id="ckf7096w80000bow01idcln5y" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/">html</a></li></ul>
@@ -604,7 +680,7 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/07/http入门/" data-id="ckdzx7h9u000ybww0ev83zvns" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/03/07/http入门/" data-id="ckf7096wz000ubow01lj0l3ox" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li></ul>
@@ -679,138 +755,10 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/05/git和github的使用/" data-id="ckdzx7h9f000obww0rivo1f6m" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/03/05/git和github的使用/" data-id="ckf7096wp000fbow0eqx9qw6h" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
-
-    </footer>
-  </div>
-  <!---->
-</article>
-
-
-  
-    <article id="post-工欲善其事必先利其器" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/03/02/工欲善其事必先利其器/" class="article-date">
-  <time datetime="2020-03-01T17:40:09.000Z" itemprop="datePublished">2020-03-02</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端/">前端</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/02/工欲善其事必先利其器/">工欲善其事必先利其器</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天把在前端开发中常用到的工具汇总一下，并附上下载和使用说明地址以供日后查阅。</p>
-<table>
-<thead>
-<tr>
-<th align="center">软件名称</th>
-<th align="center">用途</th>
-<th align="center">下载地址</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">ld</td>
-<td align="center">fq(愉快的上网)</td>
-<td align="center"><a href="https://getlantern.org/zh_CN/index.html" target="_blank" rel="noopener">地址</a></td>
-</tr>
-<tr>
-<td align="center">colorpix</td>
-<td align="center">取色器</td>
-<td align="center"><a href="https://colorpix.en.softonic.com/" target="_blank" rel="noopener">地址</a></td>
-</tr>
-<tr>
-<td align="center">VSCode</td>
-<td align="center">代码编辑器</td>
-<td align="center"><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">地址</a></td>
-</tr>
-<tr>
-<td align="center">sublime3</td>
-<td align="center">代码编辑器</td>
-<td align="center"><a href="https://www.sublimetext.com/" target="_blank" rel="noopener">地址</a></td>
-</tr>
-<tr>
-<td align="center">Node.js/npm</td>
-<td align="center">node环境</td>
-<td align="center"><a href="https://nodejs.org/en/" target="_blank" rel="noopener">地址</a></td>
-</tr>
-<tr>
-<td align="center">git</td>
-<td align="center">代码管理工具</td>
-<td align="center"><a href="https://git-scm.com/downloads" target="_blank" rel="noopener">地址</a></td>
-</tr>
-</tbody></table>
-<p>上面这些软件都打包到百度云备份。</p>
-<h2 id="ld"><a href="#ld" class="headerlink" title="ld"></a>ld</h2><p>ld免费版有流量限制，<a href="https://github.com/YoulianBoshi/lantern-vpn" target="_blank" rel="noopener">破j方法在此</a>，破j后可以无视流量。也可手动更改mac地址，win7 mac地址必须更改为2A开头蔡才有效（切记备份初始mac）。</p>
-<h2 id="node-js"><a href="#node-js" class="headerlink" title="node.js"></a>node.js</h2><p>node.js安装完成后，在CMD或者Git Bash中使用。<br>node.js安装后自带npm。npm是包管理工具，常见用法可见<a href="/2019/10/30/npm常用的命令">自己总结的文章</a>。</p>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>npm 的配置被存储在 ~/.npmrc。打开 Git Bash，依次输入以下命令，按回车：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry https://registry.npm.taobao.org/</span><br><span class="line">npm config set loglevel http</span><br><span class="line">npm config set progress false</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>进入：在git bash中输入node，回车，就可以进入 node 运行环境，此时就可以写 JS 了。<br>退出：ctrl+D 退出           ctrl+C 中断</p>
-<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>git bash是一套linux虚拟环境，内置linux命令和git命令。它是比cmd更好用的命令行工具。<br>git bash安装后也需要配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name xxx #设置username</span><br><span class="line">git config --global user.email xxx #设置邮箱</span><br><span class="line">git config --global push.default simple # </span><br><span class="line">git config --global core.quotepath false #防止文件名变成数字</span><br><span class="line">git config --global core.editor &quot;vim&quot; # 使用vim编辑提交信息</span><br></pre></td></tr></table></figure>
-
-<h3 id="git小白专用命令："><a href="#git小白专用命令：" class="headerlink" title="git小白专用命令："></a>git小白专用命令：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add</span><br><span class="line">git commit</span><br><span class="line">git pull</span><br><span class="line">git push (origin master)</span><br><span class="line">git clone</span><br><span class="line">git status [-sb]</span><br></pre></td></tr></table></figure>
-
-<p>关于git的使用方法请移步：<a href="https://www.liaoxuefeng.com/wiki/896043488029600" target="_blank" rel="noopener">廖雪峰的Git教程</a></p>
-<h2 id="git-bash命令行"><a href="#git-bash命令行" class="headerlink" title="git bash命令行"></a>git bash命令行</h2><p>以’/‘开头的路径就是绝对路径，它是文件的完整路径。<br>不以’/‘开头的路径就是相对路径。</p>
-<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><ol>
-<li>cd ~/desktop   #改变文件夹</li>
-<li>mkdir [directory] #添加文件夹</li>
-<li>touch [filename]/ echo [content] &gt; [filename] #添加文件</li>
-<li>vi [filename] 使用vim编辑文件</li>
-<li>open/start [filename] 打开/执行文件</li>
-<li>mv [filename1] [filename2] 移动或重命名文件</li>
-<li>cp [filename1] [path] 复制文件</li>
-<li>rm [-rf] [filename] 删除文件或者文件夹</li>
-<li>ls -l  显示文件详细信息</li>
-<li>chmod +x [filename] 使文件可执行</li>
-</ol>
-<h3 id="bashrc文件"><a href="#bashrc文件" class="headerlink" title="~/.bashrc文件"></a>~/.bashrc文件</h3><ol>
-<li><p>git bash 启动时会优先自动.bashrc文件中命令，所以可以自定义一些自启动命令。</p>
-</li>
-<li><p>bashrc文件中可以起别名：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias la=&apos;ls -a&apos;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>可以设置一些环境变量和系统PATH值<br>在bash中，可执行的文件就是命令，如sh，cp，mkdir,mv等，不可执行的文件就是配置。</p>
-</li>
-<li><p>可以直接使用[demo.sh]来执行命令，此时必须将demo.sh的pwd添加到$PATH中。</p>
-</li>
-<li><p>使用[sh demo.sh]执行命令，bash会在当前目录中查找文件，未查到目标就在$PATH中查找。</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export SASS_BINARY_SITE=&quot;https://npm.taobao.org/mirrors/node-sass&quot;</span><br><span class="line">export PATH=&quot;目录的绝对路径:$PATH&quot;  # 添加绝对路径到系统PATH中</span><br></pre></td></tr></table></figure>
-
-<p>2个好用的命令行网站：</p>
-<ol>
-<li><a href="https://explainshell.com/" target="_blank" rel="noopener">explainshell</a></li>
-<li><a href="https://github.com/tldr-pages/tldr" target="_blank" rel="noopener">tldr</a></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/02/工欲善其事必先利其器/" data-id="ckdzx7hb50025bww00olua1ta" class="article-share-link">Share</a>-->
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/软件下载/">软件下载</a></li></ul>
 
     </footer>
   </div>
@@ -844,7 +792,7 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFC/">BFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CORS/">CORS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/absolute/">absolute</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ajax/">ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/background/">background</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devServer/">devServer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/host-Apache-vHost/">host Apache vHost</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leancloud/">leancloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/position/">position</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/promise/">promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proxy/">proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/script标签/">script标签</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-if/">v-if</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-show/">v-show</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-cli/">vue-cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuec/">vuec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue生命周期/">vue生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/width/">width</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/z-index/">z-index</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原型链/">原型链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同源/">同源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外边距/">外边距</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/层叠上下文/">层叠上下文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/百分比/">百分比</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/精华/">精华</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件下载/">软件下载</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFC/">BFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CORS/">CORS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM-diff/">DOM diff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/absolute/">absolute</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ajax/">ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/background/">background</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devServer/">devServer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/host-Apache-vHost/">host Apache vHost</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leancloud/">leancloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/position/">position</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/promise/">promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proxy/">proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/script标签/">script标签</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-if/">v-if</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-show/">v-show</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vDOM/">vDOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-cli/">vue-cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuec/">vuec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue生命周期/">vue生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/width/">width</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/z-index/">z-index</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原型链/">原型链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同源/">同源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外边距/">外边距</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/层叠上下文/">层叠上下文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/百分比/">百分比</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/精华/">精华</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件下载/">软件下载</a></li></ul>
     </div>
   </div>
 
@@ -854,7 +802,7 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/BFC/" style="font-size: 10px;">BFC</a> <a href="/tags/CORS/" style="font-size: 10px;">CORS</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/JSONP/" style="font-size: 10px;">JSONP</a> <a href="/tags/absolute/" style="font-size: 10px;">absolute</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/background/" style="font-size: 10px;">background</a> <a href="/tags/devServer/" style="font-size: 10px;">devServer</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/host-Apache-vHost/" style="font-size: 10px;">host Apache vHost</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/http/" style="font-size: 15px;">http</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/leancloud/" style="font-size: 10px;">leancloud</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/position/" style="font-size: 10px;">position</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/proxy/" style="font-size: 10px;">proxy</a> <a href="/tags/script标签/" style="font-size: 10px;">script标签</a> <a href="/tags/v-if/" style="font-size: 10px;">v-if</a> <a href="/tags/v-show/" style="font-size: 10px;">v-show</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/vue-cli/" style="font-size: 10px;">vue-cli</a> <a href="/tags/vuec/" style="font-size: 10px;">vuec</a> <a href="/tags/vue生命周期/" style="font-size: 10px;">vue生命周期</a> <a href="/tags/width/" style="font-size: 10px;">width</a> <a href="/tags/z-index/" style="font-size: 10px;">z-index</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/同源/" style="font-size: 10px;">同源</a> <a href="/tags/外边距/" style="font-size: 10px;">外边距</a> <a href="/tags/层叠上下文/" style="font-size: 10px;">层叠上下文</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/百分比/" style="font-size: 10px;">百分比</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/精华/" style="font-size: 10px;">精华</a> <a href="/tags/软件下载/" style="font-size: 10px;">软件下载</a>
+      <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/BFC/" style="font-size: 10px;">BFC</a> <a href="/tags/CORS/" style="font-size: 10px;">CORS</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/DOM-diff/" style="font-size: 10px;">DOM diff</a> <a href="/tags/JSONP/" style="font-size: 10px;">JSONP</a> <a href="/tags/absolute/" style="font-size: 10px;">absolute</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/background/" style="font-size: 10px;">background</a> <a href="/tags/devServer/" style="font-size: 10px;">devServer</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/host-Apache-vHost/" style="font-size: 10px;">host Apache vHost</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/http/" style="font-size: 15px;">http</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/leancloud/" style="font-size: 10px;">leancloud</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/position/" style="font-size: 10px;">position</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/proxy/" style="font-size: 10px;">proxy</a> <a href="/tags/script标签/" style="font-size: 10px;">script标签</a> <a href="/tags/v-if/" style="font-size: 10px;">v-if</a> <a href="/tags/v-show/" style="font-size: 10px;">v-show</a> <a href="/tags/vDOM/" style="font-size: 10px;">vDOM</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/vue-cli/" style="font-size: 10px;">vue-cli</a> <a href="/tags/vuec/" style="font-size: 10px;">vuec</a> <a href="/tags/vue生命周期/" style="font-size: 10px;">vue生命周期</a> <a href="/tags/width/" style="font-size: 10px;">width</a> <a href="/tags/z-index/" style="font-size: 10px;">z-index</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/同源/" style="font-size: 10px;">同源</a> <a href="/tags/外边距/" style="font-size: 10px;">外边距</a> <a href="/tags/层叠上下文/" style="font-size: 10px;">层叠上下文</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/百分比/" style="font-size: 10px;">百分比</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/精华/" style="font-size: 10px;">精华</a> <a href="/tags/软件下载/" style="font-size: 10px;">软件下载</a>
     </div>
   </div>
 
@@ -863,7 +811,7 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
     </div>
   </div>
 
@@ -876,7 +824,11 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
       <ul>
         
           <li>
-            <a href="/2020/08/18/搞一r’一篇文章搞懂promise/">一篇文章搞懂promise</a>
+            <a href="/2020/09/18/虚拟DOM和DOM diff/">虚拟 DOM 和 DOM diff</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/18/一篇文章搞懂promise/">一篇文章搞懂promise</a>
           </li>
         
           <li>
@@ -889,10 +841,6 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
         
           <li>
             <a href="/2020/05/21/仿网易云音乐遇到的坑/">仿网易云音乐遇到的坑</a>
-          </li>
-        
-          <li>
-            <a href="/2020/04/19/浏览器同源策略与跨域/">浏览器同源策略与跨域</a>
           </li>
         
       </ul>
