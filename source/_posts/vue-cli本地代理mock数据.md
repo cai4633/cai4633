@@ -46,7 +46,7 @@ devServer: {
         before(app) {
             app.get("/api/getSongs", function(req, res) {
                 var url = "http://www.baidu.com"
-                axios.get(url).then((response) => { res.json(response) }) .catch((e) => { console.log(e) }) })
+                axios.get(url).then((response) => { res.json(response.data) }) .catch((e) => { console.log(e) }) })
         },
     },
 ```
@@ -83,7 +83,7 @@ module.exports = {
                 axios
                     .get(url)
                     .then((response) => {
-                        res.json(response)
+                        res.json(response.data)
                     })
                     .catch((e) => {
                         console.log(e)
@@ -108,3 +108,15 @@ module.exports = {
 
 ```
 
+###  nodejs使用res.json()返回响应时，如果直接传入`response`变量会引起循环引用报错,只传入`response.data`就不会出现报错了。
+```
+TypeError: Converting circular structure to JSON
+    --> starting at object with constructor 'ClientRequest'
+    |     property 'socket' -> object with constructor 'Socket'
+    --- property '_httpMessage' closes the circle
+    at JSON.stringify (<anonymous>)
+    at stringify (...\node_modules\express\lib\response.js:1123:12)
+    at ServerResponse.json (...\node_modules\express\lib\response.js:260:14)
+    at ...\vue.config.js:37:41
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+```
