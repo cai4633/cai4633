@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>http入门 | 蔡进东的日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在之前的一段时间的里我着重去学习了html,css,js以及vue等应用类知识点，而忽略了http的学习，导致遇到问题有些力不从心，无法洞悉问题的本质，所以这几天重新学习了一下http。 www（world wide web）http出现之前，人们主要通过emailh和ftp的方式来上网交流。1980-1990年间，http和gopher等方案被提出，后来http以其易用性胜出。1990年，Tim">
+<meta name="keywords" content="http">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http入门">
+<meta property="og:url" content="http://cai4633.github.io/2020/03/07/http入门/index.html">
+<meta property="og:site_name" content="蔡进东的日志">
+<meta property="og:description" content="在之前的一段时间的里我着重去学习了html,css,js以及vue等应用类知识点，而忽略了http的学习，导致遇到问题有些力不从心，无法洞悉问题的本质，所以这几天重新学习了一下http。 www（world wide web）http出现之前，人们主要通过emailh和ftp的方式来上网交流。1980-1990年间，http和gopher等方案被提出，后来http以其易用性胜出。1990年，Tim">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://cai4633.github.io/images/url.png">
+<meta property="og:image" content="http://cai4633.github.io/images/request.png">
+<meta property="og:image" content="http://cai4633.github.io/images/response.png">
+<meta property="og:updated_time" content="2020-05-21T04:01:39.401Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="http入门">
+<meta name="twitter:description" content="在之前的一段时间的里我着重去学习了html,css,js以及vue等应用类知识点，而忽略了http的学习，导致遇到问题有些力不从心，无法洞悉问题的本质，所以这几天重新学习了一下http。 www（world wide web）http出现之前，人们主要通过emailh和ftp的方式来上网交流。1980-1990年间，http和gopher等方案被提出，后来http以其易用性胜出。1990年，Tim">
+<meta name="twitter:image" content="http://cai4633.github.io/images/url.png">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">蔡进东的日志</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">不要在最该奋斗的年纪选择去偷懒，只有度过一段连自己都被感动了的日子，才能变成那个最好的自己.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <!--<a id="nav-search-btn" class="nav-icon" title="搜索"></a>-->
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cai4633.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-http入门" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/07/http入门/" class="article-date">
+  <time datetime="2020-03-06T17:08:51.000Z" itemprop="datePublished">2020-03-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      http入门
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在之前的一段时间的里我着重去学习了html,css,js以及vue等应用类知识点，而忽略了http的学习，导致遇到问题有些力不从心，无法洞悉问题的本质，所以这几天重新学习了一下http。</p>
+<h2 id="www（world-wide-web）"><a href="#www（world-wide-web）" class="headerlink" title="www（world wide web）"></a>www（world wide web）</h2><p>http出现之前，人们主要通过emailh和ftp的方式来上网交流。1980-1990年间，http和gopher等方案被提出，后来http以其易用性胜出。1990年，Tim Berners-Lee（李爵士）发明了www，主要包括三个概念：<strong>URI,HTTP和HTML</strong></p>
+<h2 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h2><p>URI（uniform resource identity）通用资源标识符包括URN（uniform resource name)和URL(uniform resource location)。<br>通过URN可以确定唯一的资源，URL可以确定唯一的地址。</p>
+<h3 id="URL的组成"><a href="#URL的组成" class="headerlink" title="URL的组成"></a>URL的组成</h3><p>URL通常由协议、主机、端口、路径、查询参数以及锚点等组成。<br><img src="/images/url.png" alt="url结构"><br><code>protocol :// hostname[:port] / path / [parameters][?query]#fragment</code><br><strong>协议</strong>：http，https，[ftp，mailto，ed2k，file:///]<br><strong>主机</strong>： `.com 一级域名（顶级域名）  baidu.com 二级域名  <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> 三级域名<br><strong>端口</strong>：对应服务器端口。每个端口的分配功能不同。（默认端口80）</p>
+<table>
+<thead>
+<tr>
+<th align="center">端口</th>
+<th align="center">分配功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">21</td>
+<td align="center">ftp</td>
+</tr>
+<tr>
+<td align="center">53</td>
+<td align="center">DNS</td>
+</tr>
+<tr>
+<td align="center">80</td>
+<td align="center"><strong>http</strong></td>
+</tr>
+<tr>
+<td align="center">443</td>
+<td align="center"><strong>https</strong></td>
+</tr>
+<tr>
+<td align="center">1080</td>
+<td align="center">代理端口</td>
+</tr>
+</tbody></table>
+<p><strong>路径</strong>：以‘/’开头的路径，不同于文件系统的路径，它决定于后端的路由。<br><strong>查询参数</strong>：请求或查询的键值对<br><strong>锚点</strong>：这个部分不会发送给后端，它根据前端页面元素id值来跳转。</p>
+<h3 id="DNS（domain-name-system-域名系统"><a href="#DNS（domain-name-system-域名系统" class="headerlink" title="DNS（domain name system)域名系统"></a>DNS（domain name system)域名系统</h3><p>我们访问网页，最终都是在访问域名对应<strong>IP地址</strong>的服务器。浏览器中的域名会先在电脑中的<strong>HOST文件</strong>(vi /etc/hosts)中寻找对应的IP，如果找不到就会去电信公司的DNS系统中寻找。很多大公司会有多台服务器，这样同一个域名可能对应多个IP，DNS系统会根据就近原则返回给我们对应的服务器。<br>查询ip：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nslookup &lt;域名&gt;</span><br><span class="line">ping &lt;域名&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="http"><a href="#http" class="headerlink" title="http"></a>http</h2><p>互联网中包含客户端和服务器。我们在浏览器中上网实际上是：client发送请求→server接受请求→server发送响应→client接收并下载响应。<br><strong>bash访问url:</strong>  <code>curl [-X &lt;get/post/put/patch/delete&gt;] [-d &quot;12345&quot;] -s -v [-H &quot;a:b&quot;] -- &lt;url&gt;</code></p>
+<h3 id="http请求格式"><a href="#http请求格式" class="headerlink" title="http请求格式"></a>http请求格式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">part1 动词 路径 协议/版本</span><br><span class="line">part2 Key1: value1</span><br><span class="line">part2 Key2: value2</span><br><span class="line">part2 Key3: value3</span><br><span class="line">part2 Content-Type: application/x-www-form-urlencoded</span><br><span class="line">part2 Host: www.baidu.com</span><br><span class="line">part2 User-Agent: curl/7.54.0</span><br><span class="line">part3 </span><br><span class="line">part4 要上传的数据</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>请求最多包含四部分，最少包含三部分。（第四部分可以为空）</li>
+<li>第一部分请求动词包括 GET（获取/查询） POST(上传) PUT(整体更新) PATCH(局部更新) DELETE(删除) HEAD OPTIONS 等</li>
+<li>第一部分的路径包括「查询参数」，但不包括「锚点」（注意区别于url路径）。如果你没有写路径，那么路径默认为 ‘/’</li>
+<li>第二部分中的 Content-Type 标注了第 4 部分的格式，第二部分都是key-values。</li>
+<li>第三部分永远都是一个回车（\n）。</li>
+<li>第四部分是要上传的数据，可以为空。如果上传的数据是汉字，那它会被解析为以“%”分隔的三字节的unicode。</li>
+</ol>
+<p><img src="/images/request.png" alt="http请求示例"></p>
+<h3 id="http响应格式"><a href="#http响应格式" class="headerlink" title="http响应格式"></a>http响应格式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">part1 协议/版本号 状态码 状态解释</span><br><span class="line">part2 Key1: value1</span><br><span class="line">part2 Key2: value2</span><br><span class="line">part2 Content-Length: 17931</span><br><span class="line">part2 Content-Type: text/html</span><br><span class="line">part3</span><br><span class="line">part4 要下载的内容</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>第一部分的状态码是服务器对浏览器说的话。<br>1xx 不常用<br>2xx 表示请求成功  （200 成功 204 创建成功）<br>3xx（301 网页永久移走 302 网页暂时移走   304 响应内容与上次一样）<br>4xx 表示客户端请求出错,一般是404<br>5xx 表示服务器出错</li>
+<li>第二部分中的 Content-Type 标注了第 4 部分的格式，Content-Type 遵循 MIME 规范。</li>
+<li>第三部分永远都是一个回车（\n）。</li>
+<li>第四部分是要下载的数据。<br><img src="/images/response.png" alt="http响应示例"></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/03/07/http入门/" data-id="ckj2rjur5000gtkw0xow3pc1s" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+    <!--
+<nav id="article-nav">
+  
+    <a href="/2020/03/13/HTML入门/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          HTML入门
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/05/git和github的使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">git和github的使用</div>
+    </a>
+  
+</nav>
+-->
+  <!---->
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ES6/">ES6</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/VUe/">VUe</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/http/">http</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端项目/">前端项目</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFC/">BFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CORS/">CORS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM-diff/">DOM diff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue3/">Vue3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/absolute/">absolute</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ajax/">ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/background/">background</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/const/">const</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devServer/">devServer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/host-Apache-vHost/">host Apache vHost</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leancloud/">leancloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/let/">let</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/position/">position</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/promise/">promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proxy/">proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/script标签/">script标签</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-if/">v-if</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-show/">v-show</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vDOM/">vDOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-cli/">vue-cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuec/">vuec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue生命周期/">vue生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/width/">width</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/z-index/">z-index</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原型链/">原型链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同源/">同源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外边距/">外边距</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/层叠上下文/">层叠上下文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/百分比/">百分比</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/精华/">精华</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件下载/">软件下载</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/BFC/" style="font-size: 10px;">BFC</a> <a href="/tags/CORS/" style="font-size: 10px;">CORS</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/DOM-diff/" style="font-size: 10px;">DOM diff</a> <a href="/tags/JSONP/" style="font-size: 10px;">JSONP</a> <a href="/tags/Vue3/" style="font-size: 10px;">Vue3</a> <a href="/tags/absolute/" style="font-size: 10px;">absolute</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/background/" style="font-size: 10px;">background</a> <a href="/tags/const/" style="font-size: 10px;">const</a> <a href="/tags/devServer/" style="font-size: 10px;">devServer</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/host-Apache-vHost/" style="font-size: 10px;">host Apache vHost</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/http/" style="font-size: 15px;">http</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/leancloud/" style="font-size: 10px;">leancloud</a> <a href="/tags/let/" style="font-size: 10px;">let</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/position/" style="font-size: 10px;">position</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/proxy/" style="font-size: 10px;">proxy</a> <a href="/tags/script标签/" style="font-size: 10px;">script标签</a> <a href="/tags/v-if/" style="font-size: 10px;">v-if</a> <a href="/tags/v-show/" style="font-size: 10px;">v-show</a> <a href="/tags/vDOM/" style="font-size: 10px;">vDOM</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/vue-cli/" style="font-size: 10px;">vue-cli</a> <a href="/tags/vuec/" style="font-size: 10px;">vuec</a> <a href="/tags/vue生命周期/" style="font-size: 10px;">vue生命周期</a> <a href="/tags/width/" style="font-size: 10px;">width</a> <a href="/tags/z-index/" style="font-size: 10px;">z-index</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/同源/" style="font-size: 10px;">同源</a> <a href="/tags/外边距/" style="font-size: 10px;">外边距</a> <a href="/tags/层叠上下文/" style="font-size: 10px;">层叠上下文</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/百分比/" style="font-size: 10px;">百分比</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/精华/" style="font-size: 10px;">精华</a> <a href="/tags/软件下载/" style="font-size: 10px;">软件下载</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/24/造轮子遇到的问题/">造轮子遇到的问题</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/ES6-常用知识点/">ES6 常用知识点</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/var-let-和-const-的区别/">var 、 let 和 const</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/24/在线记账项目遇到的问题/">在线记账项目遇到的问题</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/18/虚拟DOM和DOM diff/">虚拟 DOM 和 DOM diff</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 <a href="http://github.com/cai4633/cai4633.github.io" target="_blank">Cai4633</a><br>
+      <!--Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>-->
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
