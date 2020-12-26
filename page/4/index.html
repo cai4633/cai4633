@@ -65,6 +65,68 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-inline和inline-block的区别" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/23/inline和inline-block的区别/" class="article-date">
+  <time datetime="2020-02-22T19:46:56.000Z" itemprop="datePublished">2020-02-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/23/inline和inline-block的区别/">inline、inline-block和block元素的区别</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>常见的元素有block块元素,inline内联元素和inline-block元素。</p>
+<h2 id="block元素特点"><a href="#block元素特点" class="headerlink" title="block元素特点"></a>block元素特点</h2><ol>
+<li>宽度默认auto,<strong>block元素width:auto时，宽度会尽可能宽。</strong>（默认填满父元素）,单个block元素独占一行，<strong>即使宽度设为0px</strong>。</li>
+<li>宽度和高度可以设置。</li>
+<li>padding、margin、border都可以设置。</li>
+<li>内部可以嵌套block、inline和inline-block等各种元素。</li>
+</ol>
+<h2 id="inline元素的特点"><a href="#inline元素的特点" class="headerlink" title="inline元素的特点"></a>inline元素的特点</h2><ol>
+<li>不会独占一行，多个inline元素可以占据同一行，直到宽度超过父元素才会另一行。</li>
+<li>宽度和高度不可以设置，默认为auto，由内容宽高决定，具有包裹性。</li>
+<li><strong>padding、margin和border在水平方向上可以设置，垂直方向上（padding-top|padding-bottom|margin-top |margin-bottom|border-top|border-bottom）设置无效</strong>。border-top和border-bottom即使在视觉上有效果，但实际上布局上不起作用。 </li>
+<li>inline元素内部理论上不可以嵌套block元素</li>
+</ol>
+<iframe src="/pages/demo4" width="100%" height="400px" frameborder="0" allowfullscreen></iframe>
+
+<h2 id="inline-block元素特点"><a href="#inline-block元素特点" class="headerlink" title="inline-block元素特点"></a>inline-block元素特点</h2><p>inline-block同时具备inline和block元素的特点。</p>
+<ol>
+<li>不独占一行</li>
+<li>宽高可以设置，当宽高设为auto时又具备包裹性</li>
+<li>padding、margin、border都可以设置</li>
+<li>内部理论上不可以嵌套block元素</li>
+</ol>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ol>
+<li>inline和inline-block元素<strong>第三条</strong>特点的差别很容易让人忽略。</li>
+<li>inline元素由于内容而自动换行后，会导致border破裂。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/02/23/inline和inline-block的区别/" data-id="ckj5qcrlt000u2sw0iaz78xzm" class="article-share-link">Share</a>-->
+      
+      
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
     <article id="post-width百分比小结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/22/width百分比小结/" class="article-date">
@@ -130,7 +192,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/02/22/width百分比小结/" data-id="ckj2rjus0001ptkw0m8907nrb" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/02/22/width百分比小结/" data-id="ckj5qcrmb001v2sw0u77kn7sd" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/auto/">auto</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/width/">width</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/百分比/">百分比</a></li></ul>
@@ -178,7 +240,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2019/11/02/vue中computed属性的理解/" data-id="ckj2rjurl001ftkw0hg6n2ahx" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2019/11/02/vue中computed属性的理解/" data-id="ckj5qcrm6001m2sw0eeve1at2" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue生命周期/">vue生命周期</a></li></ul>
@@ -239,7 +301,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2019/10/30/npm常用的命令/" data-id="ckj2rjurl0012tkw0ps60cfge" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2019/10/30/npm常用的命令/" data-id="ckj5qcrly00152sw0tspynslo" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/">npm</a></li></ul>
@@ -322,7 +384,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2019/10/26/host文件的作用和用法/" data-id="ckj2rjur5000atkw0758wamto" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2019/10/26/host文件的作用和用法/" data-id="ckj5qcrlo000l2sw0tx8fe2ai" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/host-Apache-vHost/">host Apache vHost</a></li></ul>
@@ -368,7 +430,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2019/10/25/Promise的理解/" data-id="ckj2rjur50004tkw050f1in89" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2019/10/25/Promise的理解/" data-id="ckj5qcrlg000c2sw0uere8cez" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -433,7 +495,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2019/10/24/hexo的使用/" data-id="ckj2rjur5000dtkw0d4ob9ohv" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2019/10/24/hexo的使用/" data-id="ckj5qcrll000i2sw044t0k211" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
@@ -528,60 +590,10 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2019/10/21/vue和vuec的安装和使用/" data-id="ckj2rjus0001mtkw0cq0fou0o" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2019/10/21/vue和vuec的安装和使用/" data-id="ckj5qcrm8001p2sw0pyf1mtd4" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vuec/">vuec</a></li></ul>
-
-    </footer>
-  </div>
-  <!---->
-</article>
-
-
-  
-    <article id="post-html中script引用多个js文件的执行问题" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/10/14/html中script引用多个js文件的执行问题/" class="article-date">
-  <time datetime="2019-10-14T14:22:51.000Z" itemprop="datePublished">2019-10-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/js/">js</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/14/html中script引用多个js文件的执行问题/">html中script标签引用多个js文件的执行问题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><code>&lt;script&gt;</code>标签可以实现多个js文件的同步引用。如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"one.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"two.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"three.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol>
-<li><strong>js文件按顺序加载，执行</strong>；</li>
-<li><strong>各个js文件中的全局变量和全局函数可以被其他js文件调用</strong>；</li>
-<li><strong>较早执行的js文件不能调用较晚加载的js文件中的变量和函数。例如：”two.js”不能调用”three.js”中的变量和函数；</strong></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2019/10/14/html中script引用多个js文件的执行问题/" data-id="ckj2rjur5000jtkw07y28vzvi" class="article-share-link">Share</a>-->
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/script标签/">script标签</a></li></ul>
 
     </footer>
   </div>
@@ -647,6 +659,10 @@
       <ul>
         
           <li>
+            <a href="/2020/12/26/逸辰音乐问题点/">逸辰音乐问题点</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/24/造轮子遇到的问题/">造轮子遇到的问题</a>
           </li>
         
@@ -660,10 +676,6 @@
         
           <li>
             <a href="/2020/09/24/在线记账项目遇到的问题/">在线记账项目遇到的问题</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/18/虚拟DOM和DOM diff/">虚拟 DOM 和 DOM diff</a>
           </li>
         
       </ul>

@@ -5,18 +5,21 @@
   
 
   
-  <title>Category: 前端 | 蔡进东的日志</title>
+  <title>逸辰音乐问题点 | 蔡进东的日志</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="不要在最该奋斗的年纪去偷懒!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="蔡进东的日志">
-<meta property="og:url" content="http://cai4633.github.io/categories/前端/page/2/index.html">
+  <meta name="description" content="今天在重构自己的项目时，发现了不少问题。总结归纳一下， 以便提高自己。 一、在vue 项目现有的 stylus代码中添加新的样式无效在重构旧项目的过程中，我需要在现有stylus样式中添加一些css。但是在添加css后，发现新样式不仅没有生效，反而会影响原有的样式。绞尽脑汁，最后发现是stylus缩进的格式有问题。stylus写法有很多种，常见的写法有 {} 或者缩进。当使用缩进写法时，空格和ta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逸辰音乐问题点">
+<meta property="og:url" content="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/index.html">
 <meta property="og:site_name" content="蔡进东的日志">
-<meta property="og:description" content="不要在最该奋斗的年纪去偷懒!">
+<meta property="og:description" content="今天在重构自己的项目时，发现了不少问题。总结归纳一下， 以便提高自己。 一、在vue 项目现有的 stylus代码中添加新的样式无效在重构旧项目的过程中，我需要在现有stylus样式中添加一些css。但是在添加css后，发现新样式不仅没有生效，反而会影响原有的样式。绞尽脑汁，最后发现是stylus缩进的格式有问题。stylus写法有很多种，常见的写法有 {} 或者缩进。当使用缩进写法时，空格和ta">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/images/stylus_bug_reason.png">
+<meta property="og:updated_time" content="2020-12-26T13:17:10.709Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="蔡进东的日志">
-<meta name="twitter:description" content="不要在最该奋斗的年纪去偷懒!">
+<meta name="twitter:title" content="逸辰音乐问题点">
+<meta name="twitter:description" content="今天在重构自己的项目时，发现了不少问题。总结归纳一下， 以便提高自己。 一、在vue 项目现有的 stylus代码中添加新的样式无效在重构旧项目的过程中，我需要在现有stylus样式中添加一些css。但是在添加css后，发现新样式不仅没有生效，反而会影响原有的样式。绞尽脑汁，最后发现是stylus缩进的格式有问题。stylus写法有很多种，常见的写法有 {} 或者缩进。当使用缩进写法时，空格和ta">
+<meta name="twitter:image" content="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/images/stylus_bug_reason.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -63,150 +66,57 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/03/05/git和github的使用/" class="archive-article-date">
-  <time datetime="2020-03-05T01:52:07.000Z" itemprop="datePublished">3月 5</time>
+        <section id="main"><article id="post-逸辰音乐问题点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/26/逸辰音乐问题点/" class="article-date">
+  <time datetime="2020-12-26T12:09:14.000Z" itemprop="datePublished">2020-12-26</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/05/git和github的使用/">git和github的使用</a>
+    <h1 class="article-title" itemprop="name">
+      逸辰音乐问题点
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天在重构自己的项目时，发现了不少问题。总结归纳一下， 以便提高自己。</p>
+<h2 id="一、在vue-项目现有的-stylus代码中添加新的样式无效"><a href="#一、在vue-项目现有的-stylus代码中添加新的样式无效" class="headerlink" title="一、在vue 项目现有的 stylus代码中添加新的样式无效"></a>一、在vue 项目现有的 stylus代码中添加新的样式无效</h2><p>在重构旧项目的过程中，我需要在现有stylus样式中添加一些css。但是在添加css后，发现新样式不仅没有生效，反而会影响原有的样式。绞尽脑汁，最后发现是<strong>stylus缩进的格式</strong>有问题。stylus写法有很多种，常见的写法有 <strong>{}</strong> 或者<strong>缩进</strong>。当使用缩进写法时，<strong>空格和tab不能混用</strong>，否则会造成编译错误。<br><img src="./images/stylus_bug_reason.png" alt="stylus"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/" data-id="ckj5qcrmx002w2sw02blnv6c4" class="article-share-link">Share</a>-->
+      
+      
+    </footer>
   </div>
+  <!---->
+    <!--
+<nav id="article-nav">
+  
+  
+    <a href="/2020/12/24/造轮子遇到的问题/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">造轮子遇到的问题</div>
+    </a>
+  
+</nav>
+-->
+  <!---->
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/03/02/工欲善其事必先利其器/" class="archive-article-date">
-  <time datetime="2020-03-01T17:40:09.000Z" itemprop="datePublished">3月 2</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/02/工欲善其事必先利其器/">工欲善其事必先利其器</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/10/30/npm常用的命令/" class="archive-article-date">
-  <time datetime="2019-10-30T14:06:14.000Z" itemprop="datePublished">10月 30</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/30/npm常用的命令/">npm常用的命令</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/10/24/hexo的使用/" class="archive-article-date">
-  <time datetime="2019-10-24T12:48:26.000Z" itemprop="datePublished">10月 24</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/24/hexo的使用/">hexo的使用</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/10/21/vue和vuec的安装和使用/" class="archive-article-date">
-  <time datetime="2019-10-21T13:00:25.000Z" itemprop="datePublished">10月 21</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/21/vue和vuec的安装和使用/">vue和vuec的安装和使用</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/07/02/vue项目中遇到的问题/" class="archive-article-date">
-  <time datetime="2019-07-02T14:04:58.000Z" itemprop="datePublished">7月 2</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/02/vue项目中遇到的问题/">vue项目中遇到的问题</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/categories/前端/">&laquo; 上一页</a><a class="page-number" href="/categories/前端/">1</a><span class="page-number current">2</span>
-  </nav>
 
 </section>
         

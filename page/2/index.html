@@ -65,6 +65,62 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-vue-cli本地代理mock数据" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/25/vue-cli本地代理mock数据/" class="article-date">
+  <time datetime="2020-05-25T14:33:10.000Z" itemprop="datePublished">2020-05-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/25/vue-cli本地代理mock数据/">vue-cli本地代理mock数据</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>近期在做一个项目需要从qq音乐服务器抓取数据，但是由于浏览器同源策略的限制导致获取数据失败，需要从本地nodejs服务器中代理抓取数据，下面是vue-cli中的常见的配置。</p>
+<h2 id="vue-cli-2-0之前的版本配置"><a href="#vue-cli-2-0之前的版本配置" class="headerlink" title="vue-cli 2.0之前的版本配置"></a>vue-cli 2.0之前的版本配置</h2><p>找到<strong>build/dev-server.js</strong>文件，加入以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var axios = require(&apos;axios&apos;)</span><br><span class="line">var app = express()</span><br><span class="line">var apiRoutes = express.Router()</span><br><span class="line"></span><br><span class="line">apiRoutes.get(&apos;/getSongs&apos;, (req, res) =&gt; &#123;</span><br><span class="line">  var url = &apos;http://www.baidu.com&apos;</span><br><span class="line">  axios.get(url, &#123;</span><br><span class="line">    headers: &#123;</span><br><span class="line">      referer: &apos;http://www.baidu.com&apos;,</span><br><span class="line">      host: &apos;http://www.baidu.com&apos;</span><br><span class="line">    &#125;,</span><br><span class="line">    params: req.query</span><br><span class="line">  &#125;).then((response) =&gt; &#123;</span><br><span class="line">    res.json(response.data)</span><br><span class="line">  &#125;).catch((e) =&gt; &#123;</span><br><span class="line">    console.log(e)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(&apos;/api&apos;, apiRoutes)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="vue-cli-3-0-版本配置"><a href="#vue-cli-3-0-版本配置" class="headerlink" title="vue-cli 3.0+版本配置"></a>vue-cli 3.0+版本配置</h2><p>3.0+版本的vue已将dev-server.js与webpack.dev.conf.js合并，若要写路由相关配置需要找到webpack.dev.conf.js中的<strong>devServer对象</strong>进行相关配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const axios = require(&quot;axios&quot;)</span><br><span class="line">const express = require(&quot;express&quot;)</span><br><span class="line">let app = express()</span><br><span class="line">let apiRoutes = express.Router()</span><br><span class="line">app.use(&quot;/api&quot;, apiRoutes)</span><br><span class="line"></span><br><span class="line">devServer: &#123;</span><br><span class="line">        before(app) &#123;</span><br><span class="line">            app.get(&quot;/api/getSongs&quot;, function(req, res) &#123;</span><br><span class="line">                var url = &quot;http://www.baidu.com&quot;</span><br><span class="line">                axios.get(url).then((response) =&gt; &#123; res.json(response.data) &#125;) .catch((e) =&gt; &#123; console.log(e) &#125;) &#125;)</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="vue-cli-4-0-版本配置"><a href="#vue-cli-4-0-版本配置" class="headerlink" title="vue-cli 4.0+版本配置"></a>vue-cli 4.0+版本配置</h2><p>4.0+版本的vue-cli配置藏的更深，需要找到<code>node_modules/@vue/cli-service/options.js</code>文件中的<strong>devServer</strong>对象进行配置，配置方法同上面3.0版本类似。另外我们还可以在项目根目录自己新建一个vue.config.js配置文件，新建devServer对象利用<strong>before(app)或者proxy</strong>来进行请求代理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&quot;path&quot;)</span><br><span class="line">function resolve(dir) &#123;</span><br><span class="line">    return path.join(__dirname, dir)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const axios = require(&quot;axios&quot;)</span><br><span class="line">const express = require(&quot;express&quot;)</span><br><span class="line">let app = express()</span><br><span class="line">let apiRoutes = express.Router()</span><br><span class="line">app.use(&quot;/api&quot;, apiRoutes)</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">    chainWebpack: (config) =&gt; &#123;</span><br><span class="line">        config.resolve.alias</span><br><span class="line">            .set(&quot;@&quot;, resolve(&quot;src&quot;))</span><br><span class="line">            .set(&quot;assets&quot;, resolve(&quot;src/assets&quot;))</span><br><span class="line">            .set(&quot;components&quot;, resolve(&quot;src/components&quot;))</span><br><span class="line">            .set(&quot;base&quot;, resolve(&quot;baseConfig&quot;))</span><br><span class="line">            .set(&quot;public&quot;, resolve(&quot;public&quot;))</span><br><span class="line">    &#125;,</span><br><span class="line">    devServer: &#123;</span><br><span class="line">        before(app) &#123;</span><br><span class="line">            app.get(&quot;/api/lyric&quot;, function(req, res) &#123;</span><br><span class="line">                var url = &quot;http://www.baidu.com&quot;</span><br><span class="line">                axios</span><br><span class="line">                    .get(url)</span><br><span class="line">                    .then((response) =&gt; &#123;</span><br><span class="line">                        res.json(response.data)</span><br><span class="line">                    &#125;)</span><br><span class="line">                    .catch((e) =&gt; &#123;</span><br><span class="line">                        console.log(e)</span><br><span class="line">                    &#125;)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;,</span><br><span class="line">        // proxy: &#123;</span><br><span class="line">        //     &quot;/api/getLists&quot;: &#123;</span><br><span class="line">        //         target:</span><br><span class="line">        //             &quot;http://www.baidu.com&quot;, //代理接口</span><br><span class="line">        //         changeOrigin: true,</span><br><span class="line">        //         pathRewrite: &#123;</span><br><span class="line">        //          &apos;^/api&apos;: &apos;&apos;    //代理的路径 //是否移除api三个字段,</span><br><span class="line">        //         &#125;</span><br><span class="line">        //         headers: &#123;</span><br><span class="line">        //             Referer: &quot;https://www.baidu.com&quot;,</span><br><span class="line">        //         &#125;,</span><br><span class="line">        //     &#125;,</span><br><span class="line">        // &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="nodejs使用res-json-返回响应时，如果直接传入response变量会引起循环引用报错-只传入response-data就不会出现报错了。"><a href="#nodejs使用res-json-返回响应时，如果直接传入response变量会引起循环引用报错-只传入response-data就不会出现报错了。" class="headerlink" title="nodejs使用res.json()返回响应时，如果直接传入response变量会引起循环引用报错,只传入response.data就不会出现报错了。"></a>nodejs使用res.json()返回响应时，如果直接传入<code>response</code>变量会引起循环引用报错,只传入<code>response.data</code>就不会出现报错了。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">TypeError: Converting circular structure to JSON</span><br><span class="line">    --&gt; starting at object with constructor &apos;ClientRequest&apos;</span><br><span class="line">    |     property &apos;socket&apos; -&gt; object with constructor &apos;Socket&apos;</span><br><span class="line">    --- property &apos;_httpMessage&apos; closes the circle</span><br><span class="line">    at JSON.stringify (&lt;anonymous&gt;)</span><br><span class="line">    at stringify (...\node_modules\express\lib\response.js:1123:12)</span><br><span class="line">    at ServerResponse.json (...\node_modules\express\lib\response.js:260:14)</span><br><span class="line">    at ...\vue.config.js:37:41</span><br><span class="line">    at processTicksAndRejections (internal/process/task_queues.js:97:5)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/05/25/vue-cli本地代理mock数据/" data-id="ckj5qcrm5001j2sw0oxpg8jrn" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/devServer/">devServer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/proxy/">proxy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-cli/">vue-cli</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
     <article id="post-仿网易云音乐遇到的坑" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/05/21/仿网易云音乐遇到的坑/" class="article-date">
@@ -115,7 +171,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/05/21/仿网易云音乐遇到的坑/" data-id="ckj2rjus00025tkw0bqjw530n" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/05/21/仿网易云音乐遇到的坑/" data-id="ckj5qcrmd001y2sw0b6vnl7mx" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jquery/">jquery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leancloud/">leancloud</a></li></ul>
@@ -237,7 +293,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/04/19/浏览器同源策略与跨域/" data-id="ckj2rjusg002dtkw0oue106tp" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/04/19/浏览器同源策略与跨域/" data-id="ckj5qcrmj00282sw0zsyqis6y" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CORS/">CORS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ajax/">ajax</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/同源/">同源</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -346,7 +402,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/04/19/浏览器的http请求过程/" data-id="ckj2rjus00028tkw0qvf8srgu" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/04/19/浏览器的http请求过程/" data-id="ckj5qcrmo002h2sw0xzdij0a8" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -413,7 +469,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/04/11/认识DOM/" data-id="ckj2rjusg002mtkw0yyyl7f9c" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/04/11/认识DOM/" data-id="ckj5qcrmu002r2sw0uf8s6rzb" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DOM/">DOM</a></li></ul>
@@ -489,7 +545,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/04/06/js函数/" data-id="ckj2rjurl000qtkw08cw2awfs" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/04/06/js函数/" data-id="ckj5qcrlw000z2sw0abyc2e83" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/function/">function</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -565,7 +621,7 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/04/05/js数组/" data-id="ckj2rjurl000xtkw0zx0tzi4b" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/04/05/js数组/" data-id="ckj5qcrlx00122sw0e6sn5rdm" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -634,119 +690,10 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/29/js全局对象和原型链/" data-id="ckj2rjur5000ltkw014qwy9sq" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/03/29/js全局对象和原型链/" data-id="ckj5qcrlu000w2sw0mc4s1lw7" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原型链/">原型链</a></li></ul>
-
-    </footer>
-  </div>
-  <!---->
-</article>
-
-
-  
-    <article id="post-js数据类型" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/03/28/js数据类型/" class="article-date">
-  <time datetime="2020-03-27T17:40:09.000Z" itemprop="datePublished">2020-03-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/js/">js</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/28/js数据类型/">js数据类型</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="js简史"><a href="#js简史" class="headerlink" title="js简史"></a>js简史</h2><p>1991年，Tim Berners-Lee发明www万维网<br>1992年，Tim Berners-Lee 及其同事发明了css<br>1993年， w3c万维网联盟出现<br>1995年，Netscape公司推出了navigator浏览器，js之父Brendan Eich用十天时间开发出了js（mocha）。之后，Unicode发布了utf-8<br>1996年，Microsoft发布了IE浏览器和JScript<br>Netscape开源firefox浏览器，由Mozilla委员会维护。向ECMA(欧洲计算机制造商协会)申报标准并起名ECMAScript.<br>2004年 ， Microsoft发布IE5.5，使js可以发送http请求<br>Gmail的出现，让人们认识到js不仅仅是脚本玩具语言，也可以成为真正的编程语言<br>2010年，front-end行业出现</p>
-<p>ES3 :标准库少  → ES5：IE7不支持 → ES6：IE8不支持<br>ES6借鉴了rails社区coffeeScript的很多特性：类、箭头函数等，集大家之所长<br>后来es每年一更新</p>
-<h2 id="js数据类型"><a href="#js数据类型" class="headerlink" title="js数据类型"></a>js数据类型</h2><p>js有七种数据类型<br>基本类型:<strong>number,string,boolean,symbol,null,undefined</strong><br>复杂类型：<strong>object</strong>(包括array,function,date等)</p>
-<h2 id="number"><a href="#number" class="headerlink" title="number"></a>number</h2><p>js中实际上没有整数和小数之分，所有的数字均以<strong>64位浮点</strong>数存储。 它的表示方法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">十进制表示法：0.1  .1   1e-1 </span><br><span class="line">二进制表示法：0b0101010     #以0b开头</span><br><span class="line">八进制表示法：0o0101010     #以0开头，ES5新添以0o开头</span><br><span class="line">十六进制表示法：0x0101010   #以0x开头</span><br></pre></td></tr></table></figure>
-
-<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><ol>
-<li>Number(anything)</li>
-<li>parseInt(str)</li>
-<li>parseFloat(str)</li>
-<li>anything - 0</li>
-<li>+(anything)</li>
-</ol>
-<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><h3 id="空字符串：’’-（区别于空格字符串’-‘"><a href="#空字符串：’’-（区别于空格字符串’-‘" class="headerlink" title="空字符串：’’    （区别于空格字符串’   ‘)"></a>空字符串：’’    （区别于空格字符串’   ‘)</h3><h3 id="多行字符串："><a href="#多行字符串：" class="headerlink" title="多行字符串："></a>多行字符串：</h3><ol>
-<li><p>借鉴于bash中语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&apos;aaaa\</span><br><span class="line">bbbb&apos;               // 结果为&quot;aaaa↵bbbb&quot;   (不推荐使用)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>&#39;aaaa&#39; + &#39;bbbb&#39;              // 结果为aaaabbbb   (推荐使用)</code></p>
-</li>
-<li><p>es6新语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">`aaaa</span><br><span class="line">bbbb                // 结果为&quot;aaaa↵bbbb&quot;   (推荐使用)</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h3 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h3><p>Base64就是一种基于64个可打印字符(52个大小写字母、10个数字以及+、/h和=)来表示二进制数据的方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">window.btoa(str)  //创建一个base64编码的字符串</span><br><span class="line">window.atob(str)  //解码base64编码的字符串</span><br></pre></td></tr></table></figure>
-
-<p>如果str中包含汉字，上面的方法会报错。这时候需要使用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">window.btoa(encodeURIComponent(str))  //创建包含非ASCII(如汉字)的str的base64</span><br><span class="line">decodeURI(window.atob(str))  //解码base64</span><br></pre></td></tr></table></figure>
-
-<h3 id="类型转换-1"><a href="#类型转换-1" class="headerlink" title="类型转换"></a>类型转换</h3><ol>
-<li>String(anything)</li>
-<li>toString(anything)</li>
-<li>‘’ + anything</li>
-</ol>
-<h2 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h2><p>boolean只有true和false。<br>a &amp;&amp; b : 只有两个都为真时，表达式结果为真<br>a || b ：只有两个都为假时，表达式结果为假</p>
-<ol>
-<li>5个false值：’’ ,null,undefined,0,NaN</li>
-<li>所有的对象都是true</li>
-</ol>
-<h3 id="类型转换-2"><a href="#类型转换-2" class="headerlink" title="类型转换"></a>类型转换</h3><ol>
-<li>Boolean(anything) </li>
-<li>!!anything </li>
-</ol>
-<h2 id="symbol"><a href="#symbol" class="headerlink" title="symbol"></a>symbol</h2><p>Symbol()用来生成一个<strong>全局唯一</strong>的值。</p>
-<h2 id="null和undefined"><a href="#null和undefined" class="headerlink" title="null和undefined"></a>null和undefined</h2><p>它们都表示没有值。</p>
-<ol>
-<li>(规范)一个变量没有被赋值，那么这个变量的值就是 undefined</li>
-<li>(习惯)如果想表示一个还没赋值的对象，就用 null。如果想表示一个还没赋值的字符串/数字/布尔/symbol，就用 undefined（但是实际上直接 var xxx 一下就行了，不用写 var xxx = undefined）</li>
-</ol>
-<h2 id="object"><a href="#object" class="headerlink" title="object"></a>object</h2><p>object是基本类型数据无序组合的一种hashTable。</p>
-<ol>
-<li>object 的 key 一律是字符串，不存在其他类型的 key</li>
-<li>object[‘’] 是合法的</li>
-<li>object[‘key’] 可以写作 object.key</li>
-<li>object的key不加’’时，只能是合法的标识符（满足以字母、_、$开头的字符串）或者纯数字，object的key加上’’时，可以是任意的unicode字符串</li>
-<li>删除对象key：delete object.key 。删除后object.key==undefined &amp;&amp; key in object ==false</li>
-<li>遍历对象key：for(key in object) {code block…}</li>
-<li>获取对象所有的key： Object.keys(obj)</li>
-<li>获取对象所有的value： Object.keys(obj)</li>
-</ol>
-<h2 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h2><p>typeof是一个判断变量或者表达式数据类型的<strong>操作符</strong>。使用方法：typeof <variable>或者 typeof(variable)</variable></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//正常结果</span><br><span class="line">typeof 111) === &apos;number&apos;</span><br><span class="line">typeof &apos;111&apos; === &apos;string&apos;</span><br><span class="line">typeof true === &apos;boolean&apos;</span><br><span class="line">typeof Symbol() === &apos;symbol&apos;</span><br><span class="line">typeof undefined === &apos;undefined&apos;</span><br><span class="line">typeof &#123;&#125; === &apos;object&apos;</span><br><span class="line"></span><br><span class="line">//非常规结果</span><br><span class="line">typeof null === &apos;object&apos;</span><br><span class="line">typeof [] === &apos;object&apos;      </span><br><span class="line">typeof function()&#123;&#125; === &apos;function&apos;    #并没有function类型</span><br></pre></td></tr></table></figure>
-
-<h3 id="Object-prototype-toString-call"><a href="#Object-prototype-toString-call" class="headerlink" title="Object.prototype.toString.call()"></a>Object.prototype.toString.call()</h3><p>由于typeof存在一些bug，所以准确判断一个变量的类型可以用<strong>Object.prototype.toString.call(<variable>)</variable></strong>。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Object.prototype.toString.call(111) === &apos;[object,Number]&apos;</span><br><span class="line">Object.prototype.toString.call(&apos;111&apos;) === &apos;[object,String]&apos;</span><br><span class="line">Object.prototype.toString.call(true) === &apos;[object,Boolean]&apos;</span><br><span class="line">Object.prototype.toString.call(Symbol()) === &apos;[object,Symbol]&apos;</span><br><span class="line">Object.prototype.toString.call(undefined) === &apos;[object,Undefined]&apos;</span><br><span class="line">Object.prototype.toString.call(&#123;&#125;) === &apos;[object,Object]&apos;</span><br><span class="line">Object.prototype.toString.call(null) === &apos;[object,Null]&apos;</span><br><span class="line">Object.prototype.toString.call([]) === &apos;[object,Array]&apos;      </span><br><span class="line">Object.prototype.toString.call(function()&#123;&#125;) === &apos;[object,Function]&apos;    #并没有function类型</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/28/js数据类型/" data-id="ckj2rjurl000ttkw0jwy5hniq" class="article-share-link">Share</a>-->
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
 
     </footer>
   </div>
@@ -812,6 +759,10 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
       <ul>
         
           <li>
+            <a href="/2020/12/26/逸辰音乐问题点/">逸辰音乐问题点</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/24/造轮子遇到的问题/">造轮子遇到的问题</a>
           </li>
         
@@ -825,10 +776,6 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
         
           <li>
             <a href="/2020/09/24/在线记账项目遇到的问题/">在线记账项目遇到的问题</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/18/虚拟DOM和DOM diff/">虚拟 DOM 和 DOM diff</a>
           </li>
         
       </ul>
