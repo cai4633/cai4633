@@ -65,6 +65,101 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-vue和vuec的安装和使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/21/vue和vuec的安装和使用/" class="article-date">
+  <time datetime="2019-10-21T13:00:25.000Z" itemprop="datePublished">2019-10-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/21/vue和vuec的安装和使用/">vue和vuec的安装和使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="安装vue"><a href="#安装vue" class="headerlink" title="安装vue"></a>安装vue</h2><p>这段时间，我在学习vue的使用。安装vue有三种方式：</p>
+<ol>
+<li><p>CDN方式：直接使用 <code>&lt;script&gt;</code> 标签引用vue；</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/npm/vue/dist/vue.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>  //引用最新版本vue</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/npm/vue@2.6.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>        //引用具体版本vue</span><br></pre></td></tr></table></figure> 
+</li>
+<li><p>npm安装：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install vue  <span class="comment">//安装最新稳定版</span></span><br><span class="line">npm install -g cnpm --registry=https:<span class="comment">//registry.npm.taobao.org //可以安装npm淘宝镜像，提高安装速度 </span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装vue-cli构建工具：<br>a. 卸载旧版本vuec</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall vue-cli -g  <span class="comment">//vuec 2.0前称作vue-cli, 3.0+后称作@vue/cli</span></span><br></pre></td></tr></table></figure>
+
+<p>b. 安装新版本vuec</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @vue/cli -g </span><br></pre></td></tr></table></figure>   
+<br>
+</li>
+</ol>
+<hr>
+<h2 id="vuec使用"><a href="#vuec使用" class="headerlink" title="vuec使用"></a>vuec使用</h2><ol>
+<li><p>新建vue项目</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    vue create project_name</span><br><span class="line"><span class="comment">//  or </span></span><br><span class="line"><span class="comment">//  vue ui     进入vue gui管理界面</span></span><br></pre></td></tr></table></figure>
+<p>项目名称不能出现<strong>大写字母或者驼峰形式</strong>。</p>
+</li>
+<li><p>进入安装目录，并运行。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd project_name</span><br><span class="line">npm install</span><br><span class="line">npm run serve</span><br></pre></td></tr></table></figure> 
+<br>
+</li>
+</ol>
+<hr>
+<h2 id="element-ui的安装及使用"><a href="#element-ui的安装及使用" class="headerlink" title="element-ui的安装及使用"></a>element-ui的安装及使用</h2><ol>
+<li><p>npm安装使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i element-ui -S</span><br></pre></td></tr></table></figure>
+<p>在vuec创建项目中的main.js文件中写入以下代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</span><br><span class="line"><span class="keyword">import</span> ElementUI <span class="keyword">from</span> <span class="string">'element-ui'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'element-ui/lib/theme-chalk/index.css'</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App.vue'</span>;</span><br><span class="line"></span><br><span class="line">Vue.use(ElementUI);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;);       </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>CDN引用</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 引入样式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"https://unpkg.com/element-ui/lib/theme-chalk/index.css"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 引入组件库 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/element-ui/lib/index.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装vue-cli-plugin-element<br>这个方法要求@vue/cli 3.0+ 。安装的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vue create &lt;my-app&gt;</span><br><span class="line">cd &lt;my-app&gt;</span><br><span class="line">vue add element</span><br></pre></td></tr></table></figure>   
+<p>然后根据提示，插件会自动导入element-ui。</p>
+</li>
+</ol>
+<hr>
+<h2 id="axios的安装"><a href="#axios的安装" class="headerlink" title="axios的安装"></a>axios的安装</h2><ol>
+<li>通用的安装方法：<br><code>npm install axios</code></li>
+<li>vue-axios的安装和用法：<br><code>npm install --save axios vue-axios</code></li>
+</ol>
+<p><strong>在main.js中引入</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;</span><br><span class="line">import axios from &apos;axios&apos;</span><br><span class="line">import VueAxios from &apos;vue-axios&apos;</span><br><span class="line"></span><br><span class="line">Vue.use(VueAxios, axios)</span><br></pre></td></tr></table></figure>
+
+<p><strong>你可以这样使用它：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Vue.axios.get(api).then((response) =&gt; &#123;</span><br><span class="line">  console.log(response.data)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">this.axios.get(api).then((response) =&gt; &#123;</span><br><span class="line">  console.log(response.data)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">this.$http.get(api).then((response) =&gt; &#123;</span><br><span class="line">  console.log(response.data)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2019/10/21/vue和vuec的安装和使用/" data-id="ckj9ij2t90027fow0yacm8mgj" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vuec/">vuec</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
     <article id="post-html中script引用多个js文件的执行问题" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/10/14/html中script引用多个js文件的执行问题/" class="article-date">
@@ -103,7 +198,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2019/10/14/html中script引用多个js文件的执行问题/" data-id="ckj5qcrlq000p2sw0d0jl78pg" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2019/10/14/html中script引用多个js文件的执行问题/" data-id="ckj9ij2st000tfow0xmhyp9w0" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/script标签/">script标签</a></li></ul>
@@ -147,7 +242,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2019/10/14/Git error解决办法/" data-id="ckj5qcrlc000a2sw0s4ruvj47" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2019/10/14/Git error解决办法/" data-id="ckj9ij2se000pfow0c77qkyhi" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -194,7 +289,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2019/07/09/background-size失效问题/" data-id="ckj5qcrlm000j2sw0fks4nxwm" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2019/07/09/background-size失效问题/" data-id="ckj9ij2se000ifow0m42gx0jq" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/background/">background</a></li></ul>
@@ -258,7 +353,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2019/07/02/vue项目中遇到的问题/" data-id="ckj5qcrma001s2sw08i6wpjx5" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2019/07/02/vue项目中遇到的问题/" data-id="ckj9ij2t90020fow05zp0xqir" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -320,7 +415,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2019/06/19/外边距margin叠加/" data-id="ckj5qcrmg00252sw0h66aoppo" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2019/06/19/外边距margin叠加/" data-id="ckj9ij2tp002mfow0oeqgx4aj" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/外边距/">外边距</a></li></ul>
@@ -389,6 +484,10 @@
       <ul>
         
           <li>
+            <a href="/2020/12/27/vue单页面应用白屏屏优化/">vue单页面应用白屏屏优化</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/26/逸辰音乐问题点/">逸辰音乐问题点</a>
           </li>
         
@@ -402,10 +501,6 @@
         
           <li>
             <a href="/2020/12/16/var-let-和-const-的区别/">var 、 let 和 const</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/24/在线记账项目遇到的问题/">在线记账项目遇到的问题</a>
           </li>
         
       </ul>

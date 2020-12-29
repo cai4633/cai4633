@@ -65,6 +65,42 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-vue单页面应用白屏屏优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/27/vue单页面应用白屏屏优化/" class="article-date">
+  <time datetime="2020-12-27T02:08:15.000Z" itemprop="datePublished">2020-12-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/27/vue单页面应用白屏屏优化/">vue单页面应用白屏屏优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/12/27/vue单页面应用白屏屏优化/" data-id="ckj9ij2t9001xfow0xtbievkj" class="article-share-link">Share</a>-->
+      
+      
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
     <article id="post-逸辰音乐问题点" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/26/逸辰音乐问题点/" class="article-date">
@@ -92,12 +128,16 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>今天在重构自己的项目时，发现了不少问题。总结归纳一下， 以便提高自己。</p>
-<h2 id="一、在vue-项目现有的-stylus代码中添加新的样式无效"><a href="#一、在vue-项目现有的-stylus代码中添加新的样式无效" class="headerlink" title="一、在vue 项目现有的 stylus代码中添加新的样式无效"></a>一、在vue 项目现有的 stylus代码中添加新的样式无效</h2><p>在重构旧项目的过程中，我需要在现有stylus样式中添加一些css。但是在添加css后，发现新样式不仅没有生效，反而会影响原有的样式。绞尽脑汁，最后发现是<strong>stylus缩进的格式</strong>有问题。stylus写法有很多种，常见的写法有 <strong>{}</strong> 或者<strong>缩进</strong>。当使用缩进写法时，<strong>空格和tab不能混用</strong>，否则会造成编译错误。<br><img src="./images/stylus_bug_reason.png" alt="stylus"></p>
+<h2 id="一、在-vue-项目现有的-stylus-代码中添加新的样式无效"><a href="#一、在-vue-项目现有的-stylus-代码中添加新的样式无效" class="headerlink" title="一、在 vue 项目现有的 stylus 代码中添加新的样式无效"></a>一、在 vue 项目现有的 stylus 代码中添加新的样式无效</h2><p>在重构旧项目的过程中，我需要在现有 stylus 样式中添加一些 css。但是在添加 css 后，发现新样式不仅没有生效，反而会影响原有的样式。绞尽脑汁，最后发现是<strong>stylus 缩进的格式</strong>有问题。stylus 写法有很多种，常见的写法有 <strong>{}</strong> 或者<strong>缩进</strong>。当使用缩进写法时，<strong>空格和 tab 不能混用</strong>，否则会造成编译错误。<br><img src="./images/stylus_bug_reason.png" alt="stylus"></p>
+<h2 id="二、多个-jsonp-请求问题"><a href="#二、多个-jsonp-请求问题" class="headerlink" title="二、多个 jsonp 请求问题"></a>二、多个 jsonp 请求问题</h2><p>使用 jsonp 库<strong>同时发送多个 jsonp</strong>请求时，要保证 <strong>callback 参数各不相同</strong>，否则会导致 data 解析失败。</p>
+<h2 id="三、页面刷新-vuex-数据丢失"><a href="#三、页面刷新-vuex-数据丢失" class="headerlink" title="三、页面刷新 vuex 数据丢失"></a>三、页面刷新 vuex 数据丢失</h2><p>在项目中，我们很多时候不可避免的会使用 vuex 来管理全局状态。vuex 状态是保存在<strong>运行时内存</strong>中的。当<strong>F5</strong>页面刷新时，vuex 会被<strong>新建并初始化</strong>，这就导致了数据丢失。常用的解决办法就是借助 <strong>sessionStorage</strong> 或者 <strong>localStorage</strong> 缓存 vuex 中重要的数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//  in state.ts</span><br><span class="line">const sessionDisc = window.sessionStorage.getItem(&quot;disc&quot;)</span><br><span class="line">const state: any = &#123;</span><br><span class="line">  disc: sessionDisc ? JSON.parse(sessionDisc) : &#123;&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//  in mutations.ts</span><br><span class="line">  [types.SET_DISC](state: any, cd: any) &#123;</span><br><span class="line">    state.disc = cd</span><br><span class="line">    window.sessionStorage.setItem(&quot;disc&quot;, JSON.stringify(cd))</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/" data-id="ckj5qcrmx002w2sw02blnv6c4" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/" data-id="ckj9ij2u5003cfow0jzpo4dew" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -140,7 +180,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/24/造轮子遇到的问题/" data-id="ckj5qcrmt002n2sw0awux9zc5" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/24/造轮子遇到的问题/" data-id="ckj9ij2tp002zfow0ydquzm79" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue3/">Vue3</a></li></ul>
@@ -199,7 +239,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/16/ES6-常用知识点/" data-id="ckj5qcrle000b2sw0ll1xh8ot" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/16/ES6-常用知识点/" data-id="ckj9ij2ry0008fow00v069y2u" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -257,7 +297,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/16/var-let-和-const-的区别/" data-id="ckj5qcrm4001g2sw0b8cppcwt" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/16/var-let-和-const-的区别/" data-id="ckj9ij2t9001tfow0kkuudykx" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/const/">const</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/let/">let</a></li></ul>
@@ -304,7 +344,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/09/24/在线记账项目遇到的问题/" data-id="ckj5qcrmf00232sw049343ubp" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/09/24/在线记账项目遇到的问题/" data-id="ckj9ij2tp002ffow05tlh2eu2" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -370,7 +410,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/09/18/虚拟DOM和DOM diff/" data-id="ckj5qcrmr002k2sw0yv2da00l" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/09/18/虚拟DOM和DOM diff/" data-id="ckj9ij2u50035fow0qy5ponbp" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DOM-diff/">DOM diff</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vDOM/">vDOM</a></li></ul>
@@ -447,60 +487,10 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/08/18/一篇文章搞懂promise/" data-id="ckj5qcrme00202sw0hlqh1x2h" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/08/18/一篇文章搞懂promise/" data-id="ckj9ij2t90023fow0hcs5ilpi" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/promise/">promise</a></li></ul>
-
-    </footer>
-  </div>
-  <!---->
-</article>
-
-
-  
-    <article id="post-防抖和节流" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/07/18/防抖和节流/" class="article-date">
-  <time datetime="2020-07-18T02:56:17.000Z" itemprop="datePublished">2020-07-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端/">前端</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/18/防抖和节流/">防抖和节流</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在前端开发的过程中，我们经常会遇到一些的事件会持续触发，如 resize、scroll、mousemove 等，但有时候我们并不希望事件函数频繁的被执行。这时就需要用到<strong>防抖和节流</strong></p>
-<h2 id="防抖（控制次数）"><a href="#防抖（控制次数）" class="headerlink" title="防抖（控制次数）"></a>防抖（控制次数）</h2><p><strong>防抖，就是触发事件后在 n 秒内函数只能执行一次，如果在 n 秒内又触发了事件，则会重新计时。</strong> 常见的实现方法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function debounce (fn,  delay) &#123;</span><br><span class="line">  let timer = null</span><br><span class="line">  return function(...args)&#123;</span><br><span class="line">    if(timer)&#123;</span><br><span class="line">      window.clearTimeout(timer)</span><br><span class="line">    &#125;</span><br><span class="line">    timer = setTimeout(()=&gt;&#123;</span><br><span class="line">      fn.apply(this,args)</span><br><span class="line">    &#125;,delay)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="节流（控制频率）"><a href="#节流（控制频率）" class="headerlink" title="节流（控制频率）"></a>节流（控制频率）</h2><p><strong>节流，就是事件连续触发时，控制在 n 秒中只执行一次函数，如果在 n 秒内又触发了事件,会忽略触发</strong>。常见的实现方法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function throttle(fn, delay) &#123;</span><br><span class="line">  let timer = null</span><br><span class="line">  return function (...arg)&#123;</span><br><span class="line">    if(!timer)&#123;</span><br><span class="line">      fn.apply(this, arg)</span><br><span class="line">      timer = window.setTimeout(()=&gt;&#123;</span><br><span class="line">        window.clearTimeout(timer)</span><br><span class="line">        timer = null</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="防抖和节流的区别"><a href="#防抖和节流的区别" class="headerlink" title="防抖和节流的区别"></a>防抖和节流的区别</h2><p>有时候我们很容易混淆防抖和节流的触发机制，下面我们用一张图来展示他们的区别。<br><img src="/images/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E7%9A%84%E5%8C%BA%E5%88%AB.png" alt="防抖和节流的区别"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/07/18/防抖和节流/" data-id="ckj5qcrmv002t2sw0lkc60fhk" class="article-share-link">Share</a>-->
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/精华/">精华</a></li></ul>
 
     </footer>
   </div>
@@ -566,6 +556,10 @@
       <ul>
         
           <li>
+            <a href="/2020/12/27/vue单页面应用白屏屏优化/">vue单页面应用白屏屏优化</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/26/逸辰音乐问题点/">逸辰音乐问题点</a>
           </li>
         
@@ -579,10 +573,6 @@
         
           <li>
             <a href="/2020/12/16/var-let-和-const-的区别/">var 、 let 和 const</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/24/在线记账项目遇到的问题/">在线记账项目遇到的问题</a>
           </li>
         
       </ul>

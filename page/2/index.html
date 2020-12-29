@@ -65,6 +65,56 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-防抖和节流" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/18/防抖和节流/" class="article-date">
+  <time datetime="2020-07-18T02:56:17.000Z" itemprop="datePublished">2020-07-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/18/防抖和节流/">防抖和节流</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在前端开发的过程中，我们经常会遇到一些的事件会持续触发，如 resize、scroll、mousemove 等，但有时候我们并不希望事件函数频繁的被执行。这时就需要用到<strong>防抖和节流</strong></p>
+<h2 id="防抖（控制次数）"><a href="#防抖（控制次数）" class="headerlink" title="防抖（控制次数）"></a>防抖（控制次数）</h2><p><strong>防抖，就是触发事件后在 n 秒内函数只能执行一次，如果在 n 秒内又触发了事件，则会重新计时。</strong> 常见的实现方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function debounce (fn,  delay) &#123;</span><br><span class="line">  let timer = null</span><br><span class="line">  return function(...args)&#123;</span><br><span class="line">    if(timer)&#123;</span><br><span class="line">      window.clearTimeout(timer)</span><br><span class="line">    &#125;</span><br><span class="line">    timer = setTimeout(()=&gt;&#123;</span><br><span class="line">      fn.apply(this,args)</span><br><span class="line">    &#125;,delay)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="节流（控制频率）"><a href="#节流（控制频率）" class="headerlink" title="节流（控制频率）"></a>节流（控制频率）</h2><p><strong>节流，就是事件连续触发时，控制在 n 秒中只执行一次函数，如果在 n 秒内又触发了事件,会忽略触发</strong>。常见的实现方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function throttle(fn, delay) &#123;</span><br><span class="line">  let timer = null</span><br><span class="line">  return function (...arg)&#123;</span><br><span class="line">    if(!timer)&#123;</span><br><span class="line">      fn.apply(this, arg)</span><br><span class="line">      timer = window.setTimeout(()=&gt;&#123;</span><br><span class="line">        window.clearTimeout(timer)</span><br><span class="line">        timer = null</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="防抖和节流的区别"><a href="#防抖和节流的区别" class="headerlink" title="防抖和节流的区别"></a>防抖和节流的区别</h2><p>有时候我们很容易混淆防抖和节流的触发机制，下面我们用一张图来展示他们的区别。<br><img src="/images/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E7%9A%84%E5%8C%BA%E5%88%AB.png" alt="防抖和节流的区别"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/07/18/防抖和节流/" data-id="ckj9ij2u50039fow03nxe8ufh" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/精华/">精华</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
     <article id="post-vue-cli本地代理mock数据" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/05/25/vue-cli本地代理mock数据/" class="article-date">
@@ -109,7 +159,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/05/25/vue-cli本地代理mock数据/" data-id="ckj5qcrm5001j2sw0oxpg8jrn" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/05/25/vue-cli本地代理mock数据/" data-id="ckj9ij2st001kfow0nhvxu407" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/devServer/">devServer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/proxy/">proxy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-cli/">vue-cli</a></li></ul>
@@ -171,7 +221,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/05/21/仿网易云音乐遇到的坑/" data-id="ckj5qcrmd001y2sw0b6vnl7mx" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/05/21/仿网易云音乐遇到的坑/" data-id="ckj9ij2tp002dfow0kzb1pi9s" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jquery/">jquery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leancloud/">leancloud</a></li></ul>
@@ -293,7 +343,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/04/19/浏览器同源策略与跨域/" data-id="ckj5qcrmj00282sw0zsyqis6y" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/04/19/浏览器同源策略与跨域/" data-id="ckj9ij2tp002vfow0747mv69w" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CORS/">CORS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ajax/">ajax</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/同源/">同源</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -402,7 +452,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/04/19/浏览器的http请求过程/" data-id="ckj5qcrmo002h2sw0xzdij0a8" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/04/19/浏览器的http请求过程/" data-id="ckj9ij2tp002jfow0gd7y0ofx" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浏览器/">浏览器</a></li></ul>
@@ -469,7 +519,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/04/11/认识DOM/" data-id="ckj5qcrmu002r2sw0uf8s6rzb" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/04/11/认识DOM/" data-id="ckj9ij2u40033fow0wro1hwaz" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DOM/">DOM</a></li></ul>
@@ -545,7 +595,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/04/06/js函数/" data-id="ckj5qcrlw000z2sw0abyc2e83" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/04/06/js函数/" data-id="ckj9ij2st0019fow050tuom64" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/function/">function</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -621,79 +671,10 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/04/05/js数组/" data-id="ckj5qcrlx00122sw0e6sn5rdm" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/04/05/js数组/" data-id="ckj9ij2st001cfow01o6g4ab6" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  <!---->
-</article>
-
-
-  
-    <article id="post-js全局对象和原型链" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/03/29/js全局对象和原型链/" class="article-date">
-  <time datetime="2020-03-29T03:58:21.000Z" itemprop="datePublished">2020-03-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/js/">js</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/29/js全局对象和原型链/">js全局对象和原型链</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="全局对象global-浏览器window"><a href="#全局对象global-浏览器window" class="headerlink" title="全局对象global(浏览器window)"></a>全局对象global(浏览器window)</h2><p>ECMAScript 规定全局对象叫做 global，但是浏览器把 window 作为全局对象。window 的属性就是全局变量。其中的全局变量分为两种：</p>
-<ol>
-<li>ECMAScript规定的，例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">global.parseInt()</span><br><span class="line">global.parseFloat()</span><br><span class="line">global.Number</span><br><span class="line">global.String</span><br><span class="line">global.Boolean</span><br><span class="line">global.Object</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<hr>
-<ol start="2">
-<li>浏览器自己规定的，例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">window.alert()</span><br><span class="line">window.prompt()</span><br><span class="line">window.comfirm()</span><br><span class="line">window.console.log()</span><br><span class="line">window.console.dir()</span><br><span class="line">window.document</span><br><span class="line">window.document.createElement()</span><br><span class="line">window.document.getElementById()</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<hr>
-<h3 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let n = 11          //基本number数据类型</span><br><span class="line">let n = Number(&apos;11&apos;);   //显式转化成number类型</span><br><span class="line">let n = new Number(11)  //创建number对象，有toString()和valueOf()方法</span><br><span class="line">11.toString()   //11本身没有toString()方法，当调用toString()时，11会临时转化成Number对象，当toString()调用结束，11会再次变成基本number类型（隐式转换）</span><br></pre></td></tr></table></figure>
-
-<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let n = &apos;22&apos;         //基本string数据类型</span><br><span class="line">let n = String(&apos;11&apos;);   //显式转化成string类型</span><br><span class="line">let n = new String(11)  //创建string对象，有toString()和valueOf()方法</span><br></pre></td></tr></table></figure>
-
-<h3 id="Boolean"><a href="#Boolean" class="headerlink" title="Boolean"></a>Boolean</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let n = true         //基本Boolean数据类型</span><br><span class="line">let n = Boolean(&apos;11&apos;);   //显式转化成Boolean类型</span><br><span class="line">let n = new Boolean(11)  //创建Boolean对象，有toString()和valueOf()方法</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="proto-和-prototype"><a href="#proto-和-prototype" class="headerlink" title="proto 和 prototype"></a><strong>proto</strong> 和 prototype</h2><p>所有的对象都有toString()和valueOf()方法，js将这些公用属性都放在<code>__proto__</code>对象中。而为了防止<code>__proto__</code>对象因没被引用而被垃圾回收，所以就有了<code>Object.prototype</code>。<code>__proto__</code>是存在于对象实例中，prototype是存在于构造函数中。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">对象实例.__proto__ === 构造函数.protoType</span><br><span class="line">let obj = new Object()   //obj.__proto__ === Object.prototype</span><br></pre></td></tr></table></figure>
-
-<h3 id="对象原型链关系图："><a href="#对象原型链关系图：" class="headerlink" title="对象原型链关系图："></a>对象原型链关系图：</h3><p><img src="/images/proto.png" alt="js对象与原型链"></p>
-<hr>
-<h3 id="几个难懂的原型链"><a href="#几个难懂的原型链" class="headerlink" title="几个难懂的原型链"></a>几个难懂的原型链</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object.prototype.__proto__ ==== null</span><br><span class="line">Function.__proto__ === Function.prototype</span><br><span class="line">Object.__proto__ === Function.prototype</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/29/js全局对象和原型链/" data-id="ckj5qcrlu000w2sw0mc4s1lw7" class="article-share-link">Share</a>-->
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原型链/">原型链</a></li></ul>
 
     </footer>
   </div>
@@ -759,6 +740,10 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
       <ul>
         
           <li>
+            <a href="/2020/12/27/vue单页面应用白屏屏优化/">vue单页面应用白屏屏优化</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/26/逸辰音乐问题点/">逸辰音乐问题点</a>
           </li>
         
@@ -772,10 +757,6 @@ console.log(array1.reduce(reducer, 5));  // 5 + 1 + 2 + 3 + 4</code></pre></li>
         
           <li>
             <a href="/2020/12/16/var-let-和-const-的区别/">var 、 let 和 const</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/24/在线记账项目遇到的问题/">在线记账项目遇到的问题</a>
           </li>
         
       </ul>

@@ -65,6 +65,75 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-js全局对象和原型链" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/29/js全局对象和原型链/" class="article-date">
+  <time datetime="2020-03-29T03:58:21.000Z" itemprop="datePublished">2020-03-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/js/">js</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/29/js全局对象和原型链/">js全局对象和原型链</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="全局对象global-浏览器window"><a href="#全局对象global-浏览器window" class="headerlink" title="全局对象global(浏览器window)"></a>全局对象global(浏览器window)</h2><p>ECMAScript 规定全局对象叫做 global，但是浏览器把 window 作为全局对象。window 的属性就是全局变量。其中的全局变量分为两种：</p>
+<ol>
+<li>ECMAScript规定的，例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">global.parseInt()</span><br><span class="line">global.parseFloat()</span><br><span class="line">global.Number</span><br><span class="line">global.String</span><br><span class="line">global.Boolean</span><br><span class="line">global.Object</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<ol start="2">
+<li>浏览器自己规定的，例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">window.alert()</span><br><span class="line">window.prompt()</span><br><span class="line">window.comfirm()</span><br><span class="line">window.console.log()</span><br><span class="line">window.console.dir()</span><br><span class="line">window.document</span><br><span class="line">window.document.createElement()</span><br><span class="line">window.document.getElementById()</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h3 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let n = 11          //基本number数据类型</span><br><span class="line">let n = Number(&apos;11&apos;);   //显式转化成number类型</span><br><span class="line">let n = new Number(11)  //创建number对象，有toString()和valueOf()方法</span><br><span class="line">11.toString()   //11本身没有toString()方法，当调用toString()时，11会临时转化成Number对象，当toString()调用结束，11会再次变成基本number类型（隐式转换）</span><br></pre></td></tr></table></figure>
+
+<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let n = &apos;22&apos;         //基本string数据类型</span><br><span class="line">let n = String(&apos;11&apos;);   //显式转化成string类型</span><br><span class="line">let n = new String(11)  //创建string对象，有toString()和valueOf()方法</span><br></pre></td></tr></table></figure>
+
+<h3 id="Boolean"><a href="#Boolean" class="headerlink" title="Boolean"></a>Boolean</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let n = true         //基本Boolean数据类型</span><br><span class="line">let n = Boolean(&apos;11&apos;);   //显式转化成Boolean类型</span><br><span class="line">let n = new Boolean(11)  //创建Boolean对象，有toString()和valueOf()方法</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="proto-和-prototype"><a href="#proto-和-prototype" class="headerlink" title="proto 和 prototype"></a><strong>proto</strong> 和 prototype</h2><p>所有的对象都有toString()和valueOf()方法，js将这些公用属性都放在<code>__proto__</code>对象中。而为了防止<code>__proto__</code>对象因没被引用而被垃圾回收，所以就有了<code>Object.prototype</code>。<code>__proto__</code>是存在于对象实例中，prototype是存在于构造函数中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">对象实例.__proto__ === 构造函数.protoType</span><br><span class="line">let obj = new Object()   //obj.__proto__ === Object.prototype</span><br></pre></td></tr></table></figure>
+
+<h3 id="对象原型链关系图："><a href="#对象原型链关系图：" class="headerlink" title="对象原型链关系图："></a>对象原型链关系图：</h3><p><img src="/images/proto.png" alt="js对象与原型链"></p>
+<hr>
+<h3 id="几个难懂的原型链"><a href="#几个难懂的原型链" class="headerlink" title="几个难懂的原型链"></a>几个难懂的原型链</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object.prototype.__proto__ ==== null</span><br><span class="line">Function.__proto__ === Function.prototype</span><br><span class="line">Object.__proto__ === Function.prototype</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/03/29/js全局对象和原型链/" data-id="ckj9ij2st0016fow0wzxvhjb3" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原型链/">原型链</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
     <article id="post-js数据类型" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/03/28/js数据类型/" class="article-date">
@@ -162,7 +231,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/28/js数据类型/" data-id="ckj5qcrm000182sw0r157un71" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/03/28/js数据类型/" data-id="ckj9ij2st0011fow0yi9p3ti3" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -269,7 +338,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/15/算法和数据结构入门/" data-id="ckj5qcrmn002f2sw0eicaxp6v" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/03/15/算法和数据结构入门/" data-id="ckj9ij2tp002sfow0vqsugjb8" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -361,7 +430,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/13/HTML入门/" data-id="ckj5qcrlh000d2sw0zu0a7m7x" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/03/13/HTML入门/" data-id="ckj9ij2se000dfow0ue2kolff" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/">html</a></li></ul>
@@ -459,7 +528,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/07/http入门/" data-id="ckj5qcrls000r2sw0avnurtnt" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/03/07/http入门/" data-id="ckj9ij2st000vfow0lust58xd" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li></ul>
@@ -534,7 +603,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/05/git和github的使用/" data-id="ckj5qcrlj000f2sw0pq5qry4u" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/03/05/git和github的使用/" data-id="ckj9ij2se000hfow0r552t2tl" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
@@ -662,7 +731,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/03/02/工欲善其事必先利其器/" data-id="ckj5qcrmk002b2sw0ea73h8jh" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/03/02/工欲善其事必先利其器/" data-id="ckj9ij2tp002qfow0joyzvm80" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/软件下载/">软件下载</a></li></ul>
@@ -714,117 +783,10 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/02/27/v-if和v-show/" data-id="ckj5qcrm2001e2sw05ljeay86" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/02/27/v-if和v-show/" data-id="ckj9ij2t9001mfow0oc2sx14d" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/v-if/">v-if</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/v-show/">v-show</a></li></ul>
-
-    </footer>
-  </div>
-  <!---->
-</article>
-
-
-  
-    <article id="post-position定位小结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/23/position定位小结/" class="article-date">
-  <time datetime="2020-02-22T20:26:44.000Z" itemprop="datePublished">2020-02-23</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/css/">css</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/23/position定位小结/">position定位小结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="position属性"><a href="#position属性" class="headerlink" title="position属性"></a>position属性</h2><p>position属性的值有static(默认值)，relative，absolute，fixed。</p>
-<h3 id="static"><a href="#static" class="headerlink" title="static:"></a>static:</h3><p>所有元素默认值。即没有定位，元素仍出现在正常文本流中。<br>特性：</p>
-<ol>
-<li><strong><em>忽略 top, bottom, left, right或者z-index声明</em></strong>。</li>
-</ol>
-<h3 id="relative"><a href="#relative" class="headerlink" title="relative:"></a>relative:</h3><p>相对定位元素会<strong>相对于它自己在正常流中的默认位置</strong>偏移。<br>特性：</p>
-<ol>
-<li>相对于自己偏移，但原来所占的位置将继续占有，没有脱离标准文档流，<strong>可设置z-index属性</strong>。</li>
-<li>每次移动是以自己的左上角为基点移动。</li>
-</ol>
-<h3 id="absolute"><a href="#absolute" class="headerlink" title="absolute:"></a>absolute:</h3><p>生成绝对定位的元素。<strong>相对于static定位以外</strong>的第一个父元素进行定位。脱离正常文档流，<strong>可设置z-index属性</strong>实现层叠。<br>特性：</p>
-<ol>
-<li>绝对定位偏移基准点是父元素的<strong>padding-box左上角</strong>，即absolute元素的margin-box相对于父元素的padding-box偏移。</li>
-<li>没有设置定位值(left,right,top,bottom)的元素，仍处在原本在标准流中的位置。但是它已经脱离了文本流，不会影响兄弟元素的布局。</li>
-<li>绝对定位元素的宽高百分比是相对于其最近的父级别定位元素的padding-box的大小来计算的。</li>
-<li>定位值（left,right,top,bottom）的百分比也是相对于父元素的padding-box宽高来计算的。</li>
-<li>当left，right，top，bottom无法同时满足时，优先满足left和top。</li>
-</ol>
-<h3 id="fixed"><a href="#fixed" class="headerlink" title="fixed:"></a>fixed:</h3><p>固定定位。一般<strong>相对于浏览器窗口</strong>进行定位，脱离正常文档流，可以设置z-index。<br>特性：</p>
-<ol>
-<li>固定定位相邻父元素出现transform和perspective属性，那么此时固定元素相对于父元素定位而不是浏览器窗口。</li>
-<li>fixed固定定位对于IE6,7,8不兼容。</li>
-<li>fixed固定定位元素的宽高百分比是相对于浏览器窗口（body的border-box）来计算的。</li>
-<li>固定定位偏移基准点是视口的左上角，即fixed元素的margin-box相对于body的border-box偏移。</li>
-</ol>
-<p>任何元素都可以定位。不过<strong><em>绝对或固定定位会生成一个BFC</em></strong>。</p>
-<h2 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h2><ol>
-<li><p>触发 BFC<br>BFC可看成XY方向上标准流布局图层，只要元素满足下面任一条件即可触发 BFC 特性：</p>
-<ol>
-<li>body 根元素</li>
-<li>浮动元素：float 除 none 以外的值</li>
-<li>绝对定位元素：position: (absolute、fixed)</li>
-<li>display 为 inline-block、table-cells、flex</li>
-<li>overflow 除了 visible 以外的值 (hidden、auto、scroll)</li>
-</ol>
-</li>
-<li><p>z-index（默认值auto）</p>
-<ol>
-<li>只有position为relative/absolute/fixed时（除了static）,Z-index才生效。</li>
-<li>z-index:0和z-index:auto层叠水平一样。但是z-index:auto不会产生层叠上下文，而z-index:0(或者数值)都会产生新的层叠上下文。</li>
-<li>同一层叠上下文，z-index越大层叠水平越高，层叠水平相同后来居上。</li>
-<li>不同层叠上下文比较，要比较其父元素层叠水平。</li>
-</ol>
-</li>
-<li><p>层叠顺序和层叠上下文</p>
-<ol>
-<li>七层层叠顺序<br><img src="/images/123.png" alt="七层层叠顺序"></li>
-<li>层叠上下文<br>层叠上下文可看成Z方向上布局图层。元素满足下面任一条件即可产生新的层叠上下文：<ol>
-<li>html根元素 。</li>
-<li>position值为 absolute|relative，且 z-index值不为 auto。</li>
-<li>position 值为 fixed|sticky。</li>
-<li>z-index 值不为 auto 的flex元素，即：父元素 display:flex|inline-flex。</li>
-<li>opacity 属性值小于 1 的元素。</li>
-<li>transform 属性值不为 none的元素。</li>
-<li>mix-blend-mode 属性值不为 normal 的元素。</li>
-<li>filter、 perspective、 clip-path、 mask、 mask-image、 mask-border、 motion-path值不为none的元素 。</li>
-<li>perspective 值不为 none 的元素。</li>
-<li>isolation 属性被设置为 isolate 的元素 。</li>
-<li>will-change 中指定了任意 CSS 属性，即便你没有直接指定这些属性的值。</li>
-<li>-webkit-overflow-scrolling 属性被设置 touch的元素。<br>。</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/02/23/position定位小结/" data-id="ckj5qcrm1001a2sw0lo931xqh" class="article-share-link">Share</a>-->
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BFC/">BFC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/absolute/">absolute</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/position/">position</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/z-index/">z-index</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/层叠上下文/">层叠上下文</a></li></ul>
 
     </footer>
   </div>
@@ -890,6 +852,10 @@
       <ul>
         
           <li>
+            <a href="/2020/12/27/vue单页面应用白屏屏优化/">vue单页面应用白屏屏优化</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/26/逸辰音乐问题点/">逸辰音乐问题点</a>
           </li>
         
@@ -903,10 +869,6 @@
         
           <li>
             <a href="/2020/12/16/var-let-和-const-的区别/">var 、 let 和 const</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/24/在线记账项目遇到的问题/">在线记账项目遇到的问题</a>
           </li>
         
       </ul>

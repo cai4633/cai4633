@@ -65,6 +65,113 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-position定位小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/23/position定位小结/" class="article-date">
+  <time datetime="2020-02-22T20:26:44.000Z" itemprop="datePublished">2020-02-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/css/">css</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/23/position定位小结/">position定位小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="position属性"><a href="#position属性" class="headerlink" title="position属性"></a>position属性</h2><p>position属性的值有static(默认值)，relative，absolute，fixed。</p>
+<h3 id="static"><a href="#static" class="headerlink" title="static:"></a>static:</h3><p>所有元素默认值。即没有定位，元素仍出现在正常文本流中。<br>特性：</p>
+<ol>
+<li><strong><em>忽略 top, bottom, left, right或者z-index声明</em></strong>。</li>
+</ol>
+<h3 id="relative"><a href="#relative" class="headerlink" title="relative:"></a>relative:</h3><p>相对定位元素会<strong>相对于它自己在正常流中的默认位置</strong>偏移。<br>特性：</p>
+<ol>
+<li>相对于自己偏移，但原来所占的位置将继续占有，没有脱离标准文档流，<strong>可设置z-index属性</strong>。</li>
+<li>每次移动是以自己的左上角为基点移动。</li>
+</ol>
+<h3 id="absolute"><a href="#absolute" class="headerlink" title="absolute:"></a>absolute:</h3><p>生成绝对定位的元素。<strong>相对于static定位以外</strong>的第一个父元素进行定位。脱离正常文档流，<strong>可设置z-index属性</strong>实现层叠。<br>特性：</p>
+<ol>
+<li>绝对定位偏移基准点是父元素的<strong>padding-box左上角</strong>，即absolute元素的margin-box相对于父元素的padding-box偏移。</li>
+<li>没有设置定位值(left,right,top,bottom)的元素，仍处在原本在标准流中的位置。但是它已经脱离了文本流，不会影响兄弟元素的布局。</li>
+<li>绝对定位元素的宽高百分比是相对于其最近的父级别定位元素的padding-box的大小来计算的。</li>
+<li>定位值（left,right,top,bottom）的百分比也是相对于父元素的padding-box宽高来计算的。</li>
+<li>当left，right，top，bottom无法同时满足时，优先满足left和top。</li>
+</ol>
+<h3 id="fixed"><a href="#fixed" class="headerlink" title="fixed:"></a>fixed:</h3><p>固定定位。一般<strong>相对于浏览器窗口</strong>进行定位，脱离正常文档流，可以设置z-index。<br>特性：</p>
+<ol>
+<li>固定定位相邻父元素出现transform和perspective属性，那么此时固定元素相对于父元素定位而不是浏览器窗口。</li>
+<li>fixed固定定位对于IE6,7,8不兼容。</li>
+<li>fixed固定定位元素的宽高百分比是相对于浏览器窗口（body的border-box）来计算的。</li>
+<li>固定定位偏移基准点是视口的左上角，即fixed元素的margin-box相对于body的border-box偏移。</li>
+</ol>
+<p>任何元素都可以定位。不过<strong><em>绝对或固定定位会生成一个BFC</em></strong>。</p>
+<h2 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h2><ol>
+<li><p>触发 BFC<br>BFC可看成XY方向上标准流布局图层，只要元素满足下面任一条件即可触发 BFC 特性：</p>
+<ol>
+<li>body 根元素</li>
+<li>浮动元素：float 除 none 以外的值</li>
+<li>绝对定位元素：position: (absolute、fixed)</li>
+<li>display 为 inline-block、table-cells、flex</li>
+<li>overflow 除了 visible 以外的值 (hidden、auto、scroll)</li>
+</ol>
+</li>
+<li><p>z-index（默认值auto）</p>
+<ol>
+<li>只有position为relative/absolute/fixed时（除了static）,Z-index才生效。</li>
+<li>z-index:0和z-index:auto层叠水平一样。但是z-index:auto不会产生层叠上下文，而z-index:0(或者数值)都会产生新的层叠上下文。</li>
+<li>同一层叠上下文，z-index越大层叠水平越高，层叠水平相同后来居上。</li>
+<li>不同层叠上下文比较，要比较其父元素层叠水平。</li>
+</ol>
+</li>
+<li><p>层叠顺序和层叠上下文</p>
+<ol>
+<li>七层层叠顺序<br><img src="/images/123.png" alt="七层层叠顺序"></li>
+<li>层叠上下文<br>层叠上下文可看成Z方向上布局图层。元素满足下面任一条件即可产生新的层叠上下文：<ol>
+<li>html根元素 。</li>
+<li>position值为 absolute|relative，且 z-index值不为 auto。</li>
+<li>position 值为 fixed|sticky。</li>
+<li>z-index 值不为 auto 的flex元素，即：父元素 display:flex|inline-flex。</li>
+<li>opacity 属性值小于 1 的元素。</li>
+<li>transform 属性值不为 none的元素。</li>
+<li>mix-blend-mode 属性值不为 normal 的元素。</li>
+<li>filter、 perspective、 clip-path、 mask、 mask-image、 mask-border、 motion-path值不为none的元素 。</li>
+<li>perspective 值不为 none 的元素。</li>
+<li>isolation 属性被设置为 isolate 的元素 。</li>
+<li>will-change 中指定了任意 CSS 属性，即便你没有直接指定这些属性的值。</li>
+<li>-webkit-overflow-scrolling 属性被设置 touch的元素。<br>。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/02/23/position定位小结/" data-id="ckj9ij2st001hfow0uc4784lz" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BFC/">BFC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/absolute/">absolute</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/position/">position</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/z-index/">z-index</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/层叠上下文/">层叠上下文</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
     <article id="post-inline和inline-block的区别" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/23/inline和inline-block的区别/" class="article-date">
@@ -117,7 +224,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/02/23/inline和inline-block的区别/" data-id="ckj5qcrlt000u2sw0iaz78xzm" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/02/23/inline和inline-block的区别/" data-id="ckj9ij2st000zfow0ci29n9hv" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -192,7 +299,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/02/22/width百分比小结/" data-id="ckj5qcrmb001v2sw0u77kn7sd" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/02/22/width百分比小结/" data-id="ckj9ij2t9002afow0nak28jvn" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/auto/">auto</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/width/">width</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/百分比/">百分比</a></li></ul>
@@ -240,7 +347,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2019/11/02/vue中computed属性的理解/" data-id="ckj5qcrm6001m2sw0eeve1at2" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2019/11/02/vue中computed属性的理解/" data-id="ckj9ij2t9001qfow0pk5v8cw3" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue生命周期/">vue生命周期</a></li></ul>
@@ -301,7 +408,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2019/10/30/npm常用的命令/" data-id="ckj5qcrly00152sw0tspynslo" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2019/10/30/npm常用的命令/" data-id="ckj9ij2st001ffow0zkdqjscg" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/">npm</a></li></ul>
@@ -384,7 +491,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2019/10/26/host文件的作用和用法/" data-id="ckj5qcrlo000l2sw0tx8fe2ai" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2019/10/26/host文件的作用和用法/" data-id="ckj9ij2se000ofow0xx1ngljv" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/host-Apache-vHost/">host Apache vHost</a></li></ul>
@@ -430,7 +537,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2019/10/25/Promise的理解/" data-id="ckj5qcrlg000c2sw0uere8cez" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2019/10/25/Promise的理解/" data-id="ckj9ij2se000efow0v6nsg6wx" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -495,105 +602,10 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2019/10/24/hexo的使用/" data-id="ckj5qcrll000i2sw044t0k211" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2019/10/24/hexo的使用/" data-id="ckj9ij2se000kfow0y0a0wmpi" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
-
-    </footer>
-  </div>
-  <!---->
-</article>
-
-
-  
-    <article id="post-vue和vuec的安装和使用" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/10/21/vue和vuec的安装和使用/" class="article-date">
-  <time datetime="2019-10-21T13:00:25.000Z" itemprop="datePublished">2019-10-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端/">前端</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/21/vue和vuec的安装和使用/">vue和vuec的安装和使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="安装vue"><a href="#安装vue" class="headerlink" title="安装vue"></a>安装vue</h2><p>这段时间，我在学习vue的使用。安装vue有三种方式：</p>
-<ol>
-<li><p>CDN方式：直接使用 <code>&lt;script&gt;</code> 标签引用vue；</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/npm/vue/dist/vue.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>  //引用最新版本vue</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/npm/vue@2.6.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>        //引用具体版本vue</span><br></pre></td></tr></table></figure> 
-</li>
-<li><p>npm安装：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install vue  <span class="comment">//安装最新稳定版</span></span><br><span class="line">npm install -g cnpm --registry=https:<span class="comment">//registry.npm.taobao.org //可以安装npm淘宝镜像，提高安装速度 </span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>安装vue-cli构建工具：<br>a. 卸载旧版本vuec</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall vue-cli -g  <span class="comment">//vuec 2.0前称作vue-cli, 3.0+后称作@vue/cli</span></span><br></pre></td></tr></table></figure>
-
-<p>b. 安装新版本vuec</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @vue/cli -g </span><br></pre></td></tr></table></figure>   
-<br>
-</li>
-</ol>
-<hr>
-<h2 id="vuec使用"><a href="#vuec使用" class="headerlink" title="vuec使用"></a>vuec使用</h2><ol>
-<li><p>新建vue项目</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    vue create project_name</span><br><span class="line"><span class="comment">//  or </span></span><br><span class="line"><span class="comment">//  vue ui     进入vue gui管理界面</span></span><br></pre></td></tr></table></figure>
-<p>项目名称不能出现<strong>大写字母或者驼峰形式</strong>。</p>
-</li>
-<li><p>进入安装目录，并运行。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd project_name</span><br><span class="line">npm install</span><br><span class="line">npm run serve</span><br></pre></td></tr></table></figure> 
-<br>
-</li>
-</ol>
-<hr>
-<h2 id="element-ui的安装及使用"><a href="#element-ui的安装及使用" class="headerlink" title="element-ui的安装及使用"></a>element-ui的安装及使用</h2><ol>
-<li><p>npm安装使用</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i element-ui -S</span><br></pre></td></tr></table></figure>
-<p>在vuec创建项目中的main.js文件中写入以下代码：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</span><br><span class="line"><span class="keyword">import</span> ElementUI <span class="keyword">from</span> <span class="string">'element-ui'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'element-ui/lib/theme-chalk/index.css'</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App.vue'</span>;</span><br><span class="line"></span><br><span class="line">Vue.use(ElementUI);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;);       </span><br></pre></td></tr></table></figure>
-</li>
-<li><p>CDN引用</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 引入样式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"https://unpkg.com/element-ui/lib/theme-chalk/index.css"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 引入组件库 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/element-ui/lib/index.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>安装vue-cli-plugin-element<br>这个方法要求@vue/cli 3.0+ 。安装的代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vue create &lt;my-app&gt;</span><br><span class="line">cd &lt;my-app&gt;</span><br><span class="line">vue add element</span><br></pre></td></tr></table></figure>   
-<p>然后根据提示，插件会自动导入element-ui。</p>
-</li>
-</ol>
-<hr>
-<h2 id="axios的安装"><a href="#axios的安装" class="headerlink" title="axios的安装"></a>axios的安装</h2><ol>
-<li>通用的安装方法：<br><code>npm install axios</code></li>
-<li>vue-axios的安装和用法：<br><code>npm install --save axios vue-axios</code></li>
-</ol>
-<p><strong>在main.js中引入</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;</span><br><span class="line">import axios from &apos;axios&apos;</span><br><span class="line">import VueAxios from &apos;vue-axios&apos;</span><br><span class="line"></span><br><span class="line">Vue.use(VueAxios, axios)</span><br></pre></td></tr></table></figure>
-
-<p><strong>你可以这样使用它：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Vue.axios.get(api).then((response) =&gt; &#123;</span><br><span class="line">  console.log(response.data)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">this.axios.get(api).then((response) =&gt; &#123;</span><br><span class="line">  console.log(response.data)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">this.$http.get(api).then((response) =&gt; &#123;</span><br><span class="line">  console.log(response.data)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2019/10/21/vue和vuec的安装和使用/" data-id="ckj5qcrm8001p2sw0pyf1mtd4" class="article-share-link">Share</a>-->
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vuec/">vuec</a></li></ul>
 
     </footer>
   </div>
@@ -659,6 +671,10 @@
       <ul>
         
           <li>
+            <a href="/2020/12/27/vue单页面应用白屏屏优化/">vue单页面应用白屏屏优化</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/26/逸辰音乐问题点/">逸辰音乐问题点</a>
           </li>
         
@@ -672,10 +688,6 @@
         
           <li>
             <a href="/2020/12/16/var-let-和-const-的区别/">var 、 let 和 const</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/24/在线记账项目遇到的问题/">在线记账项目遇到的问题</a>
           </li>
         
       </ul>

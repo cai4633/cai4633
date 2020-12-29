@@ -7,18 +7,18 @@
   
   <title>逸辰音乐问题点 | 蔡进东的日志</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天在重构自己的项目时，发现了不少问题。总结归纳一下， 以便提高自己。 一、在vue 项目现有的 stylus代码中添加新的样式无效在重构旧项目的过程中，我需要在现有stylus样式中添加一些css。但是在添加css后，发现新样式不仅没有生效，反而会影响原有的样式。绞尽脑汁，最后发现是stylus缩进的格式有问题。stylus写法有很多种，常见的写法有 {} 或者缩进。当使用缩进写法时，空格和ta">
+  <meta name="description" content="今天在重构自己的项目时，发现了不少问题。总结归纳一下， 以便提高自己。 一、在 vue 项目现有的 stylus 代码中添加新的样式无效在重构旧项目的过程中，我需要在现有 stylus 样式中添加一些 css。但是在添加 css 后，发现新样式不仅没有生效，反而会影响原有的样式。绞尽脑汁，最后发现是stylus 缩进的格式有问题。stylus 写法有很多种，常见的写法有 {} 或者缩进。当使用缩进">
 <meta property="og:type" content="article">
 <meta property="og:title" content="逸辰音乐问题点">
 <meta property="og:url" content="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/index.html">
 <meta property="og:site_name" content="蔡进东的日志">
-<meta property="og:description" content="今天在重构自己的项目时，发现了不少问题。总结归纳一下， 以便提高自己。 一、在vue 项目现有的 stylus代码中添加新的样式无效在重构旧项目的过程中，我需要在现有stylus样式中添加一些css。但是在添加css后，发现新样式不仅没有生效，反而会影响原有的样式。绞尽脑汁，最后发现是stylus缩进的格式有问题。stylus写法有很多种，常见的写法有 {} 或者缩进。当使用缩进写法时，空格和ta">
+<meta property="og:description" content="今天在重构自己的项目时，发现了不少问题。总结归纳一下， 以便提高自己。 一、在 vue 项目现有的 stylus 代码中添加新的样式无效在重构旧项目的过程中，我需要在现有 stylus 样式中添加一些 css。但是在添加 css 后，发现新样式不仅没有生效，反而会影响原有的样式。绞尽脑汁，最后发现是stylus 缩进的格式有问题。stylus 写法有很多种，常见的写法有 {} 或者缩进。当使用缩进">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/images/stylus_bug_reason.png">
-<meta property="og:updated_time" content="2020-12-26T13:17:10.709Z">
+<meta property="og:updated_time" content="2020-12-29T06:21:00.404Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逸辰音乐问题点">
-<meta name="twitter:description" content="今天在重构自己的项目时，发现了不少问题。总结归纳一下， 以便提高自己。 一、在vue 项目现有的 stylus代码中添加新的样式无效在重构旧项目的过程中，我需要在现有stylus样式中添加一些css。但是在添加css后，发现新样式不仅没有生效，反而会影响原有的样式。绞尽脑汁，最后发现是stylus缩进的格式有问题。stylus写法有很多种，常见的写法有 {} 或者缩进。当使用缩进写法时，空格和ta">
+<meta name="twitter:description" content="今天在重构自己的项目时，发现了不少问题。总结归纳一下， 以便提高自己。 一、在 vue 项目现有的 stylus 代码中添加新的样式无效在重构旧项目的过程中，我需要在现有 stylus 样式中添加一些 css。但是在添加 css 后，发现新样式不仅没有生效，反而会影响原有的样式。绞尽脑汁，最后发现是stylus 缩进的格式有问题。stylus 写法有很多种，常见的写法有 {} 或者缩进。当使用缩进">
 <meta name="twitter:image" content="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/images/stylus_bug_reason.png">
   
   
@@ -93,12 +93,16 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>今天在重构自己的项目时，发现了不少问题。总结归纳一下， 以便提高自己。</p>
-<h2 id="一、在vue-项目现有的-stylus代码中添加新的样式无效"><a href="#一、在vue-项目现有的-stylus代码中添加新的样式无效" class="headerlink" title="一、在vue 项目现有的 stylus代码中添加新的样式无效"></a>一、在vue 项目现有的 stylus代码中添加新的样式无效</h2><p>在重构旧项目的过程中，我需要在现有stylus样式中添加一些css。但是在添加css后，发现新样式不仅没有生效，反而会影响原有的样式。绞尽脑汁，最后发现是<strong>stylus缩进的格式</strong>有问题。stylus写法有很多种，常见的写法有 <strong>{}</strong> 或者<strong>缩进</strong>。当使用缩进写法时，<strong>空格和tab不能混用</strong>，否则会造成编译错误。<br><img src="./images/stylus_bug_reason.png" alt="stylus"></p>
+<h2 id="一、在-vue-项目现有的-stylus-代码中添加新的样式无效"><a href="#一、在-vue-项目现有的-stylus-代码中添加新的样式无效" class="headerlink" title="一、在 vue 项目现有的 stylus 代码中添加新的样式无效"></a>一、在 vue 项目现有的 stylus 代码中添加新的样式无效</h2><p>在重构旧项目的过程中，我需要在现有 stylus 样式中添加一些 css。但是在添加 css 后，发现新样式不仅没有生效，反而会影响原有的样式。绞尽脑汁，最后发现是<strong>stylus 缩进的格式</strong>有问题。stylus 写法有很多种，常见的写法有 <strong>{}</strong> 或者<strong>缩进</strong>。当使用缩进写法时，<strong>空格和 tab 不能混用</strong>，否则会造成编译错误。<br><img src="./images/stylus_bug_reason.png" alt="stylus"></p>
+<h2 id="二、多个-jsonp-请求问题"><a href="#二、多个-jsonp-请求问题" class="headerlink" title="二、多个 jsonp 请求问题"></a>二、多个 jsonp 请求问题</h2><p>使用 jsonp 库<strong>同时发送多个 jsonp</strong>请求时，要保证 <strong>callback 参数各不相同</strong>，否则会导致 data 解析失败。</p>
+<h2 id="三、页面刷新-vuex-数据丢失"><a href="#三、页面刷新-vuex-数据丢失" class="headerlink" title="三、页面刷新 vuex 数据丢失"></a>三、页面刷新 vuex 数据丢失</h2><p>在项目中，我们很多时候不可避免的会使用 vuex 来管理全局状态。vuex 状态是保存在<strong>运行时内存</strong>中的。当<strong>F5</strong>页面刷新时，vuex 会被<strong>新建并初始化</strong>，这就导致了数据丢失。常用的解决办法就是借助 <strong>sessionStorage</strong> 或者 <strong>localStorage</strong> 缓存 vuex 中重要的数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//  in state.ts</span><br><span class="line">const sessionDisc = window.sessionStorage.getItem(&quot;disc&quot;)</span><br><span class="line">const state: any = &#123;</span><br><span class="line">  disc: sessionDisc ? JSON.parse(sessionDisc) : &#123;&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//  in mutations.ts</span><br><span class="line">  [types.SET_DISC](state: any, cd: any) &#123;</span><br><span class="line">    state.disc = cd</span><br><span class="line">    window.sessionStorage.setItem(&quot;disc&quot;, JSON.stringify(cd))</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/" data-id="ckj5qcrmx002w2sw02blnv6c4" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/" data-id="ckj9ij2u5003cfow0jzpo4dew" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -106,6 +110,15 @@
   <!---->
     <!--
 <nav id="article-nav">
+  
+    <a href="/2020/12/27/vue单页面应用白屏屏优化/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          vue单页面应用白屏屏优化
+        
+      </div>
+    </a>
   
   
     <a href="/2020/12/24/造轮子遇到的问题/" id="article-nav-older" class="article-nav-link-wrap">
@@ -168,6 +181,10 @@
       <ul>
         
           <li>
+            <a href="/2020/12/27/vue单页面应用白屏屏优化/">vue单页面应用白屏屏优化</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/26/逸辰音乐问题点/">逸辰音乐问题点</a>
           </li>
         
@@ -181,10 +198,6 @@
         
           <li>
             <a href="/2020/12/16/var-let-和-const-的区别/">var 、 let 和 const</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/24/在线记账项目遇到的问题/">在线记账项目遇到的问题</a>
           </li>
         
       </ul>
