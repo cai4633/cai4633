@@ -317,7 +317,7 @@ body {
 }
 #header:before,
 #header:after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -357,7 +357,7 @@ body {
   z-index: -1;
 }
 #header-title {
-  font-family: "Open Sans", "Hiragino Sans GB", sans-serif;
+  font-family: 'Open Sans', 'Hiragino Sans GB', sans-serif;
   padding-left: 18px;
   text-align: left;
   height: 40px;
@@ -387,6 +387,7 @@ body {
   text-indent: 2em;
 }
 #subtitle-wrap {
+  margin-right: 2em;
   margin-top: 16px;
 }
 #main-nav {
@@ -434,7 +435,7 @@ body {
   display: none;
 }
 #main-nav-toggle:before {
-  content: "\f0c9";
+  content: '\f0c9';
 }
 @media screen and (max-width: 479px) {
   #main-nav-toggle {
@@ -446,10 +447,10 @@ body {
   margin-right: -15px;
 }
 #nav-rss-link:before {
-  content: "\f09e";
+  content: '\f09e';
 }
 #nav-search-btn:before {
-  content: "\f002";
+  content: '\f002';
 }
 #search-form-wrap {
   position: absolute;
@@ -1378,15 +1379,7 @@ pre .javascript .function {
     width: 250px;
   }
 }
-.local-search-empty {
-  color: #888;
-  line-height: 44px;
-  text-align: center;
-  display: block;
-  font-size: 16px;
-  font-weight: normal;
-}
-ul {
+.local-search-result-cls ul {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1401,7 +1394,7 @@ ul {
   -webkit-box-shadow: 1px 2px 4px #ccc;
   box-shadow: 1px 2px 4px #ccc;
 }
-ul li {
+.local-search-result-cls ul li {
   text-align: left;
   border-bottom: 1px solid #ccc;
   padding-bottom: 20px;
@@ -1409,22 +1402,30 @@ ul li {
   line-height: 30px;
   font-weight: normal;
 }
-ul li:last-child {
+.local-search-result-cls ul li:last-child {
   border-bottom: none;
   margin-bottom: 0;
 }
-ul li a {
+.local-search-result-cls ul li a {
   margin-top: 20px;
   font-size: 16px;
 }
-ul li p {
+.local-search-result-cls ul li p {
   margin-top: 10px;
   font-size: 14px;
   max-height: 124px;
   overflow: hidden;
 }
-ul li em.search-keyword {
+.local-search-result-cls ul li em.search-keyword {
   color: #e58c7c;
+}
+.local-search-empty {
+  color: #888;
+  line-height: 44px;
+  text-align: center;
+  display: block;
+  font-size: 16px;
+  font-weight: normal;
 }
 .local-search-plugin .local-search-input-cls {
   opacity: 0.6;
@@ -1551,12 +1552,12 @@ ul li em.search-keyword {
 .category-list-count:before,
 .tag-list-count:before,
 .archive-list-count:before {
-  content: "(";
+  content: '(';
 }
 .category-list-count:after,
 .tag-list-count:after,
 .archive-list-count:after {
-  content: ")";
+  content: ')';
 }
 .tagcloud a {
   margin-right: 5px;
