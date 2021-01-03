@@ -7,7 +7,7 @@
 title: 蔡进东的日志
 subtitle: 不要在最该奋斗的年纪选择去偷懒，只有度过一段连自己都被感动了的日子，才能变成那个最好的自己.
 description: 不要在最该奋斗的年纪去偷懒!
-keywords: 
+keywords:
 author: Cai4633
 language: zh-CN
 timezone:
@@ -27,7 +27,7 @@ archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
-skip_render: [pages/**,jquery/**,CNAME,README.md]    #跳过渲染的文件和文件夹，支持glob表达式规则；
+skip_render: [pages/**, jquery/**, CNAME, README.md] #跳过渲染的文件和文件夹，支持glob表达式规则；
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -44,16 +44,16 @@ highlight:
   line_number: true
   auto_detect: false
   tab_replace:
-  
+
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
-  path: ''
+  path: ""
   per_page: 8
   order_by: -date
-  
+
 # Category & Tag
 default_category: uncategorized
 category_map:
@@ -82,3 +82,11 @@ deploy:
   type: git
   repo: git@github.com:cai4633/cai4633.github.io.git
   branch: master
+
+search:
+  path: search.xml
+  field: post
+  content: true
+
+local_search:
+  enable: true

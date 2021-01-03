@@ -3,9 +3,11 @@ menu:
   Home: /
   Archives: /archives
 
+
 # Content
 excerpt_link: Read More
 fancybox: true
+recent_posts_limits: 5
 
 # Sidebar
 sidebar: right

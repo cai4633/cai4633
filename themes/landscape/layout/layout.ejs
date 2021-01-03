@@ -13,6 +13,19 @@
     </div>
     <%- partial('_partial/mobile-nav', null, {cache: !config.relative_link}) %>
     <%- partial('_partial/after-footer') %>
+    <script>
+      let isMobile = false
+      if (/Android|webOS|iPhone|iPad|BlackBerry/i.test(navigator.userAgent)) {
+        isMobile = true
+        $("#nav").addClass("is-mobile")
+        $("footer").addClass("is-mobile")
+      }
+      if ($(".local-search").size()) {
+        $.getScript("/js/search.js", function () {
+          searchFunc("/search.xml", "local-search-input", "local-search-result")
+        })
+      }
+    </script>
   </div>
 </body>
 </html>
