@@ -1373,7 +1373,12 @@ pre .javascript .function {
   top: 50px;
   right: 0;
 }
-.local-search-result-cls .local-search-empty {
+@media screen and (max-width: 420px) {
+  .local-search-result-cls {
+    width: 250px;
+  }
+}
+.local-search-empty {
   color: #888;
   line-height: 44px;
   text-align: center;
@@ -1381,8 +1386,11 @@ pre .javascript .function {
   font-size: 16px;
   font-weight: normal;
 }
-.local-search-result-cls ul {
-  width: 360px;
+ul {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
   max-height: 450px;
   min-height: 0;
   height: auto;
@@ -1393,7 +1401,7 @@ pre .javascript .function {
   -webkit-box-shadow: 1px 2px 4px #ccc;
   box-shadow: 1px 2px 4px #ccc;
 }
-.local-search-result-cls ul li {
+ul li {
   text-align: left;
   border-bottom: 1px solid #ccc;
   padding-bottom: 20px;
@@ -1401,21 +1409,21 @@ pre .javascript .function {
   line-height: 30px;
   font-weight: normal;
 }
-.local-search-result-cls ul li:last-child {
+ul li:last-child {
   border-bottom: none;
   margin-bottom: 0;
 }
-.local-search-result-cls ul li a {
+ul li a {
   margin-top: 20px;
   font-size: 16px;
 }
-.local-search-result-cls ul li p {
+ul li p {
   margin-top: 10px;
   font-size: 14px;
   max-height: 124px;
   overflow: hidden;
 }
-.local-search-result-cls ul li em.search-keyword {
+ul li em.search-keyword {
   color: #e58c7c;
 }
 .local-search-plugin .local-search-input-cls {
@@ -1436,9 +1444,14 @@ pre .javascript .function {
 }
 .local-search-plugin .search-result-list .search-result-title {
   text-decoration: none;
+  color: #333;
+  font-weight: 600;
 }
 .local-search-plugin .search-result-list .search-result-title:active {
   color: inherit;
+}
+.local-search-plugin .search-result-list p.search-result {
+  color: #888;
 }
 .local-search-plugin .icon {
   position: relative;
