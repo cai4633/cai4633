@@ -343,7 +343,6 @@ body {
 }
 #header-inner {
   position: relative;
-  overflow: hidden;
 }
 #banner {
   position: absolute;
@@ -1312,8 +1311,10 @@ pre .javascript .function {
   }
 }
 .local-search {
-  position: relative;
+  display: inline-block;
+  position: absolute;
   text-align: left;
+  right: 2em;
   margin-bottom: 10px;
 }
 .local-search-input-cls {
@@ -1328,19 +1329,19 @@ pre .javascript .function {
 #local-search-close {
   content: 'x';
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: 1.2em;
+  top: 1em;
   background: #fff;
   color: #888;
   border-radius: 100%;
-  line-height: 20px;
+  line-height: 16px;
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   font-family: consolas;
   border: 1px solid #ccc;
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
   font-style: normal;
   font-weight: normal;
@@ -1371,7 +1372,6 @@ pre .javascript .function {
   width: 400px;
   top: 50px;
   right: 0;
-  border: 1px solid #f00;
 }
 .local-search-result-cls .local-search-empty {
   color: #888;
@@ -1434,11 +1434,35 @@ pre .javascript .function {
   -ms-transition: all 0.3s;
   transition: all 0.3s;
 }
+.local-search-plugin .search-result-list .search-result-title {
+  text-decoration: none;
+}
+.local-search-plugin .search-result-list .search-result-title:active {
+  color: inherit;
+}
 .local-search-plugin .icon {
   position: relative;
   left: -30px;
   color: #999;
   cursor: pointer;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: rgba(0,0,0,0.1);
+  -webkit-border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:vertical {
+  background-color: rgba(125,125,125,0.4);
+  -webkit-border-radius: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb:horizontal {
+  background-color: rgba(125,125,125,0.4);
+  -webkit-border-radius: 6px;
+  width: 6px;
 }
 @media screen and (min-width: 768px) {
   #sidebar {

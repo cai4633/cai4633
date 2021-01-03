@@ -6,7 +6,6 @@ var searchFunc = function (path, search_id, content_id) {
     dataType: "xml",
     success: function (xmlResponse) {
       // get the contents from search data
-      console.log(xmlResponse)
       var datas = $("entry", xmlResponse)
         .map(function () {
           return {
@@ -16,10 +15,8 @@ var searchFunc = function (path, search_id, content_id) {
           }
         })
         .get()
-      console.log(datas)
       var $input = document.getElementById("local-search-input")
       var $resultContent = document.getElementById("local-search-result")
-
       $input.addEventListener("input", function () {
         var str = '<ul class="search-result-list">'
         var keywords = this.value
@@ -39,9 +36,11 @@ var searchFunc = function (path, search_id, content_id) {
           }
           var data_title = data.title.trim().toLowerCase()
           var data_content = data.content
-            .trim()
-            .replace(/<[^>]+>/g, "")
-            .toLowerCase()
+            ? data.content
+                .trim()
+                .replace(/<[^>]+>/g, "")
+                .toLowerCase()
+            : ""
           var data_url = "/" + data.url
           var index_title = -1
           var index_content = -1
