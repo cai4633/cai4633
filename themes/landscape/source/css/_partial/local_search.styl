@@ -49,49 +49,53 @@
   top 50px
   right 0
 
-  .local-search-empty
-    color #888
-    line-height 44px
-    text-align center
-    display block
-    font-size 16px
+  @media screen and (max-width 420px)
+    width 250px
+
+.local-search-empty
+  color #888
+  line-height 44px
+  text-align center
+  display block
+  font-size 16px
+  font-weight normal
+
+ul
+  box-sizing border-box
+  width 100%
+  max-height 450px
+  min-height 0
+  height auto
+  overflow-y auto
+  border 1px solid #CCC
+  padding 10px 20px
+  background #FFF
+  box-shadow 1px 2px 4px #CCC
+
+  li
+    text-align left
+    border-bottom 1px solid #CCC
+    padding-bottom 20px
+    margin-bottom 20px
+    line-height 30px
     font-weight normal
 
-  ul
-    width 360px
-    max-height 450px
-    min-height 0
-    height auto
-    overflow-y auto
-    border 1px solid #CCC
-    padding 10px 20px
-    background #FFF
-    box-shadow 1px 2px 4px #CCC
+    &:last-child
+      border-bottom none
+      margin-bottom 0
 
-    li
-      text-align left
-      border-bottom 1px solid #CCC
-      padding-bottom 20px
-      margin-bottom 20px
-      line-height 30px
-      font-weight normal
+    a
+      margin-top 20px
+      font-size 16px
 
-      &:last-child
-        border-bottom none
-        margin-bottom 0
+    p
+      margin-top 10px
+      font-size 14px
+      max-height 124px
+      overflow hidden
 
-      a
-        margin-top 20px
-        font-size 16px
-
-      p
-        margin-top 10px
-        font-size 14px
-        max-height 124px
-        overflow hidden
-
-      em.search-keyword
-        color #e58c7c
+    em.search-keyword
+      color #e58c7c
 
 .local-search-plugin
   .local-search-input-cls
@@ -107,9 +111,14 @@
   .search-result-list
     .search-result-title
       text-decoration none
+      color #333
+      font-weight 600
 
       &:active
         color inherit
+
+    p.search-result
+      color #888
 
   .icon
     position relative
