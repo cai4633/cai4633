@@ -70,6 +70,75 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-web性能优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/03/web性能优化/" class="article-date">
+  <time datetime="2021-01-03T01:22:12.000Z" itemprop="datePublished">2021-01-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/03/web性能优化/">web性能优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一个前端开发必定绕不开<strong>性能优化</strong>这个话题。web 性能优化通俗的讲就是让页面尽快呈现在用户眼前。要想解决性能优化这个难题必须提前了解<a href="/2020/04/19/浏览器输入URL到页面显示全过程/">浏览器从输入 URL 到渲染页面的整个过程</a>。简单的来说 web 性能优化主要从以下几个方面入手：</p>
+<ol>
+<li>DNS 查询过程</li>
+<li>HTTP 请求过程</li>
+<li>资源下载过程</li>
+<li>浏览器渲染过程</li>
+<li>缓存过程</li>
+</ol>
+<h2 id="一、DNS-查询优化"><a href="#一、DNS-查询优化" class="headerlink" title="一、DNS 查询优化"></a>一、DNS 查询优化</h2><p>浏览器地址栏输入 URL 发送出去后，域名会通过 DNS 服务器进行域名解析并返回对应的 IP 地址。这个过程通常比较快，但是也可以有优化的空间。</p>
+<h3 id="DNS-缓存"><a href="#DNS-缓存" class="headerlink" title="DNS 缓存"></a>DNS 缓存</h3><p>DNS 缓存一般都是浏览器等自动缓存的。但是了解其相应的过程还是必要的。DNS 解析首先查询<strong>浏览器缓存</strong>，然后查询操作系统<strong>HOSTS 文件</strong>，再查询<strong>路由器缓存</strong>，如果无法找到缓存才正式向<strong>本地 DNS 服务器</strong> 或者<strong>根服务器</strong>逐级请求解析。这其中我们可以<strong>更改 hosts</strong> 加快解析速度，但是我们不能指望每个用户都会改 hosts。</p>
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><p>如果同一台服务器同时链接的用户数过大时，服务器可能会崩溃。解决办法就是 DNS 负载均衡技术。原理是在 DNS 服务器中为同一个域名配置多个 IP 地址,在应答 DNS 查询时,根据服务器的负载量以及离用户的距离等返回不同的解析结果,将客户端的访问引导到不同的服务器上,从而达到负载均衡的目的｡例如 <strong>CDN 节点</strong>。</p>
+<h3 id="DNS-预获取"><a href="#DNS-预获取" class="headerlink" title="DNS 预获取"></a>DNS 预获取</h3><p>现代浏览器默认会对页面中和当前域名（正在浏览网页的域名）不在同一个域的域名进行预获取，并且缓存结果，这就是隐式的 DNS Prefetch。如果想对页面中没有出现的域进行预获取，那么就要使用显式的 <strong>dns-prefetch</strong> 了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 打开dns-prefetch --&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;x-dns-prefetch-control&quot; content=&quot;on&quot;&gt;</span><br><span class="line">&lt;link rel=&quot;dns-prefetch&quot; href=&quot;//www.baidu.com&quot;&gt;</span><br><span class="line">&lt;link rel=&quot;dns-prefetch&quot; href=&quot;//zhihu.com&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 关闭dns-prefetch 禁止隐式dns预获取 --&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;x-dns-prefetch-control&quot; content=&quot;off&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、http-请求优化"><a href="#二、http-请求优化" class="headerlink" title="二、http 请求优化"></a>二、http 请求优化</h2><p>当域名解析成功后，浏览器就会和对应的服务器建立 TCP 连接，并发送 http 请求。http 请求可以优化的地方也有很多。</p>
+<h3 id="减少-http-请求数"><a href="#减少-http-请求数" class="headerlink" title="减少 http 请求数"></a>减少 http 请求数</h3><p>能合并的文件<strong>尽量合并</strong>，比如使用雪碧图等都可以有效减少 http 请求数。</p>
+<h3 id="TCP-连接复用-keep-alive"><a href="#TCP-连接复用-keep-alive" class="headerlink" title="TCP 连接复用 (keep-alive)"></a>TCP 连接复用 (keep-alive)</h3><p>HTTP 协议采用“请求-应答”模式。http1.0 时代，客户端每次请求都要和服务器新建一个 TCP 连接，完成之后立即断开连接。而使用 Keep-Alive 模式会使客户端到服务器端的 TCP 连接持续有效。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 启用Keep-Alive --&gt;</span><br><span class="line">Connection: Keep-Alive</span><br></pre></td></tr></table></figure>
+
+<p>HTTP 1.1 时代，默认开启 Keep-Alive 模式，只有加入 <code>Connection: close</code>才关闭连接。Keep-Alive 模式的属性可以设置 ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- timeout=6 表示这个 TCP 通道可以保持 6 秒，max=50 表示这个长连接最多接收 50 次请求就断开 --&gt;</span><br><span class="line">Keep-Alive: timeout=6, max=50，</span><br></pre></td></tr></table></figure>
+
+<h3 id="浏览器请求阻塞"><a href="#浏览器请求阻塞" class="headerlink" title="浏览器请求阻塞"></a>浏览器请求阻塞</h3><p>浏览器在<strong>同一时刻对相同域名</strong>的请求数有一定的限制，不同的浏览器表现不同，一般都是 4-10 个。chrome 浏览器默认情况下是 6 个。为了绕过这个限制，可以采用<strong>多域名</strong>的方法。</p>
+<h3 id="cookie-free"><a href="#cookie-free" class="headerlink" title="cookie-free"></a>cookie-free</h3><p><strong>浏览器不会把主域名的 Cookie 传给子域名</strong>。利用这一特性我们可以将 css 和 image 单独放在不同的子域名中，减少网络开销，一定程度提高了页面加载速度， 这种技术应用叫做 cookie-free。</p>
+<p>（未完待续）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2021/01/03/web性能优化/" data-id="ckjh62ojn0067kcw0edshk745" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
     <article id="post-vue单页面应用白屏屏优化" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/27/vue单页面应用白屏屏优化/" class="article-date">
@@ -119,7 +188,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/27/vue单页面应用白屏屏优化/" data-id="ckjh44qrm002ccgw057yeqmvi" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/27/vue单页面应用白屏屏优化/" data-id="ckjh4cmwm002nkcw0c78mrjg2" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
@@ -167,7 +236,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/" data-id="ckjh44qtc004scgw0892frhyb" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/" data-id="ckjh4cmxg003ykcw0phoshbql" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -210,7 +279,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/24/造轮子遇到的问题/" data-id="ckjh44qtc004zcgw0b7sy35c9" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/24/造轮子遇到的问题/" data-id="ckjh4cmxh0040kcw04zc6380d" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue3/">Vue3</a></li></ul>
@@ -269,7 +338,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/16/ES6-常用知识点/" data-id="ckjh44qqq000wcgw0bb7ii6mc" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/16/ES6-常用知识点/" data-id="ckjh4cmut000mkcw0lre2nr9e" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -327,7 +396,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/16/var-let-和-const-的区别/" data-id="ckjh44qrm0022cgw0wl8zhvyy" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/16/var-let-和-const-的区别/" data-id="ckjh4cmwh002gkcw0tki45ufr" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/const/">const</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/let/">let</a></li></ul>
@@ -374,7 +443,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/09/24/在线记账项目遇到的问题/" data-id="ckjh44qsx0047cgw0cy5z8k4c" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/09/24/在线记账项目遇到的问题/" data-id="ckjh4cmx3003ekcw08i0i51yx" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -440,87 +509,10 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/09/18/虚拟DOM和DOM diff/" data-id="ckjh44qtc004ocgw06vxq4ycf" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/09/18/虚拟DOM和DOM diff/" data-id="ckjh4cmxb003tkcw0j6g7pfz3" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DOM-diff/">DOM diff</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vDOM/">vDOM</a></li></ul>
-
-    </footer>
-  </div>
-  <!---->
-</article>
-
-
-  
-    <article id="post-一篇文章搞懂promise" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/18/一篇文章搞懂promise/" class="article-date">
-  <time datetime="2020-08-18T12:24:25.000Z" itemprop="datePublished">2020-08-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/js/">js</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/18/一篇文章搞懂promise/">一篇文章搞懂promise</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Promise-解决了什么问题？"><a href="#Promise-解决了什么问题？" class="headerlink" title="Promise 解决了什么问题？"></a>Promise 解决了什么问题？</h2><p>在传统的异步编程中，如果异步之间存在依赖关系，就需要通过层层嵌套回调的方式满足这种依赖，如果嵌套层数过多，可读性和可以维护性都会变得很差，产生所谓的<strong>“回调地狱”</strong>。而 <code>Promise</code> 将嵌套调用改为<strong>链式调用</strong>，增加了可阅读性和可维护性。也就是说，Promise 用一种更加<strong>友好的代码组织方式</strong>解决了<strong>异步嵌套</strong>问题。Promise的缺陷是无法中断请求。<br>产生回调地狱的原因主要有两点：</p>
-<ol>
-<li>(异步请求)嵌套调用，第一个函数的输出往往是第二个函数的输入；(Promise thenable 链式调用可以解决)</li>
-<li>处理多个异步请求并发，开发时需要同步请求最终的结果。（Promise.all()可以解决）</li>
-</ol>
-<h2 id="then-的链式调用和值穿透"><a href="#then-的链式调用和值穿透" class="headerlink" title="then 的链式调用和值穿透"></a>then 的链式调用和值穿透</h2><p>在我们使用 Promise 的时候，当 then 函数中 return 了一个值，不管是什么值，我们都能在下一个 then 中获取到，这就是所谓的 then 的链式调用。而且，当我们不在 then 中放入参数，例：promise.then().then()，那么其后面的 then 依旧可以得到之前 then 返回的值，这就是所谓的值的穿透。</p>
-<h2 id="Promise-的-API"><a href="#Promise-的-API" class="headerlink" title="Promise 的 API"></a>Promise 的 API</h2><ul>
-<li>Promise.resolve() 产生一个成功的 promise, 直接将值变成成功结果</li>
-<li>Promise.reject()  产生一个失败的 promise，直接将值变成错误结果</li>
-<li>Promise.all()   解决并发问题的，多个异步并发获取最终的结果（如果有一个失败则失败)</li>
-<li>Promise.race()  处理多个请求,谁先完成用谁的</li>
-<li>Promise.prototype.catch()   捕获 promise 的异常</li>
-<li>Promise.prototype.finally()  无论如何都会执行</li>
-</ul>
-<h2 id="Promise-A-规范"><a href="#Promise-A-规范" class="headerlink" title="Promise/A+ 规范"></a>Promise/A+ 规范</h2><ol>
-<li>promise 有三个状态：<strong>pending，fulfilled，rejected</strong>, 默认状态是 pending</li>
-<li>new promise 时， 需要传递一个 executor(resolve, reject)执行器，<strong>执行器立即执行</strong></li>
-<li>promise 有一个<strong>value 保存成功状态</strong>的值，可以是 undefined/thenable/promise</li>
-<li>promise 有一个<strong>reason 保存失败状态</strong>的值</li>
-<li>promise <strong>只能</strong>从 pending 到 rejected, 或者从 pending 到 fulfilled，状态一旦确认，就不会再改变</li>
-<li>promise 必须有一个 then 方法，then 接收两个参数，分别是 promise 成功的回调 onFulfilled, 和 promise 失败的回调 onRejected</li>
-<li>如果调用 then 时，promise 已经成功，则执行 onFulfilled，参数是 promise 的 value；</li>
-<li>如果调用 then 时，promise 已经失败，那么执行 onRejected, 参数是 promise 的 reason；</li>
-<li>如果 then 中抛出了异常，那么就会把这个异常作为参数，传递给下一个 then 的失败的回调 onRejected</li>
-<li>then 的参数 onFulfilled 和 onRejected 可以缺省，如果 onFulfilled 或者 onRejected 不是函数，将其忽略，且依旧可以在下面的 then 中获取到之前返回的值；</li>
-<li>promise 可以 then 多次，每次执行完 promise.then 方法后返回的都是一个<strong>“新的 promise”</strong></li>
-<li>如果 then 的返回值是一个普通值，那么就会把这个结果作为参数，传递给下一个 then 的成功的回调中；</li>
-<li>如果 then 的<strong>返回值是一个 promise，那么会等这个 promise 执行完</strong>，promise 如果成功，就走下一个 then 的成功；如果失败，就走下一个 then 的失败；如果抛 1. 出异常，就走下一个 then 的失败</li>
-<li>如果 then 的返回值和 promise 是同一个引用对象，造成循环引用，则抛出异常，把异常传递给下一个 then 的失败的回调中</li>
-<li>如果 then 的返回值 x 是一个 promise，且 x 同时调用 resolve 函数和 reject 函数，则第一次调用优先，其他所有调用被忽略</li>
-</ol>
-<p><code>Promise实现代码：</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br></pre></td><td class="code"><pre><span class="line">const PENDING = &apos;PENDING&apos;;</span><br><span class="line">const FULFILLED = &apos;FULFILLED&apos;;</span><br><span class="line">const REJECTED = &apos;REJECTED&apos;;</span><br><span class="line"></span><br><span class="line">const resolvePromise = (promise2, x, resolve, reject) =&gt; &#123;</span><br><span class="line">  // 自己等待自己完成是错误的实现，用一个类型错误，结束掉 promise  Promise/A+ 2.3.</span><br><span class="line">  if (promise2 === x) &#123;</span><br><span class="line">    return reject(new TypeError(&apos;Chaining cycle detected for promise #&lt;Promise&gt;&apos;))</span><br><span class="line">  &#125;</span><br><span class="line">  // Promise/A+ 2.3.3.3.3 只能调用一次</span><br><span class="line">  let called;</span><br><span class="line">  // 后续的条件要严格判断 保证代码能和别的库一起使用</span><br><span class="line">  if ((typeof x === &apos;object&apos; &amp;&amp; x != null) || typeof x === &apos;function&apos;) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      // 为了判断 resolve 过的就不用再 reject 了（比如 reject 和 resolve 同时调用的时候）  Promise/A+ 2.3.3.1</span><br><span class="line">      let then = x.then;</span><br><span class="line">      if (typeof then === &apos;function&apos;) &#123;</span><br><span class="line">        // 不要写成 x.then，直接 then.call 就可以了 因为 x.then 会再次取值，Object.defineProperty  Promise/A+ 2.3.3.3</span><br><span class="line">        then.call(x, y =&gt; &#123; // 根据 promise 的状态决定是成功还是失败</span><br><span class="line">          if (called) return;</span><br><span class="line">          called = true;</span><br><span class="line">          // 递归解析的过程（因为可能 promise 中还有 promise） Promise/A+ 2.3.3.3.1</span><br><span class="line">          resolvePromise(promise2, y, resolve, reject);</span><br><span class="line">        &#125;, r =&gt; &#123;</span><br><span class="line">          // 只要失败就失败 Promise/A+ 2.3.3.3.2</span><br><span class="line">          if (called) return;</span><br><span class="line">          called = true;</span><br><span class="line">          reject(r);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        // 如果 x.then 是个普通值就直接返回 resolve 作为结果  Promise/A+ 2.3.3.4</span><br><span class="line">        resolve(x);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; catch (e) &#123;</span><br><span class="line">      // Promise/A+ 2.3.3.2</span><br><span class="line">      if (called) return;</span><br><span class="line">      called = true;</span><br><span class="line">      reject(e)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    // 如果 x 是个普通值就直接返回 resolve 作为结果  Promise/A+ 2.3.4</span><br><span class="line">    resolve(x)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Promise &#123;</span><br><span class="line">  constructor(executor) &#123;</span><br><span class="line">    this.status = PENDING;</span><br><span class="line">    this.value = undefined;</span><br><span class="line">    this.reason = undefined;</span><br><span class="line">    this.onResolvedCallbacks = [];</span><br><span class="line">    this.onRejectedCallbacks= [];</span><br><span class="line"></span><br><span class="line">    let resolve = (value) =&gt; &#123;</span><br><span class="line">      if(this.status ===  PENDING) &#123;</span><br><span class="line">        this.status = FULFILLED;</span><br><span class="line">        this.value = value;</span><br><span class="line">        this.onResolvedCallbacks.forEach(fn=&gt;fn());</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    let reject = (reason) =&gt; &#123;</span><br><span class="line">      if(this.status ===  PENDING) &#123;</span><br><span class="line">        this.status = REJECTED;</span><br><span class="line">        this.reason = reason;</span><br><span class="line">        this.onRejectedCallbacks.forEach(fn=&gt;fn());</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    try &#123;</span><br><span class="line">      executor(resolve,reject)</span><br><span class="line">    &#125; catch (error) &#123;</span><br><span class="line">      reject(error)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&lt;!-- 静态方法 --&gt;</span><br><span class="line">  static resolve(data)&#123;</span><br><span class="line">    return new Promise((resolve,reject)=&gt;&#123;</span><br><span class="line">      resolve(data);</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  static reject(reason)&#123;</span><br><span class="line">    return new Promise((resolve,reject)=&gt;&#123;</span><br><span class="line">      reject(reason);</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  static race(promises) &#123;</span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      // 一起执行就是for循环</span><br><span class="line">      for (let i = 0; i &lt; promises.length; i++) &#123;</span><br><span class="line">        let val = promises[i];</span><br><span class="line">        if (val &amp;&amp; typeof val.then === &apos;function&apos;) &#123;</span><br><span class="line">          val.then(resolve, reject);</span><br><span class="line">        &#125; else &#123; // 普通值</span><br><span class="line">          resolve(val)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  static all(values) &#123;</span><br><span class="line">    if (!Array.isArray(values)) &#123;</span><br><span class="line">      const type = typeof values;</span><br><span class="line">      return new TypeError(`TypeError: $&#123;type&#125; $&#123;values&#125; is not iterable`)</span><br><span class="line">    &#125;</span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      let resultArr = [];</span><br><span class="line">      let orderIndex = 0;</span><br><span class="line">      const processResultByKey = (value, index) =&gt; &#123;</span><br><span class="line">        resultArr[index] = value;</span><br><span class="line">        if (++orderIndex === values.length) &#123;</span><br><span class="line">            resolve(resultArr)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      for (let i = 0; i &lt; values.length; i++) &#123;</span><br><span class="line">        let value = values[i];</span><br><span class="line">        if (value &amp;&amp; typeof value.then === &apos;function&apos;) &#123;</span><br><span class="line">          value.then((value) =&gt; &#123;</span><br><span class="line">            processResultByKey(value, i);</span><br><span class="line">          &#125;, reject);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          processResultByKey(value, i);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  then(onFulfilled, onRejected) &#123;</span><br><span class="line">    //解决 onFufilled，onRejected 没有传值的问题</span><br><span class="line">    //Promise/A+ 2.2.1 / Promise/A+ 2.2.5 / Promise/A+ 2.2.7.3 / Promise/A+ 2.2.7.4</span><br><span class="line">    onFulfilled = typeof onFulfilled === &apos;function&apos; ? onFulfilled : v =&gt; v;</span><br><span class="line">    //因为错误的值要让后面访问到，所以这里也要跑出个错误，不然会在之后 then 的 resolve 中捕获</span><br><span class="line">    onRejected = typeof onRejected === &apos;function&apos; ? onRejected : err =&gt; &#123; throw err &#125;;</span><br><span class="line">    // 每次调用 then 都返回一个新的 promise  Promise/A+ 2.2.7</span><br><span class="line">    let promise2 = new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      if (this.status === FULFILLED) &#123;</span><br><span class="line">        //Promise/A+ 2.2.2</span><br><span class="line">        //Promise/A+ 2.2.4 --- setTimeout</span><br><span class="line">        setTimeout(() =&gt; &#123;</span><br><span class="line">          try &#123;</span><br><span class="line">            //Promise/A+ 2.2.7.1</span><br><span class="line">            let x = onFulfilled(this.value);</span><br><span class="line">            // x可能是一个proimise</span><br><span class="line">            resolvePromise(promise2, x, resolve, reject);</span><br><span class="line">          &#125; catch (e) &#123;</span><br><span class="line">            //Promise/A+ 2.2.7.2</span><br><span class="line">            reject(e)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;, 0);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      if (this.status === REJECTED) &#123;</span><br><span class="line">        //Promise/A+ 2.2.3</span><br><span class="line">        setTimeout(() =&gt; &#123;</span><br><span class="line">          try &#123;</span><br><span class="line">            let x = onRejected(this.reason);</span><br><span class="line">            resolvePromise(promise2, x, resolve, reject);</span><br><span class="line">          &#125; catch (e) &#123;</span><br><span class="line">            reject(e)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;, 0);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      if (this.status === PENDING) &#123;</span><br><span class="line">        this.onResolvedCallbacks.push(() =&gt; &#123;</span><br><span class="line">          setTimeout(() =&gt; &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">              let x = onFulfilled(this.value);</span><br><span class="line">              resolvePromise(promise2, x, resolve, reject);</span><br><span class="line">            &#125; catch (e) &#123;</span><br><span class="line">              reject(e)</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;, 0);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        this.onRejectedCallbacks.push(()=&gt; &#123;</span><br><span class="line">          setTimeout(() =&gt; &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">              let x = onRejected(this.reason);</span><br><span class="line">              resolvePromise(promise2, x, resolve, reject)</span><br><span class="line">            &#125; catch (e) &#123;</span><br><span class="line">              reject(e)</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;, 0);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    return promise2;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Promise.prototype.catch = function(errCallback)&#123;</span><br><span class="line">  return this.then(null,errCallback)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Promise.prototype.finally = function(callback) &#123;</span><br><span class="line">  return this.then((value)=&gt;&#123;</span><br><span class="line">    return Promise.resolve(callback()).then(()=&gt;value)</span><br><span class="line">  &#125;,(reason)=&gt;&#123;</span><br><span class="line">    return Promise.resolve(callback()).then(()=&gt;&#123;throw reason&#125;)</span><br><span class="line">  &#125;)  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://zhuanlan.zhihu.com/p/183801144" target="_blank" rel="noopener">你能手写一个 Promise 吗</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/08/18/一篇文章搞懂promise/" data-id="ckjh44qsx004gcgw0g8xq3agf" class="article-share-link">Share</a>-->
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/promise/">promise</a></li></ul>
 
     </footer>
   </div>
@@ -539,6 +531,47 @@
 </section>
         
           <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/01/03/web性能优化/">web性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/27/vue单页面应用白屏屏优化/">vue单页面应用白屏屏优化</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/26/逸辰音乐问题点/">逸辰音乐问题点</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/24/造轮子遇到的问题/">造轮子遇到的问题</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/16/ES6-常用知识点/">ES6 常用知识点</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
+    </div>
+  </div>
+
+
   
     
   <div class="widget-wrap">
@@ -564,48 +597,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Apache/" style="font-size: 10px;">Apache</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/BFC/" style="font-size: 10px;">BFC</a> <a href="/tags/CORS/" style="font-size: 10px;">CORS</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/DOM-diff/" style="font-size: 10px;">DOM diff</a> <a href="/tags/JSONP/" style="font-size: 10px;">JSONP</a> <a href="/tags/Vue3/" style="font-size: 10px;">Vue3</a> <a href="/tags/absolute/" style="font-size: 10px;">absolute</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/background/" style="font-size: 10px;">background</a> <a href="/tags/const/" style="font-size: 10px;">const</a> <a href="/tags/devServer/" style="font-size: 10px;">devServer</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/host/" style="font-size: 10px;">host</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/http/" style="font-size: 15px;">http</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/leancloud/" style="font-size: 10px;">leancloud</a> <a href="/tags/let/" style="font-size: 10px;">let</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/position/" style="font-size: 10px;">position</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/proxy/" style="font-size: 10px;">proxy</a> <a href="/tags/script标签/" style="font-size: 10px;">script标签</a> <a href="/tags/v-if/" style="font-size: 10px;">v-if</a> <a href="/tags/v-show/" style="font-size: 10px;">v-show</a> <a href="/tags/vDOM/" style="font-size: 10px;">vDOM</a> <a href="/tags/vHost/" style="font-size: 10px;">vHost</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/vue-cli/" style="font-size: 10px;">vue-cli</a> <a href="/tags/vuec/" style="font-size: 10px;">vuec</a> <a href="/tags/vue生命周期/" style="font-size: 10px;">vue生命周期</a> <a href="/tags/width/" style="font-size: 10px;">width</a> <a href="/tags/z-index/" style="font-size: 10px;">z-index</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/同源/" style="font-size: 10px;">同源</a> <a href="/tags/外边距/" style="font-size: 10px;">外边距</a> <a href="/tags/层叠上下文/" style="font-size: 10px;">层叠上下文</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/百分比/" style="font-size: 10px;">百分比</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/精华/" style="font-size: 10px;">精华</a> <a href="/tags/软件下载/" style="font-size: 10px;">软件下载</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/12/27/vue单页面应用白屏屏优化/">vue单页面应用白屏屏优化</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/26/逸辰音乐问题点/">逸辰音乐问题点</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/24/造轮子遇到的问题/">造轮子遇到的问题</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/16/ES6-常用知识点/">ES6 常用知识点</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/16/var-let-和-const-的区别/">var 、 let 和 const</a>
-          </li>
-        
-      </ul>
+      <a href="/tags/Apache/" style="font-size: 10px;">Apache</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/BFC/" style="font-size: 10px;">BFC</a> <a href="/tags/CORS/" style="font-size: 10px;">CORS</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/DOM-diff/" style="font-size: 10px;">DOM diff</a> <a href="/tags/JSONP/" style="font-size: 10px;">JSONP</a> <a href="/tags/Vue3/" style="font-size: 10px;">Vue3</a> <a href="/tags/absolute/" style="font-size: 10px;">absolute</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/background/" style="font-size: 10px;">background</a> <a href="/tags/const/" style="font-size: 10px;">const</a> <a href="/tags/devServer/" style="font-size: 10px;">devServer</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/host/" style="font-size: 10px;">host</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/http/" style="font-size: 15px;">http</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/leancloud/" style="font-size: 10px;">leancloud</a> <a href="/tags/let/" style="font-size: 10px;">let</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/position/" style="font-size: 10px;">position</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/proxy/" style="font-size: 10px;">proxy</a> <a href="/tags/script标签/" style="font-size: 10px;">script标签</a> <a href="/tags/v-if/" style="font-size: 10px;">v-if</a> <a href="/tags/v-show/" style="font-size: 10px;">v-show</a> <a href="/tags/vDOM/" style="font-size: 10px;">vDOM</a> <a href="/tags/vHost/" style="font-size: 10px;">vHost</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/vue-cli/" style="font-size: 10px;">vue-cli</a> <a href="/tags/vuec/" style="font-size: 10px;">vuec</a> <a href="/tags/vue生命周期/" style="font-size: 10px;">vue生命周期</a> <a href="/tags/width/" style="font-size: 10px;">width</a> <a href="/tags/z-index/" style="font-size: 10px;">z-index</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/同源/" style="font-size: 10px;">同源</a> <a href="/tags/外边距/" style="font-size: 10px;">外边距</a> <a href="/tags/层叠上下文/" style="font-size: 10px;">层叠上下文</a> <a href="/tags/性能优化/" style="font-size: 15px;">性能优化</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/百分比/" style="font-size: 10px;">百分比</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/精华/" style="font-size: 10px;">精华</a> <a href="/tags/软件下载/" style="font-size: 10px;">软件下载</a>
     </div>
   </div>
 
