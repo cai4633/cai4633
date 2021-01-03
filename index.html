@@ -96,7 +96,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>一个前端开发必定绕不开<strong>性能优化</strong>这个话题。web 性能优化通俗的讲就是让页面尽快呈现在用户眼前。要想解决性能优化这个难题必须提前了解<a href="/2020/04/19/浏览器输入URL到页面显示全过程/">浏览器从输入 URL 到渲染页面的整个过程</a>。简单的来说 web 性能优化主要从以下几个方面入手：</p>
+        <p><img src="/images/web_performance_optimization.png" alt><br>一个前端开发必定绕不开<strong>性能优化</strong>这个话题。web 性能优化通俗的讲就是让页面尽快呈现在用户眼前。要想解决性能优化这个难题必须提前了解<a href="/2020/04/19/浏览器输入URL到页面显示全过程/">浏览器从输入 URL 到渲染页面的整个过程</a>。简单的来说 web 性能优化主要从以下几个方面入手：</p>
 <ol>
 <li>DNS 查询过程</li>
 <li>HTTP 请求过程</li>
@@ -122,12 +122,53 @@
 
 <h3 id="浏览器请求阻塞"><a href="#浏览器请求阻塞" class="headerlink" title="浏览器请求阻塞"></a>浏览器请求阻塞</h3><p>浏览器在<strong>同一时刻对相同域名</strong>的请求数有一定的限制，不同的浏览器表现不同，一般都是 4-10 个。chrome 浏览器默认情况下是 6 个。为了绕过这个限制，可以采用<strong>多域名</strong>的方法。</p>
 <h3 id="cookie-free"><a href="#cookie-free" class="headerlink" title="cookie-free"></a>cookie-free</h3><p><strong>浏览器不会把主域名的 Cookie 传给子域名</strong>。利用这一特性我们可以将 css 和 image 单独放在不同的子域名中，减少网络开销，一定程度提高了页面加载速度， 这种技术应用叫做 cookie-free。</p>
-<p>（未完待续）</p>
+<h2 id="三、资源下载优化"><a href="#三、资源下载优化" class="headerlink" title="三、资源下载优化"></a>三、资源下载优化</h2><p>资源下载速度的快慢取决于文件的大小和服务器带宽，所以优化也是从这两方面入手。</p>
+<ol>
+<li>提高服务器 <strong>server 带宽</strong></li>
+<li>开启服务器 <strong>gzip</strong> 压缩</li>
+</ol>
+<h2 id="四、浏览器渲染优化"><a href="#四、浏览器渲染优化" class="headerlink" title="四、浏览器渲染优化"></a>四、浏览器渲染优化</h2><p>浏览器资源渲染过程如下：</p>
+<ol>
+<li>解析 HTML 文件，构建 <strong>DOM 树</strong>，与此同时浏览器主进程下载 CSS 文件</li>
+<li>CSS 文件下载完成，解析 CSS 文件构建 <strong>CSSOM 树</strong>；</li>
+<li>CSSOM + DOM 合并成 <strong>render 树</strong>；</li>
+<li>布局（<strong>Layout/reflow</strong>） render 树 ，负责 render 树中的元素的尺寸和位置等计算；</li>
+<li>绘制（<strong>paint</strong>） render 树 ，绘制页面的像素信息（color 等）；</li>
+<li>浏览器主进程将图层交给 GPU 进程，GPU 进程将各个<strong>图层合成</strong>（composite），最后显示出页面；</li>
+</ol>
+<p>由此可见：</p>
+<ol>
+<li>css 的加载<strong>不会影响 dom 的解析</strong>，但<strong>会影响 dom 的最终渲染</strong>。</li>
+<li>当浏览器遇到 <code>&lt;script&gt;</code> 时，会<strong>阻止解析器</strong>继续执行。直到 <code>CSSOM 构建</code>完毕，JavaScript 才会运行并继续完成 <code>DOM 构建</code>过程。所以解析优先级 <code>CSSOM &gt; JS &gt; DOM</code>。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&apos;&apos; async&gt;</span><br><span class="line">// async: 浏览器遇到带async的 script 标签时会继续解析 DOM，同时脚本也不会被 CSSOM 阻止，即不会阻止 CRP。</span><br><span class="line"></span><br><span class="line">&lt;script src=&apos;&apos; defer&gt;</span><br><span class="line">// defer: 脚本需要等到文档解析后（ **DOMContentLoaded 事件前**）执行，而 async 允许脚本在文档解析时位于后台运行（两者下载的过程都不会阻塞 DOM，但执行会）。</span><br><span class="line">// 当脚本不会修改 DOM 或 CSSOM 时，推荐使用 async 。</span><br></pre></td></tr></table></figure>
+
+<p>了解以上原理后，我们就可以提出以下几点优化建议：</p>
+<ol>
+<li>合并重复的 css 样式，将 css 样式放在文档前部（如：<code>&lt;head&gt;中</code>）,将 js 放在文档后部（如：<code>&lt;body&gt;最后面</code>）；</li>
+<li>只渲染<strong>首屏</strong>，页面采用<strong>懒加载</strong>方式；</li>
+<li>有必要的地方采用页面<strong>预加载</strong>；</li>
+</ol>
+<h2 id="五、缓存优化"><a href="#五、缓存优化" class="headerlink" title="五、缓存优化"></a>五、缓存优化</h2><ol>
+<li><p>DNS 缓存 （前面已经提到，此处略）</p>
+</li>
+<li><p>http 缓存<br>http 缓存主要缓存的对象是向服务器请求的 <strong>css/js/image</strong> 等文件。其主页入口<strong>html 文件</strong>一般不做缓存。下次请求时，缓存过的文件一般就不会向服务器发送请求。如果想解除缓存限制，只需要修改请求 url <strong>版本</strong>号（<code>MD5</code> 算法）。<br>添加缓存的方式：</p>
+<ol>
+<li><p>后端 response header 添加 <code>cache-control: max-age=1000</code>，此方法最常用；</p>
+</li>
+<li><p>Expires 和 Last-Modified，逐步被弃用；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Expires:Thu, 02 Apr 2009 05:14:08 GMT</span><br><span class="line">Last-Modified:Tue, 24 Feb 2009 08:01:04 GMT</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ETAG，逐步被弃用<br><code>Etag:“5d8c72a5edda8d6a:3239″</code></p>
+</li>
+</ol>
+</li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2021/01/03/web性能优化/" data-id="ckjh62ojn0067kcw0edshk745" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2021/01/03/web性能优化/" data-id="ckjham2nl0029jww07w0y4avs" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
@@ -188,7 +229,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/27/vue单页面应用白屏屏优化/" data-id="ckjh4cmwm002nkcw0c78mrjg2" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/27/vue单页面应用白屏屏优化/" data-id="ckjham2ng0020jww04c7mdev6" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
@@ -236,7 +277,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/" data-id="ckjh4cmxg003ykcw0phoshbql" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/" data-id="ckjham2o9003ijww0p4ecxv1l" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -279,7 +320,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/24/造轮子遇到的问题/" data-id="ckjh4cmxh0040kcw04zc6380d" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/24/造轮子遇到的问题/" data-id="ckjham2oa003kjww0oqmrk0vj" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue3/">Vue3</a></li></ul>
@@ -338,7 +379,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/16/ES6-常用知识点/" data-id="ckjh4cmut000mkcw0lre2nr9e" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/16/ES6-常用知识点/" data-id="ckjham2mm000jjww0yuf0gemm" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -396,7 +437,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/16/var-let-和-const-的区别/" data-id="ckjh4cmwh002gkcw0tki45ufr" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/16/var-let-和-const-的区别/" data-id="ckjham2nc001tjww0630l4c98" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/const/">const</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/let/">let</a></li></ul>
@@ -443,7 +484,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/09/24/在线记账项目遇到的问题/" data-id="ckjh4cmx3003ekcw08i0i51yx" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/09/24/在线记账项目遇到的问题/" data-id="ckjham2nx002ujww0yz812t83" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -509,7 +550,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/09/18/虚拟DOM和DOM diff/" data-id="ckjh4cmxb003tkcw0j6g7pfz3" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/09/18/虚拟DOM和DOM diff/" data-id="ckjham2o30037jww0wt455tpv" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DOM-diff/">DOM diff</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vDOM/">vDOM</a></li></ul>
