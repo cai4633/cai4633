@@ -51,6 +51,42 @@
 
   @media screen and (max-width 420px)
     width 250px
+  ul
+    box-sizing border-box
+    width 100%
+    max-height 450px
+    min-height 0
+    height auto
+    overflow-y auto
+    border 1px solid #CCC
+    padding 10px 20px
+    background #FFF
+    box-shadow 1px 2px 4px #CCC
+
+    li
+      text-align left
+      border-bottom 1px solid #CCC
+      padding-bottom 20px
+      margin-bottom 20px
+      line-height 30px
+      font-weight normal
+
+      &:last-child
+        border-bottom none
+        margin-bottom 0
+
+      a
+        margin-top 20px
+        font-size 16px
+
+      p
+        margin-top 10px
+        font-size 14px
+        max-height 124px
+        overflow hidden
+
+      em.search-keyword
+        color #e58c7c
 
 .local-search-empty
   color #888
@@ -60,42 +96,7 @@
   font-size 16px
   font-weight normal
 
-ul
-  box-sizing border-box
-  width 100%
-  max-height 450px
-  min-height 0
-  height auto
-  overflow-y auto
-  border 1px solid #CCC
-  padding 10px 20px
-  background #FFF
-  box-shadow 1px 2px 4px #CCC
 
-  li
-    text-align left
-    border-bottom 1px solid #CCC
-    padding-bottom 20px
-    margin-bottom 20px
-    line-height 30px
-    font-weight normal
-
-    &:last-child
-      border-bottom none
-      margin-bottom 0
-
-    a
-      margin-top 20px
-      font-size 16px
-
-    p
-      margin-top 10px
-      font-size 14px
-      max-height 124px
-      overflow hidden
-
-    em.search-keyword
-      color #e58c7c
 
 .local-search-plugin
   .local-search-input-cls
