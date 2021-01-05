@@ -168,10 +168,57 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2021/01/03/web性能优化/" data-id="ckjham2nl0029jww07w0y4avs" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2021/01/03/web性能优化/" data-id="ckjj9ld2a0029vow0tk6z65vm" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
+
+    </footer>
+  </div>
+  <!---->
+</article>
+
+
+  
+    <article id="post-nodejs入门" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/31/nodejs入门/" class="article-date">
+  <time datetime="2020-12-31T06:44:52.000Z" itemprop="datePublished">2020-12-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/nodejs/">nodejs</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/31/nodejs入门/">nodejs 入门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="什么是-nodejs"><a href="#什么是-nodejs" class="headerlink" title="什么是 nodejs?"></a>什么是 nodejs?</h2><p>对于新手而言，nodejs 可能会<strong>被误认为是后端的 js</strong>。我们要知道，nodejs <strong>不是一个 web 框架</strong>，也<strong>不是一门编程语言</strong>，它是一个让 js 也可以调用系统接口，开发后端应用的<strong>运行环境</strong>。</p>
+<h2 id="nodejs-技术架构"><a href="#nodejs-技术架构" class="headerlink" title="nodejs 技术架构"></a>nodejs 技术架构</h2><p>我们知道了 nodejs 是一个平台。那么它底层的技术架构是怎么实现的呢？<br><img src="/images/nodejs_process.jpg" alt="nodejs 工作流程"><br>nodejs 给用户提供了常用的 <strong>API</strong> 。这些 api 我们可以直接在 js 中使用。js 是运行在<strong>V8 引擎</strong>上的，V8 引擎通过 <strong>nodejs Bindings</strong> 与 <strong>libUV</strong> 通信。除此之外，我们还可以<strong>自定义 c/c++ 插件</strong>拓展功能。</p>
+<h3 id="nodejs-Bindings"><a href="#nodejs-Bindings" class="headerlink" title="nodejs Bindings"></a>nodejs Bindings</h3><p>我们都知道 c/c++执行效率非常高，那么我们想用 js 直接调用 c/c++库 怎么办？nodejs Bindings 就是连接 js 和 c/c++ 的中间桥梁。Binding 将 c/c++ 编译为 .node 文件，这个文件可以直接被 js 获取并执行。</p>
+<h3 id="V8-引擎"><a href="#V8-引擎" class="headerlink" title="V8 引擎"></a>V8 引擎</h3><p>V8 引擎负责将 js 源代码变成本地代码并执行。它<strong>维护了调用栈</strong>，确保 js 的执行顺序。负责<strong>内存管理和垃圾回收</strong>。实现了 js 的标准库，但不提供 DOM API, DOM API 是浏览器提供的。<br>V8 引擎本身是多线程的，但是执行 js 是单线程，它自身有 EventLoop 机制，但是 <strong>nodejs 的 EventLoop 是基于 libuv 的</strong>。</p>
+<h3 id="libUV"><a href="#libUV" class="headerlink" title="libUV"></a>libUV</h3><p>libUV 是 nodejs 之父 Ryan 开发的一个<strong>高性能跨平台 异步 I/O 库</strong>，底层由 c 语言编写，有自己的一套 eventLoop 机制。它专为 Node.js 而设计，后因<strong>事件驱动</strong>的异步 IO 的高效逐渐被其他语言和项目采纳。libUV 通常可用于 TCP / UDP / DNS / FileSystem 等异步操作。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="http://cai4633.github.io/2020/12/31/nodejs入门/" data-id="ckjjfd9fq0000a0w0pdl2qgqh" class="article-share-link">Share</a>-->
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
 
     </footer>
   </div>
@@ -229,7 +276,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/27/vue单页面应用白屏屏优化/" data-id="ckjham2ng0020jww04c7mdev6" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/27/vue单页面应用白屏屏优化/" data-id="ckjj9ld2h002mvow0g7khbgge" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
@@ -277,7 +324,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/" data-id="ckjham2o9003ijww0p4ecxv1l" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/" data-id="ckjj9ld35003rvow06edn0mii" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -320,7 +367,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/24/造轮子遇到的问题/" data-id="ckjham2oa003kjww0oqmrk0vj" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/24/造轮子遇到的问题/" data-id="ckjj9ld32003kvow0734khp3c" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue3/">Vue3</a></li></ul>
@@ -379,7 +426,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/16/ES6-常用知识点/" data-id="ckjham2mm000jjww0yuf0gemm" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/16/ES6-常用知识点/" data-id="ckjj9ld0p000jvow0d8vs6oqa" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -437,7 +484,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/16/var-let-和-const-的区别/" data-id="ckjham2nc001tjww0630l4c98" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/16/var-let-和-const-的区别/" data-id="ckjj9ld280026vow042wp6lfm" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/const/">const</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/let/">let</a></li></ul>
@@ -484,77 +531,9 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/09/24/在线记账项目遇到的问题/" data-id="ckjham2nx002ujww0yz812t83" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/09/24/在线记账项目遇到的问题/" data-id="ckjj9ld2e002fvow0gezmc6n0" class="article-share-link">Share</a>-->
       
       
-    </footer>
-  </div>
-  <!---->
-</article>
-
-
-  
-    <article id="post-虚拟DOM和DOM diff" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/09/18/虚拟DOM和DOM diff/" class="article-date">
-  <time datetime="2020-09-17T16:02:24.000Z" itemprop="datePublished">2020-09-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/前端/">前端</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/18/虚拟DOM和DOM diff/">虚拟 DOM 和 DOM diff</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="虚拟-DOM"><a href="#虚拟-DOM" class="headerlink" title="虚拟 DOM"></a>虚拟 DOM</h2><h3 id="虚拟-DOM-是什么"><a href="#虚拟-DOM-是什么" class="headerlink" title="虚拟 DOM 是什么"></a>虚拟 DOM 是什么</h3><p>虚拟 dom 的本质就是一个能代表 dom 树的<strong>JS 对象。</strong> 它是相对于浏览器所渲染出来的真实 dom 而言的。它包括标签类型、子元素、属性以及事件等。</p>
-<p>在虚拟 DOM 技术出现之前，我们要改变页面内容只能通过遍历查询 dom 树的方式找到需要修改的 dom 然后修改 dom 属性或者结构等，来达到更新 ui 的目的。因为每次查询 dom 几乎都需要遍历整颗 dom 树。所以这种方式比较消耗性能。虚拟 dom 对象（ js 对象）以对象嵌套的方式来表示 dom 树，查找 js 对象的属性变化要比查询 dom 树的性能开销小。</p>
-<h3 id="虚拟-DOM-实例"><a href="#虚拟-DOM-实例" class="headerlink" title="虚拟 DOM 实例"></a>虚拟 DOM 实例</h3><p>虚拟 dom 在不同的框架中，有着不一样的具体形式。<br><strong>React 虚拟 DOM</strong> :</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const vNode = &#123;</span><br><span class="line">  key: null,</span><br><span class="line">  type:&apos;div&apos;,</span><br><span class="line">  ref: null,</span><br><span class="line">  props: &#123;</span><br><span class="line">    children:[</span><br><span class="line">      &#123;type:&apos;span&apos; ...&#125;,</span><br><span class="line">      &#123;type:&apos;span&apos; ...&#125;,</span><br><span class="line">    ],</span><br><span class="line">    onClick:()=&gt;&#123;&#125;,</span><br><span class="line">    className: &apos;main&apos;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>Vue 虚拟 DOM</strong> :</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const vNode = &#123;</span><br><span class="line">  tag:&apos;div&apos;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    on:&#123;</span><br><span class="line">      click:()=&gt;&#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    class: &apos;main&apos;</span><br><span class="line">  &#125;,</span><br><span class="line">  children:[</span><br><span class="line">    &#123;tag:&apos;span&apos; ...&#125;,</span><br><span class="line">    &#123;tag:&apos;span&apos; ...&#125;,</span><br><span class="line">  ],</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建虚拟-DOM"><a href="#创建虚拟-DOM" class="headerlink" title="创建虚拟 DOM"></a>创建虚拟 DOM</h3><p>React 内置函数：<code>React.createElement(type,[props],[...children])</code><br>简化写法： jsx + babel<br>Vue 内置函数：<code>h(tag,data,children)</code><br>简化写法： vue template + vue-loader</p>
-<h3 id="虚拟-DOM-的优点"><a href="#虚拟-DOM-的优点" class="headerlink" title="虚拟 DOM 的优点"></a>虚拟 DOM 的优点</h3><ol>
-<li>减少 dom 操作次数<br>真实 dom 插入 1000 个节点需要进行 1000 次 dom 操作，虚拟 dom 可以将多次操作合并为一次 dom 操作。</li>
-<li>减少 dom 操作范围<br>通过 DOM diff 算法对比新旧虚拟 dom 树,去掉不必要的 dom 操作。例如：添加 1000 个节点，虚拟 dom 通过对比发现有 900 个相同的节点已经存在于相同的层级位置，那么虚拟 dom 只会添加 100 个节点。</li>
-<li>跨平台<br>由于虚拟 dom 本质是 JS 对象，所以它可以变成 DOM、小程序、IOS 应用或者安卓应用。</li>
-</ol>
-<h3 id="虚拟-DOM-的缺点"><a href="#虚拟-DOM-的缺点" class="headerlink" title="虚拟 DOM 的缺点"></a>虚拟 DOM 的缺点</h3><ol>
-<li>需要额外的创建函数</li>
-<li>需要额外的转义构建工具</li>
-<li>节点数量少时虚拟 dom 效率高，但是节点数量多时虚拟 dom 性能比不上原生dom（vue接近原生dom，react性能偏差）。</li>
-</ol>
-<h2 id="DOM-diff"><a href="#DOM-diff" class="headerlink" title="DOM diff"></a>DOM diff</h2><h3 id="DOM-diff-是什么"><a href="#DOM-diff-是什么" class="headerlink" title="DOM diff 是什么"></a>DOM diff 是什么</h3><p>它的本质是一个函数，类似于<code>patches = patch(newVDom, oldVDom)</code>。其中patches就是需要进行的 dom 操作。diff 算法在执行时有三个维度，分别是<strong>tree diff、component diff 和 element diff，</strong>执行时按层级顺序依次执行，它们的差异仅仅因为 diff 粒度不同、执行先后顺序不同。</p>
-<h3 id="DOM-diff-的优点"><a href="#DOM-diff-的优点" class="headerlink" title="DOM diff 的优点"></a>DOM diff 的优点</h3><p>DOM diff算法会对比 oldNode 与 newNode 的区别，从而<strong>减少不必要的渲染</strong>。</p>
-<h3 id="DOM-diff-的问题"><a href="#DOM-diff-的问题" class="headerlink" title="DOM diff 的问题"></a>DOM diff 的问题</h3><p>DOM diff在同层级对比中有bug。造成页面渲染错误。<strong>同一层级的一组节点</strong>可以通过唯一的id进行区分, 所以可以给节点设定唯一的key。从而消除bug。<strong>key只能是number和string类型，一定不要用index作为key值。</strong></p>
-<h3 id="几个使用key的场景"><a href="#几个使用key的场景" class="headerlink" title="几个使用key的场景"></a>几个使用key的场景</h3><ol>
-<li>v-for (vue)</li>
-<li>同一层级有相同标签节点的<strong>transition动画</strong></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/09/18/虚拟DOM和DOM diff/" data-id="ckjham2o30037jww0wt455tpv" class="article-share-link">Share</a>-->
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DOM-diff/">DOM diff</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vDOM/">vDOM</a></li></ul>
-
     </footer>
   </div>
   <!---->
@@ -566,7 +545,7 @@
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -584,6 +563,10 @@
           </li>
         
           <li>
+            <a href="/2020/12/31/nodejs入门/">nodejs 入门</a>
+          </li>
+        
+          <li>
             <a href="/2020/12/27/vue单页面应用白屏屏优化/">vue单页面应用白屏屏优化</a>
           </li>
         
@@ -593,10 +576,6 @@
         
           <li>
             <a href="/2020/12/24/造轮子遇到的问题/">造轮子遇到的问题</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/16/ES6-常用知识点/">ES6 常用知识点</a>
           </li>
         
       </ul>
@@ -618,7 +597,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ES6/">ES6</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端项目/">前端项目</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/服务端/">服务端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ES6/">ES6</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端项目/">前端项目</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/服务端/">服务端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a></li></ul>
     </div>
   </div>
 
@@ -628,7 +607,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFC/">BFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CORS/">CORS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM-diff/">DOM diff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue3/">Vue3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/absolute/">absolute</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ajax/">ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/background/">background</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/const/">const</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devServer/">devServer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/host/">host</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leancloud/">leancloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/let/">let</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/position/">position</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/promise/">promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proxy/">proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/script标签/">script标签</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-if/">v-if</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-show/">v-show</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vDOM/">vDOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vHost/">vHost</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-cli/">vue-cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuec/">vuec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue生命周期/">vue生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/width/">width</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/z-index/">z-index</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原型链/">原型链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同源/">同源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外边距/">外边距</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/层叠上下文/">层叠上下文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/百分比/">百分比</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/精华/">精华</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件下载/">软件下载</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFC/">BFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CORS/">CORS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM-diff/">DOM diff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue3/">Vue3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/absolute/">absolute</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ajax/">ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/background/">background</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/const/">const</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devServer/">devServer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/host/">host</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leancloud/">leancloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/let/">let</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/position/">position</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/promise/">promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proxy/">proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/script标签/">script标签</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-if/">v-if</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-show/">v-show</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vDOM/">vDOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vHost/">vHost</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-cli/">vue-cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuec/">vuec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue生命周期/">vue生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/width/">width</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/z-index/">z-index</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原型链/">原型链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同源/">同源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外边距/">外边距</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/层叠上下文/">层叠上下文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/百分比/">百分比</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/精华/">精华</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件下载/">软件下载</a></li></ul>
     </div>
   </div>
 
@@ -638,7 +617,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Apache/" style="font-size: 10px;">Apache</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/BFC/" style="font-size: 10px;">BFC</a> <a href="/tags/CORS/" style="font-size: 10px;">CORS</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/DOM-diff/" style="font-size: 10px;">DOM diff</a> <a href="/tags/JSONP/" style="font-size: 10px;">JSONP</a> <a href="/tags/Vue3/" style="font-size: 10px;">Vue3</a> <a href="/tags/absolute/" style="font-size: 10px;">absolute</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/background/" style="font-size: 10px;">background</a> <a href="/tags/const/" style="font-size: 10px;">const</a> <a href="/tags/devServer/" style="font-size: 10px;">devServer</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/host/" style="font-size: 10px;">host</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/http/" style="font-size: 15px;">http</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/leancloud/" style="font-size: 10px;">leancloud</a> <a href="/tags/let/" style="font-size: 10px;">let</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/position/" style="font-size: 10px;">position</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/proxy/" style="font-size: 10px;">proxy</a> <a href="/tags/script标签/" style="font-size: 10px;">script标签</a> <a href="/tags/v-if/" style="font-size: 10px;">v-if</a> <a href="/tags/v-show/" style="font-size: 10px;">v-show</a> <a href="/tags/vDOM/" style="font-size: 10px;">vDOM</a> <a href="/tags/vHost/" style="font-size: 10px;">vHost</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/vue-cli/" style="font-size: 10px;">vue-cli</a> <a href="/tags/vuec/" style="font-size: 10px;">vuec</a> <a href="/tags/vue生命周期/" style="font-size: 10px;">vue生命周期</a> <a href="/tags/width/" style="font-size: 10px;">width</a> <a href="/tags/z-index/" style="font-size: 10px;">z-index</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/同源/" style="font-size: 10px;">同源</a> <a href="/tags/外边距/" style="font-size: 10px;">外边距</a> <a href="/tags/层叠上下文/" style="font-size: 10px;">层叠上下文</a> <a href="/tags/性能优化/" style="font-size: 15px;">性能优化</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/浏览器/" style="font-size: 15px;">浏览器</a> <a href="/tags/百分比/" style="font-size: 10px;">百分比</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/精华/" style="font-size: 10px;">精华</a> <a href="/tags/软件下载/" style="font-size: 10px;">软件下载</a>
+      <a href="/tags/Apache/" style="font-size: 10px;">Apache</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/BFC/" style="font-size: 10px;">BFC</a> <a href="/tags/CORS/" style="font-size: 10px;">CORS</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/DOM-diff/" style="font-size: 10px;">DOM diff</a> <a href="/tags/JSONP/" style="font-size: 10px;">JSONP</a> <a href="/tags/Vue3/" style="font-size: 10px;">Vue3</a> <a href="/tags/absolute/" style="font-size: 10px;">absolute</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/background/" style="font-size: 10px;">background</a> <a href="/tags/const/" style="font-size: 10px;">const</a> <a href="/tags/devServer/" style="font-size: 10px;">devServer</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/host/" style="font-size: 10px;">host</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/http/" style="font-size: 16.67px;">http</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/leancloud/" style="font-size: 10px;">leancloud</a> <a href="/tags/let/" style="font-size: 10px;">let</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/position/" style="font-size: 10px;">position</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/proxy/" style="font-size: 10px;">proxy</a> <a href="/tags/script标签/" style="font-size: 10px;">script标签</a> <a href="/tags/v-if/" style="font-size: 10px;">v-if</a> <a href="/tags/v-show/" style="font-size: 10px;">v-show</a> <a href="/tags/vDOM/" style="font-size: 10px;">vDOM</a> <a href="/tags/vHost/" style="font-size: 10px;">vHost</a> <a href="/tags/vue/" style="font-size: 13.33px;">vue</a> <a href="/tags/vue-cli/" style="font-size: 10px;">vue-cli</a> <a href="/tags/vuec/" style="font-size: 10px;">vuec</a> <a href="/tags/vue生命周期/" style="font-size: 10px;">vue生命周期</a> <a href="/tags/width/" style="font-size: 10px;">width</a> <a href="/tags/z-index/" style="font-size: 10px;">z-index</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/同源/" style="font-size: 10px;">同源</a> <a href="/tags/外边距/" style="font-size: 10px;">外边距</a> <a href="/tags/层叠上下文/" style="font-size: 10px;">层叠上下文</a> <a href="/tags/性能优化/" style="font-size: 13.33px;">性能优化</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/浏览器/" style="font-size: 16.67px;">浏览器</a> <a href="/tags/百分比/" style="font-size: 10px;">百分比</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/精华/" style="font-size: 10px;">精华</a> <a href="/tags/软件下载/" style="font-size: 10px;">软件下载</a>
     </div>
   </div>
 
