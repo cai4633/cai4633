@@ -135,12 +135,25 @@
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: sid=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Secure;HttpOnly;path=/blog;Domain=baidu.com;Max-Age=240000</span><br></pre></td></tr></table></figure>
 
-<p>(未完待续…)</p>
+<ol start="2">
+<li>在 session 上设置。服务器可以设置一段时间后<strong>删除 session</strong>，sessionId 校验查询不到 对应的 session 就相当于登录状态失效了。</li>
+</ol>
+<h2 id="三、token（推荐）"><a href="#三、token（推荐）" class="headerlink" title="三、token（推荐）"></a>三、token（<code>推荐</code>）</h2><p>session-cookie 方案通常是基于 cookie 的。而 <strong>cookie 只有浏览器才有</strong>，对于 app 应用，此方案有天生的缺陷。而且 session-cookie 方案<strong>需要内存存储</strong> session 和数据库查询, 加大了服务器负担。为了解决这些问题，token 鉴权方案应势而生。</p>
+<ol>
+<li>浏览器登录时发送账号密码到服务端，服务端查询 User 库，校验用户</li>
+<li>校验成功后获得用户信息，把<strong>用户信息和 token 配置</strong>编码加密生成 token，通过 cookie set 到浏览器（或者通过<strong>响应头</strong>）</li>
+<li>用户再次请求业务接口时，通过 cookie 携带 token（或者通过<strong>请求头</strong>）发送到服务端</li>
+<li>服务器校验 token 有效性，进行业务逻辑处理并返回数据<br><img src="/images/token.jpg" alt="token 鉴权"></li>
+</ol>
+<h3 id="JWT（json-web-token）"><a href="#JWT（json-web-token）" class="headerlink" title="JWT（json web token）"></a>JWT（json web token）</h3><p>token 里面包含了一些用户信息，所以安全性就有一定的要求。token 加密的方法和信息传递的形式有很多种，其中业内采用较多的标准就是 jwt。它分为三部分，第一部分 header 是加密算法声明，第二部分 payload 是用户信息和一些数据，第三部分 signature 是签名。<br><img src="/images/jwt.jpg" alt="jwt"></p>
+<h2 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h2><ul>
+<li><a href="https://zhuanlan.zhihu.com/p/281414244" target="_blank" rel="noopener">前端鉴权的兄弟们：cookie、session、token、jwt、单点登录</a><br>(未完待续…)</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2021/01/08/前端鉴权总结/" data-id="ckjprqff00023ggw0js3x4xxv" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2021/01/08/前端鉴权总结/" data-id="ckjpu0ygn002t4ww0odxah5rz" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/session-cookie/">session-cookie</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/token/">token</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/鉴权/">鉴权</a></li></ul>
@@ -250,7 +263,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2021/01/03/web性能优化/" data-id="ckjprqfex0020ggw05jsq3dog" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2021/01/03/web性能优化/" data-id="ckjpu0yg8002f4ww04ewwdcbl" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
@@ -297,7 +310,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/31/nodejs入门/" data-id="ckjprqfdy000tggw0ucgc4864" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/31/nodejs入门/" data-id="ckjpu0yfs001o4ww0mosejs3m" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
@@ -358,7 +371,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/27/vue单页面应用白屏屏优化/" data-id="ckjprqfel001hggw0eqqj44v3" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/27/vue单页面应用白屏屏优化/" data-id="ckjpu0yg800214ww0t6h1jofl" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
@@ -406,7 +419,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/" data-id="ckjprqfgx0060ggw0x6cv7mdb" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/" data-id="ckjpu0yh3003n4ww0qev3s5rv" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -449,7 +462,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/24/造轮子遇到的问题/" data-id="ckjprqfgv005yggw0hkrpqt75" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/24/造轮子遇到的问题/" data-id="ckjpu0yh3003q4ww093lhr7ba" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue3/">Vue3</a></li></ul>
@@ -508,7 +521,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/16/ES6-常用知识点/" data-id="ckjprqfcb0000ggw08b5hu8sy" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/16/ES6-常用知识点/" data-id="ckjpu0yex000g4ww0yz2429nf" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -566,7 +579,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/16/var-let-和-const-的区别/" data-id="ckjprqfei001fggw0m48otbkd" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/16/var-let-和-const-的区别/" data-id="ckjpu0yfs001w4ww0vrlqt7ul" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/const/">const</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/let/">let</a></li></ul>
