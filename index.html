@@ -96,29 +96,54 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>我们在访问网站时通常会遇到登录的问题，前端鉴权方案主要有以下几种：</p>
+        <p>我们在访问网站时不可避免会遇到登录的问题，这归根到底就是访问权限的问题。前端鉴权方案主要有以下几种：</p>
 <ol>
 <li>HTTP Basic Authentication：现在用的较少，主要用在一些较老的项目中。</li>
 <li>session-cookie：依赖 cookie,只适用于 web 系统。</li>
 <li>token: 目前主流鉴权方式，适用于多种客户端（浏览器、app 等）。</li>
 <li>OAuth：第三方授权，方便快捷是以后的趋势。</li>
 </ol>
-<h2 id="HTTP-Basic-Authentication"><a href="#HTTP-Basic-Authentication" class="headerlink" title="HTTP Basic Authentication"></a>HTTP Basic Authentication</h2><p>顾名思义，这种鉴权方式叫做 http 基本认证。<br><img src="/images/http_basic_authentication.png" alt="HTTP Basic Authentication 鉴权流程"></p>
+<h2 id="一、HTTP-Basic-Authentication"><a href="#一、HTTP-Basic-Authentication" class="headerlink" title="一、HTTP Basic Authentication"></a>一、HTTP Basic Authentication</h2><p>顾名思义，这种鉴权方式叫做 http 基本认证。<br><img src="/images/http_basic_authentication.png" alt="HTTP Basic Authentication 鉴权流程"></p>
 <h3 id="鉴权流程"><a href="#鉴权流程" class="headerlink" title="鉴权流程"></a>鉴权流程</h3><ol>
 <li>客户端发送 http 请求给服务器，服务器验证有无访问权限；</li>
 <li>无访问权限时，服务器<strong>返回 401</strong>，客户端接收到 401 响应自动弹出登录验证对话框；</li>
 <li>用户输入用户名和密码后，客户端将用户名和密码以 <code>name: password</code> 的形式采用 <code>base64</code> 编码方式编码，并放入请求头，再次发送请求；</li>
 <li>服务器校验成功，返回数据。</li>
 </ol>
-<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>这种鉴权方式的使用简单但安全性较差。配合 https 可以在<strong>内部网络</strong>，或者对安全要求不是很高的网络中使用，比较适合<strong>只需要一个特定密码</strong>就可以访问的场景。<br>(未完待续…)</p>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>这种鉴权方式的使用简单但安全性较差。配合 https 可以在<strong>内部网络</strong>，或者对安全要求不是很高的网络中使用，比较适合<strong>只需要一个特定密码</strong>就可以访问的场景。</p>
+<h2 id="二、session-cookie"><a href="#二、session-cookie" class="headerlink" title="二、session-cookie"></a>二、session-cookie</h2><p>session 是此方案区别其他方式的核心。cookie 只是信息传递的<strong>载体</strong>。整个验证流程如下：</p>
+<ol>
+<li>浏览器登录时发送账号密码到服务端，服务端查询 User 库，校验用户</li>
+<li>校验成功后，服务端把用户<strong>登录状态存到 session 中</strong>，同时生成一个对应的 sessionId 由登录接口返回，把 <strong>sessionId 存储到 cookie</strong>上</li>
+<li>浏览器再次发送业务请求时，带有 sessionId 的 <strong>cookie 会自动添加到 Request Header 中</strong>发送到服务端</li>
+<li>服务端通过 sessionId 在 session 库中查询，<strong>校验登录状态</strong></li>
+<li>检验成功后，服务端<strong>进行业务处理并返回结果</strong><br><img src="/images/session_cookie.jpg" alt="session-cookie 鉴权流程"></li>
+</ol>
+<h3 id="session-的存储方式"><a href="#session-的存储方式" class="headerlink" title="session 的存储方式"></a>session 的存储方式</h3><ol>
+<li>直接通过变量引用存储在<strong>服务器本地内存</strong>，缺点是服务器重启后，session 就会消失。</li>
+<li>存储在<strong>普通数据库</strong>。缺点是性能不高。</li>
+<li>（<code>推荐</code>）存储在<strong>Redis</strong>(内存型数据库)中。<strong>访问快，可持久存储</strong>。</li>
+</ol>
+<h3 id="分布式-session"><a href="#分布式-session" class="headerlink" title="分布式 session"></a>分布式 session</h3><p>大型应用的网络请求一般会采用负载均衡的优化方式。当业务请求和登录请求到达的服务器不是同一个时，普通的 session-cookie 鉴权就会出现 session 验证失败的问题！通常的解决方案如下：</p>
+<ol>
+<li>（<code>推荐</code>）从「存储」的角度来看，把 session 集中存储在独立的 Redis 或普通数据库中，就可以把 session 都存到一个库里。</li>
+<li>从「分布」的角度来看，让相同 IP 的请求在负载均衡时都发送到同一台服务器上。以 nginx 为例，可以配置 ip_hash 来实现。</li>
+</ol>
+<h3 id="session-cookie-登录状态的有效期"><a href="#session-cookie-登录状态的有效期" class="headerlink" title="session-cookie 登录状态的有效期"></a>session-cookie 登录状态的有效期</h3><p>登录状态一般需要设置一定的有效期，采用 session-cookie 方案，一般可以从两个方面设置有效期：</p>
+<ol>
+<li>在 cookie 上设置。服务器返回 sessionId 是通过 <strong>set-cookie</strong> 响应头在浏览器上种下 cookie。此时就可以通过 cookie 属性 <strong>Expires / Max-Age</strong> 设置过期时间。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: sid=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Secure;HttpOnly;path=/blog;Domain=baidu.com;Max-Age=240000</span><br></pre></td></tr></table></figure>
+
+<p>(未完待续…)</p>
 
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2021/01/08/前端鉴权总结/" data-id="ckjpckks7006hfcw0fn01lyir" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2021/01/08/前端鉴权总结/" data-id="ckjprqff00023ggw0js3x4xxv" class="article-share-link">Share</a>-->
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cookie-session/">cookie-session</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/token/">token</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/鉴权/">鉴权</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/session-cookie/">session-cookie</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/token/">token</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/鉴权/">鉴权</a></li></ul>
 
     </footer>
   </div>
@@ -225,7 +250,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2021/01/03/web性能优化/" data-id="ckjpck8qd003wfcw04epsomz1" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2021/01/03/web性能优化/" data-id="ckjprqfex0020ggw05jsq3dog" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
@@ -272,7 +297,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/31/nodejs入门/" data-id="ckjpck8n2001mfcw0b6nr46lf" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/31/nodejs入门/" data-id="ckjprqfdy000tggw0ucgc4864" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
@@ -333,7 +358,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/27/vue单页面应用白屏屏优化/" data-id="ckjpck8nu0023fcw0jjz40gtp" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/27/vue单页面应用白屏屏优化/" data-id="ckjprqfel001hggw0eqqj44v3" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
@@ -381,7 +406,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/" data-id="ckjpck8r9004wfcw0n1jxsiw9" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/" data-id="ckjprqfgx0060ggw0x6cv7mdb" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -424,7 +449,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/24/造轮子遇到的问题/" data-id="ckjpck8r9004tfcw07qopdctd" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/24/造轮子遇到的问题/" data-id="ckjprqfgv005yggw0hkrpqt75" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue3/">Vue3</a></li></ul>
@@ -483,7 +508,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/16/ES6-常用知识点/" data-id="ckjpck8lm000kfcw0znwuqjgb" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/16/ES6-常用知识点/" data-id="ckjprqfcb0000ggw08b5hu8sy" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -541,7 +566,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/16/var-let-和-const-的区别/" data-id="ckjpck8ni001vfcw05jl7240z" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/16/var-let-和-const-的区别/" data-id="ckjprqfei001fggw0m48otbkd" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/const/">const</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/let/">let</a></li></ul>
@@ -619,7 +644,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFC/">BFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CORS/">CORS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM-diff/">DOM diff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue3/">Vue3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/absolute/">absolute</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ajax/">ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/background/">background</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/const/">const</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cookie-session/">cookie-session</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devServer/">devServer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/host/">host</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leancloud/">leancloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/let/">let</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/position/">position</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/promise/">promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proxy/">proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/script标签/">script标签</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/token/">token</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-if/">v-if</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-show/">v-show</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vDOM/">vDOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vHost/">vHost</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-cli/">vue-cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuec/">vuec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue生命周期/">vue生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/width/">width</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/z-index/">z-index</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原型链/">原型链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同源/">同源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外边距/">外边距</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/层叠上下文/">层叠上下文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/百分比/">百分比</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/精华/">精华</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件下载/">软件下载</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/鉴权/">鉴权</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BFC/">BFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CORS/">CORS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM-diff/">DOM diff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue3/">Vue3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/absolute/">absolute</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ajax/">ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/auto/">auto</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/background/">background</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/const/">const</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devServer/">devServer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/function/">function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/host/">host</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leancloud/">leancloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/let/">let</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/position/">position</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/promise/">promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proxy/">proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/script标签/">script标签</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/session-cookie/">session-cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/token/">token</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-if/">v-if</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/v-show/">v-show</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vDOM/">vDOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vHost/">vHost</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-cli/">vue-cli</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuec/">vuec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue生命周期/">vue生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/width/">width</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/z-index/">z-index</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原型链/">原型链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同源/">同源</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/外边距/">外边距</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/层叠上下文/">层叠上下文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/浏览器/">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/百分比/">百分比</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/精华/">精华</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件下载/">软件下载</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/鉴权/">鉴权</a></li></ul>
     </div>
   </div>
 
@@ -629,7 +654,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Apache/" style="font-size: 10px;">Apache</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/BFC/" style="font-size: 10px;">BFC</a> <a href="/tags/CORS/" style="font-size: 10px;">CORS</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/DOM-diff/" style="font-size: 10px;">DOM diff</a> <a href="/tags/JSONP/" style="font-size: 10px;">JSONP</a> <a href="/tags/Vue3/" style="font-size: 10px;">Vue3</a> <a href="/tags/absolute/" style="font-size: 10px;">absolute</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/background/" style="font-size: 10px;">background</a> <a href="/tags/const/" style="font-size: 10px;">const</a> <a href="/tags/cookie-session/" style="font-size: 10px;">cookie-session</a> <a href="/tags/devServer/" style="font-size: 10px;">devServer</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/host/" style="font-size: 10px;">host</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/http/" style="font-size: 16.67px;">http</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/leancloud/" style="font-size: 10px;">leancloud</a> <a href="/tags/let/" style="font-size: 10px;">let</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/position/" style="font-size: 10px;">position</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/proxy/" style="font-size: 10px;">proxy</a> <a href="/tags/script标签/" style="font-size: 10px;">script标签</a> <a href="/tags/token/" style="font-size: 10px;">token</a> <a href="/tags/v-if/" style="font-size: 10px;">v-if</a> <a href="/tags/v-show/" style="font-size: 10px;">v-show</a> <a href="/tags/vDOM/" style="font-size: 10px;">vDOM</a> <a href="/tags/vHost/" style="font-size: 10px;">vHost</a> <a href="/tags/vue/" style="font-size: 13.33px;">vue</a> <a href="/tags/vue-cli/" style="font-size: 10px;">vue-cli</a> <a href="/tags/vuec/" style="font-size: 10px;">vuec</a> <a href="/tags/vue生命周期/" style="font-size: 10px;">vue生命周期</a> <a href="/tags/width/" style="font-size: 10px;">width</a> <a href="/tags/z-index/" style="font-size: 10px;">z-index</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/同源/" style="font-size: 10px;">同源</a> <a href="/tags/外边距/" style="font-size: 10px;">外边距</a> <a href="/tags/层叠上下文/" style="font-size: 10px;">层叠上下文</a> <a href="/tags/性能优化/" style="font-size: 13.33px;">性能优化</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/浏览器/" style="font-size: 16.67px;">浏览器</a> <a href="/tags/百分比/" style="font-size: 10px;">百分比</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/精华/" style="font-size: 10px;">精华</a> <a href="/tags/软件下载/" style="font-size: 10px;">软件下载</a> <a href="/tags/鉴权/" style="font-size: 10px;">鉴权</a>
+      <a href="/tags/Apache/" style="font-size: 10px;">Apache</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/BFC/" style="font-size: 10px;">BFC</a> <a href="/tags/CORS/" style="font-size: 10px;">CORS</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/DOM-diff/" style="font-size: 10px;">DOM diff</a> <a href="/tags/JSONP/" style="font-size: 10px;">JSONP</a> <a href="/tags/Vue3/" style="font-size: 10px;">Vue3</a> <a href="/tags/absolute/" style="font-size: 10px;">absolute</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/auto/" style="font-size: 10px;">auto</a> <a href="/tags/background/" style="font-size: 10px;">background</a> <a href="/tags/const/" style="font-size: 10px;">const</a> <a href="/tags/devServer/" style="font-size: 10px;">devServer</a> <a href="/tags/function/" style="font-size: 10px;">function</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/host/" style="font-size: 10px;">host</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/http/" style="font-size: 16.67px;">http</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/leancloud/" style="font-size: 10px;">leancloud</a> <a href="/tags/let/" style="font-size: 10px;">let</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/position/" style="font-size: 10px;">position</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/proxy/" style="font-size: 10px;">proxy</a> <a href="/tags/script标签/" style="font-size: 10px;">script标签</a> <a href="/tags/session-cookie/" style="font-size: 10px;">session-cookie</a> <a href="/tags/token/" style="font-size: 10px;">token</a> <a href="/tags/v-if/" style="font-size: 10px;">v-if</a> <a href="/tags/v-show/" style="font-size: 10px;">v-show</a> <a href="/tags/vDOM/" style="font-size: 10px;">vDOM</a> <a href="/tags/vHost/" style="font-size: 10px;">vHost</a> <a href="/tags/vue/" style="font-size: 13.33px;">vue</a> <a href="/tags/vue-cli/" style="font-size: 10px;">vue-cli</a> <a href="/tags/vuec/" style="font-size: 10px;">vuec</a> <a href="/tags/vue生命周期/" style="font-size: 10px;">vue生命周期</a> <a href="/tags/width/" style="font-size: 10px;">width</a> <a href="/tags/z-index/" style="font-size: 10px;">z-index</a> <a href="/tags/原型链/" style="font-size: 10px;">原型链</a> <a href="/tags/同源/" style="font-size: 10px;">同源</a> <a href="/tags/外边距/" style="font-size: 10px;">外边距</a> <a href="/tags/层叠上下文/" style="font-size: 10px;">层叠上下文</a> <a href="/tags/性能优化/" style="font-size: 13.33px;">性能优化</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/浏览器/" style="font-size: 16.67px;">浏览器</a> <a href="/tags/百分比/" style="font-size: 10px;">百分比</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/精华/" style="font-size: 10px;">精华</a> <a href="/tags/软件下载/" style="font-size: 10px;">软件下载</a> <a href="/tags/鉴权/" style="font-size: 10px;">鉴权</a>
     </div>
   </div>
 
