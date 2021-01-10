@@ -143,17 +143,41 @@
 <li>浏览器登录时发送账号密码到服务端，服务端查询 User 库，校验用户</li>
 <li>校验成功后获得用户信息，把<strong>用户信息和 token 配置</strong>编码加密生成 token，通过 cookie set 到浏览器（或者通过<strong>响应头</strong>）</li>
 <li>用户再次请求业务接口时，通过 cookie 携带 token（或者通过<strong>请求头</strong>）发送到服务端</li>
-<li>服务器校验 token 有效性，进行业务逻辑处理并返回数据<br><img src="/images/token.jpg" alt="token 鉴权"></li>
+<li>服务器校验 token 有效性，进行业务逻辑处理并返回数据<br><img src="/images/token.jpg" alt="token 鉴权"><br><img src="/images/access_and_refresh_token.jpg" alt="更复杂的 token 鉴权（access token and refresh token）"></li>
 </ol>
 <h3 id="JWT（json-web-token）"><a href="#JWT（json-web-token）" class="headerlink" title="JWT（json web token）"></a>JWT（json web token）</h3><p>token 里面包含了一些用户信息，所以安全性就有一定的要求。token 加密的方法和信息传递的形式有很多种，其中业内采用较多的标准就是 jwt。它分为三部分，第一部分 header 是加密算法声明，第二部分 payload 是用户信息和一些数据，第三部分 signature 是签名。<br><img src="/images/jwt.jpg" alt="jwt"></p>
+<h2 id="四、OAuth-第三方登录"><a href="#四、OAuth-第三方登录" class="headerlink" title="四、OAuth 第三方登录"></a>四、OAuth 第三方登录</h2><p>OAuth 2.0 是<strong>目前最流行</strong>的授权机制，用来授权第三方应用，获取用户数据。数据的所有者告诉系统，同意授权第三方应用进入系统，获取这些数据。系统从而产生一个短期的可进入令牌（token），用来代替密码，供第三方应用使用。OAuth2.0 有四种授权方式：</p>
+<ol>
+<li><p>授权码 code 式 （<code>推荐</code>）</p>
+</li>
+<li><p>隐藏式 （忽略请求授权码步骤，适用<strong>纯前端应用</strong>）</p>
+</li>
+<li><p>密码式 （只有高度可信任应用才使用，不安全，<code>不推荐</code>）</p>
+</li>
+<li><p>凭证式 （适用于没有前端的<strong>命令行应用</strong>）</p>
+<p><img src="/images/oauth.png" alt="Oauth 第三方登录授权码方式"></p>
+</li>
+</ol>
+<p>现在我们主要总结一下 <strong>授权码式</strong> 的授权逻辑：</p>
+<ol>
+<li>首先我们需要在 B 网站 （QQ、微信或者 github 等）上登记 A 网站信息，主要包括 A 网站的<strong>homepage_url 和 redirect_uri</strong> 等信息。登记后，B 网站会返回 <strong>client ID 和 client secret</strong> 用于后续请求的身份验证。</li>
+<li>当我们登录 A 网站时，选择第三方授权。浏览器会携带<strong>client_id、redirect_uri</strong>等信息跳转到 B 网站授权页面，B 网站要求我们登录验证信息。（扫码或者输入密码）</li>
+<li>用户登录 B 网站后，B 网站校验用户信息并携带 <code>code</code> 重定向到 <strong>redirect_uri</strong></li>
+<li>A 网站后端接收到 code 后，再次携带 grant_type、client_id 、client_secret、code、redirect_uri 等信息向 B 网站服务器<strong>请求 token</strong></li>
+<li>B 网站后端校验 code 等信息，再次向 redirect_uri 返回<strong>access token 和 refresh token</strong></li>
+<li>A 网站服务器拿到 token 后就会根据自身需求处理相关业务逻辑或者重定向到 A 网站首页</li>
+</ol>
 <h2 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h2><ul>
-<li><a href="https://zhuanlan.zhihu.com/p/281414244" target="_blank" rel="noopener">前端鉴权的兄弟们：cookie、session、token、jwt、单点登录</a><br>(未完待续…)</li>
+<li><a href="https://zhuanlan.zhihu.com/p/281414244" target="_blank" rel="noopener">前端鉴权的兄弟们：cookie、session、token、jwt、单点登录</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2019/04/oauth_design.html" target="_blank" rel="noopener">OAuth 2.0 的一个简单解释</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2019/04/oauth-grant-types.html" target="_blank" rel="noopener">OAuth 2.0 的四种方式</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2019/04/github-oauth.html" target="_blank" rel="noopener">GitHub OAuth 第三方登录示例教程</a></li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2021/01/08/前端鉴权总结/" data-id="ckjpu0ygn002t4ww0odxah5rz" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2021/01/08/前端鉴权总结/" data-id="ckjqth4sf002q2gw0fggoxo9r" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/session-cookie/">session-cookie</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/token/">token</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/鉴权/">鉴权</a></li></ul>
@@ -263,7 +287,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2021/01/03/web性能优化/" data-id="ckjpu0yg8002f4ww04ewwdcbl" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2021/01/03/web性能优化/" data-id="ckjqth4rz002f2gw01p6jljey" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
@@ -310,7 +334,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/31/nodejs入门/" data-id="ckjpu0yfs001o4ww0mosejs3m" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/31/nodejs入门/" data-id="ckjqth4rk001m2gw0yi46b6th" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
@@ -371,7 +395,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/27/vue单页面应用白屏屏优化/" data-id="ckjpu0yg800214ww0t6h1jofl" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/27/vue单页面应用白屏屏优化/" data-id="ckjqth4rz00222gw0x11cy64s" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
@@ -419,7 +443,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/" data-id="ckjpu0yh3003n4ww0qev3s5rv" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/26/逸辰音乐问题点/" data-id="ckjqth4sz003t2gw0ry7eef78" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -462,7 +486,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/24/造轮子遇到的问题/" data-id="ckjpu0yh3003q4ww093lhr7ba" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/24/造轮子遇到的问题/" data-id="ckjqth4si003i2gw06n0bjdyl" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue3/">Vue3</a></li></ul>
@@ -521,7 +545,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/16/ES6-常用知识点/" data-id="ckjpu0yex000g4ww0yz2429nf" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/16/ES6-常用知识点/" data-id="ckjqth4qo000g2gw08d8n6mdk" class="article-share-link">Share</a>-->
       
       
     </footer>
@@ -579,7 +603,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="http://cai4633.github.io/2020/12/16/var-let-和-const-的区别/" data-id="ckjpu0yfs001w4ww0vrlqt7ul" class="article-share-link">Share</a>-->
+      <!--<a data-url="http://cai4633.github.io/2020/12/16/var-let-和-const-的区别/" data-id="ckjqth4rk001t2gw0e9y3camb" class="article-share-link">Share</a>-->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/const/">const</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/let/">let</a></li></ul>
