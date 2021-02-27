@@ -83,10 +83,10 @@ deploy:
   repo: git@github.com:cai4633/cai4633.github.io.git
   branch: master
 
+#local_search:
+#  enable: true
+
 search:
   path: search.xml
   field: post
   content: true
-
-local_search:
-  enable: true
